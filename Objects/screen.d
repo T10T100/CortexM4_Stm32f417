@@ -1,0 +1,10 @@
+.\objects\screen.o: gui\src\Screen.cpp
+.\objects\screen.o: .\gui\inc\Screen.h
+.\objects\screen.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\screen.o: .\misc\inc\memory_alloc.h
+.\objects\screen.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\errno.h
+.\objects\screen.o: .\misc\inc\ArrayListStatic.h
+.\objects\screen.o: .\hardware\Drivers\inc\Screen_Driver.h
+.\objects\screen.o: .\gui\inc\gui_defs.h
+.\objects\screen.o: .\hardware\inc\TFTili9486.h
+.\objects\screen.o: .\misc\inc\dimensions.h
