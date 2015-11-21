@@ -3,11 +3,14 @@
 
 #include <stdint.h>
 
-extern "C"
-void *StackSwitch (void *frame, int32_t);
+typedef uint32_t Word;
+typedef uint16_t HWord;
+typedef uint8_t byte;
 
-extern "C"
-void *StackSwitchPSV (void *frame, int32_t);
+#pragma import StackSwitch   
+#pragma import StackSwitchPSV   
+#pragma import RuntimeInit
+#pragma import CallSVC
   
 class RuntimeFrame {
     private :
@@ -46,27 +49,32 @@ class RuntimeFrame {
         this->XPSR = runtime->XPSR;
         //this->CONTROL = runtime->CONTROL;
     }
-    uint32_t R11;
-    uint32_t R10;
-    uint32_t R9;
-    uint32_t R8;
-    uint32_t R7;
-    uint32_t R6;
-    uint32_t R5;
-    uint32_t R4;
-    uint32_t R0;
-    uint32_t R1;
-    uint32_t R2;
-    uint32_t R3;
-    uint32_t R12;
-    uint32_t LR;
-    uint32_t PC;
-    uint32_t XPSR;
+    Word R11;
+    Word R10;
+    Word R9;
+    Word R8;
+    Word R7;
+    Word R6;
+    Word R5;
+    Word R4;
+    Word R0;
+    Word R1;
+    Word R2;
+    Word R3;
+    Word R12;
+    Word LR;
+    Word PC;
+    Word XPSR;
     //uint32_t CONTROL;
 };    
   
     
-
+typedef struct {
+   Word a0;
+   Word a1;
+   Word a2;
+   Word a3; /*Access to this parameter is denied !!! dont write in it representation address in any case !*/
+} SVC_arg;
 
 
 

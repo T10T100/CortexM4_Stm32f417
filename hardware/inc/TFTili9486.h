@@ -688,15 +688,15 @@ class ILI9488 {
         this->rgbOut(color);
     }
     protected:
-        void backLight (uint8_t);
+        inline void backLight (uint8_t);
         template <typename Color>
-        void rgbOut (Color color);
-        void setVs (bool value);
-        void setHs(bool value);
-        void setDot(bool value);
-        void setDen(bool value);
-        void resetForce(bool value);
-        void delay (uint32_t msec);
+            inline void rgbOut (Color color);
+        inline void setVs (bool value);
+        inline void setHs(bool value);
+        inline void setDot(bool value);
+        inline void setDen(bool value);
+        inline void resetForce(bool value);
+        inline void delay (uint32_t msec);
         
 }; 
 

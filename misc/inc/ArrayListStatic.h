@@ -39,7 +39,7 @@ template <typename Object>
 			}
 			
 			/*put new item without compare - as result create an unsorted list*/
-			Object &add (Object &item)
+			Object *add (Object &item)
 			{
 				this->elementCount++;
                     Object *i,*j;
@@ -48,12 +48,12 @@ template <typename Object>
                         this->lastNode = &item;
                         item.nextLink = nullptr;
                         item.prevLink = nullptr;
-                        return item;
+                        return &item;
                     }
                     i = this->firstNode;
                     j = nullptr;
                     while (i != nullptr) {
-                        if (i->equals(item) == false) {
+                        if (i->equals(item) == true) {
                             j = i;
                             i = i->nextLink;
                             continue;
@@ -63,27 +63,27 @@ template <typename Object>
                             item.nextLink = i;
                             item.prevLink = i->prevLink;
                             i->prevLink = &item;
-                            return item;
+                            return &item;
                         }
                         item.nextLink = i;
                         item.prevLink = nullptr;
                         i->prevLink = &item;
                         this->firstNode = &item;
-                        return item;
+                        return &item;
                     }
                     j->nextLink = &item;
                     item.nextLink = nullptr;
                     this->lastNode = &item;
                     item.prevLink= j;
-                    return item;					
+                    return &item;					
 			}
 			
-			Object &add (Object *item)
+			Object *add (Object *item)
 			{
 				return this->add(*item);
 			}
 			
-			Object &addFirst (Object &item)
+			Object *addFirst (Object &item)
 			{
 				this->elementCount++;
 					Object *i;
@@ -92,22 +92,22 @@ template <typename Object>
 						this->lastNode = &item;
 						item.nextLink = nullptr;
 						item.prevLink = nullptr;
-						return item;
+						return *item;
 					}
 					i = this->firstNode;
 					item.nextLink = i;
 					item.prevLink = nullptr;
 					i->prevLink = &item;
 					this->firstNode = &item;
-					return item;
+					return *item;
 			}
 			
-			Object &addFirst (Object *item)
+			Object *addFirst (Object *item)
 			{
 				return this->add(item);
 			}
 			
-			Object &addLast (Object &item)
+			Object *addLast (Object &item)
 			{
 				this->elementCount++;
 				Object *i;
@@ -116,16 +116,16 @@ template <typename Object>
 					this->lastNode = &item;
 					item->nextLink = nullptr;
 					item->prevLink = nullptr;
-					return item;
+					return &item;
 				}
 				i = this->lastNode;
 				item->prevLink = i;
 				item->nextLink = nullptr;
 				i->netLink = item;
 				this->lastNode = item;			
-				return item;
+				return &item;
 			}		
-			Object &addLast (Object *item)
+			Object *addLast (Object *item)
 			{
 				return this->add(*item);
 			}
@@ -141,32 +141,32 @@ template <typename Object>
 			/*in this method all items will migrate from one list to another, with
 			rewriting their links;
 			*/
-			ArrayListBase<Object> &addAll (ArrayListBase<Object> &arrayList)
+			ArrayListBase<Object> *addAll (ArrayListBase<Object> &arrayList)
 			{
 				while (arrayList.isEmpty() == false) {
 					this->add(arrayList.removeFirst());
 				}
-				return *this;
+				return this;
 			}
 			
 			template <typename Collection>
-			ArrayListBase<Object> &addAll (Collection collection)
+			ArrayListBase<Object> *addAll (Collection collection)
 			{
 				
-				return *this;
+				return this;
 			}
 			
-			Object &remove (Object &object)
+			Object *remove (Object &object)
 			{
 				if (this->elementCount <= 0){
-                    return object;
+                    return &object;
                 }
 				this->elementCount--;
 				Object *l = object.prevLink,*r = object.nextLink;
 				if (!l&&!r) {
                     this->firstNode = nullptr;
                     this->lastNode = nullptr;
-                    return object;
+                    return &object;
                 }
                 if (!l) {
                     this->firstNode = r;
@@ -180,20 +180,20 @@ template <typename Object>
                 }   else    {
                     r->prevLink = l;
                 }	
-				return object;
+				return &object;
             }
 			
-			Object &remove (Object *object)
+			Object *remove (Object *object)
 			{
 				return this->remove(*object);
 			}
 			
-			Object &removeFirst ()
+			Object *removeFirst ()
 			{
 				return this->remove(this->firstNode);
 			}
 			
-			Object &removeLast (Object &object)
+			Object *removeLast (Object &object)
 			{
 				return this->remove(this->lastNode);
 			}
@@ -212,9 +212,9 @@ template <typename Object>
 			bool isEmpty ()
 			{
 				if (this->elementCount > 0) {
-					return true;
-				} else {
 					return false;
+				} else {
+					return true;
 				}
 			}
 			

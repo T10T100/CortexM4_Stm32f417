@@ -1,5 +1,5 @@
 Dependencies for Project 'platform', Target 'Target 1': (DO NOT MODIFY !)
-F (.\entry\src\main.cpp)(0x56505EAF)(--cpp -c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I.\entry\inc -I.\gui\inc -I.\hardware\inc -I.\misc\inc -I..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\STM32F4xx_HAL_Driver\Inc -I..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include -I..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\CMSIS\Include -I.\hardware\Drivers\inc -I.\misc\context\inc -I.\misc\depend\Arm\CortexM4\inc -I.\misc\inc --cpp11-I E:\KeilProj\platform\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.4.0-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F417xx -Dtftili9486-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+F (.\entry\src\main.cpp)(0x5651FD7A)(--cpp -c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I.\entry\inc -I.\gui\inc -I.\hardware\inc -I.\misc\inc -I..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\STM32F4xx_HAL_Driver\Inc -I..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include -I..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\CMSIS\Include -I.\hardware\Drivers\inc -I.\misc\context\inc -I.\misc\depend\Arm\CortexM4\inc -I.\misc\inc --cpp11-I E:\KeilProj\platform\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.4.0-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F417xx -Dtftili9486-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
 I (.\entry\inc\main.h)(0x55FC0E7A)
 I (..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h)(0x555F64EC)
 I (.\entry\inc\stm32f4xx_hal_conf.h)(0x55FC0E7A)
@@ -40,9 +40,9 @@ I (.\hardware\inc\device.h)(0x56505CBD)
 I (.\hardware\inc\init.h)(0x56472DDE)
 I (.\misc\inc\memory_alloc.h)(0x564C361F)
 I (C:\Keil_v5\ARM\ARMCC\include\errno.h)(0x54762B40)
-I (.\misc\inc\ArrayListStatic.h)(0x5650542C)
+I (.\misc\inc\ArrayListStatic.h)(0x5651D43D)
 I (.\misc\inc\memory_template.h)(0x564C3491)
-I (.\misc\inc\ArrayList.h)(0x56505888)
+I (.\misc\inc\ArrayList.h)(0x56509784)
 I (.\misc\inc\syncClass.h)(0x564F5E8F)
 I (.\misc\inc\String.h)(0x564F5E8F)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x54762B40)
@@ -53,13 +53,13 @@ I (.\misc\inc\eventListener.h)(0x5648B559)
 I (.\hardware\inc\gpio_ex.h)(0x564757E5)
 I (.\hardware\Drivers\inc\screen_driver.h)(0x564764D6)
 I (.\gui\inc\gui_defs.h)(0x56472D6E)
-I (.\hardware\inc\TFTili9486.h)(0x564F5E8F)
+I (.\hardware\inc\TFTili9486.h)(0x5651D4C0)
 I (.\misc\inc\dimensions.h)(0x5647660C)
 I (.\gui\inc\graphicFrameClass.h)(0x56476BC8)
 I (.\entry\inc\extern.h)(0x564DE511)
-I (.\misc\context\inc\VM.h)(0x56505C54)
-I (.\misc\context\inc\Thread.h)(0x564FE0E3)
-I (.\misc\depend\Arm\CortexM4\inc\contextSwitching.h)(0x564FF1EA)
+I (.\misc\context\inc\VM.h)(0x56520361)
+I (.\misc\context\inc\Thread.h)(0x5651DA1D)
+I (.\misc\depend\Arm\CortexM4\inc\contextSwitching.h)(0x5652025B)
 I (.\misc\inc\stack.h)(0x564F5ED9)
 F (.\hardware\src\device.cpp)(0x564F6EDF)(--cpp -c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I.\entry\inc -I.\gui\inc -I.\hardware\inc -I.\misc\inc -I..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\STM32F4xx_HAL_Driver\Inc -I..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include -I..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\CMSIS\Include -I.\hardware\Drivers\inc -I.\misc\context\inc -I.\misc\depend\Arm\CortexM4\inc -I.\misc\inc --cpp11-I E:\KeilProj\platform\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.4.0-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F417xx -Dtftili9486-o .\objects\device.o --omf_browse .\objects\device.crf --depend .\objects\device.d)
 I (.\hardware\inc\Device.h)(0x56505CBD)
@@ -102,9 +102,9 @@ I (..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f
 I (..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h)(0x555F64EC)
 I (.\misc\inc\memory_alloc.h)(0x564C361F)
 I (C:\Keil_v5\ARM\ARMCC\include\errno.h)(0x54762B40)
-I (.\misc\inc\ArrayListStatic.h)(0x5650542C)
+I (.\misc\inc\ArrayListStatic.h)(0x5651D43D)
 I (.\misc\inc\memory_template.h)(0x564C3491)
-I (.\misc\inc\ArrayList.h)(0x56505888)
+I (.\misc\inc\ArrayList.h)(0x56509784)
 I (.\misc\inc\syncClass.h)(0x564F5E8F)
 I (.\misc\inc\String.h)(0x564F5E8F)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x54762B40)
@@ -115,13 +115,13 @@ I (.\misc\inc\eventListener.h)(0x5648B559)
 I (.\hardware\inc\gpio_ex.h)(0x564757E5)
 I (.\hardware\Drivers\inc\screen_driver.h)(0x564764D6)
 I (.\gui\inc\gui_defs.h)(0x56472D6E)
-I (.\hardware\inc\TFTili9486.h)(0x564F5E8F)
+I (.\hardware\inc\TFTili9486.h)(0x5651D4C0)
 I (.\misc\inc\dimensions.h)(0x5647660C)
 I (.\gui\inc\graphicFrameClass.h)(0x56476BC8)
 I (.\entry\inc\extern.h)(0x564DE511)
-I (.\misc\context\inc\VM.h)(0x56505C54)
-I (.\misc\context\inc\Thread.h)(0x564FE0E3)
-I (.\misc\depend\Arm\CortexM4\inc\contextSwitching.h)(0x564FF1EA)
+I (.\misc\context\inc\VM.h)(0x56520361)
+I (.\misc\context\inc\Thread.h)(0x5651DA1D)
+I (.\misc\depend\Arm\CortexM4\inc\contextSwitching.h)(0x5652025B)
 I (.\misc\inc\stack.h)(0x564F5ED9)
 F (.\hardware\src\gpio_ex.cpp)(0x564757E5)(--cpp -c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I.\entry\inc -I.\gui\inc -I.\hardware\inc -I.\misc\inc -I..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\STM32F4xx_HAL_Driver\Inc -I..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include -I..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\CMSIS\Include -I.\hardware\Drivers\inc -I.\misc\context\inc -I.\misc\depend\Arm\CortexM4\inc -I.\misc\inc --cpp11-I E:\KeilProj\platform\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.4.0-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F417xx -Dtftili9486-o .\objects\gpio_ex.o --omf_browse .\objects\gpio_ex.crf --depend .\objects\gpio_ex.d)
 I (.\hardware\inc\gpio_ex.h)(0x564757E5)
@@ -993,7 +993,7 @@ I (..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f
 I (..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_spi.h)(0x555F64F2)
 I (..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim.h)(0x555F64EC)
 I (..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h)(0x555F64EC)
-F (.\entry\src\stm32f4xx_it.c)(0x564CA1D2)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I.\entry\inc -I.\gui\inc -I.\hardware\inc -I.\misc\inc -I..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\STM32F4xx_HAL_Driver\Inc -I..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include -I..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\CMSIS\Include -I.\hardware\Drivers\inc -I.\misc\context\inc -I.\misc\depend\Arm\CortexM4\inc -I.\misc\inc --cpp11-I E:\KeilProj\platform\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.4.0-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F417xx -Dtftili9486-o .\objects\stm32f4xx_it.o --omf_browse .\objects\stm32f4xx_it.crf --depend .\objects\stm32f4xx_it.d)
+F (.\entry\src\stm32f4xx_it.c)(0x56509163)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I.\entry\inc -I.\gui\inc -I.\hardware\inc -I.\misc\inc -I..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\STM32F4xx_HAL_Driver\Inc -I..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include -I..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\CMSIS\Include -I.\hardware\Drivers\inc -I.\misc\context\inc -I.\misc\depend\Arm\CortexM4\inc -I.\misc\inc --cpp11-I E:\KeilProj\platform\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.4.0-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F417xx -Dtftili9486-o .\objects\stm32f4xx_it.o --omf_browse .\objects\stm32f4xx_it.crf --depend .\objects\stm32f4xx_it.d)
 I (.\entry\inc\main.h)(0x55FC0E7A)
 I (..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h)(0x555F64EC)
 I (.\entry\inc\stm32f4xx_hal_conf.h)(0x55FC0E7A)
@@ -1035,12 +1035,12 @@ F (.\misc\src\memory_alloc.cpp)(0x565001A8)(--cpp -c --cpu Cortex-M4.fp -g -O0 -
 I (.\misc\inc\memory_alloc.h)(0x564C361F)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x54762B40)
 I (C:\Keil_v5\ARM\ARMCC\include\errno.h)(0x54762B40)
-I (.\misc\inc\ArrayListStatic.h)(0x5650542C)
-F (.\misc\depend\Arm\CortexM4\src\contextSwitching.cpp)(0x56504418)(--cpp -c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I.\entry\inc -I.\gui\inc -I.\hardware\inc -I.\misc\inc -I..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\STM32F4xx_HAL_Driver\Inc -I..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include -I..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\CMSIS\Include -I.\hardware\Drivers\inc -I.\misc\context\inc -I.\misc\depend\Arm\CortexM4\inc -I.\misc\inc --cpp11-I E:\KeilProj\platform\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.4.0-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F417xx -Dtftili9486-o .\objects\contextswitching.o --omf_browse .\objects\contextswitching.crf --depend .\objects\contextswitching.d)
-I (.\misc\depend\Arm\CortexM4\inc\contextSwitching.h)(0x564FF1EA)
+I (.\misc\inc\ArrayListStatic.h)(0x5651D43D)
+F (.\misc\depend\Arm\CortexM4\src\contextSwitching.cpp)(0x56520361)(--cpp -c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I.\entry\inc -I.\gui\inc -I.\hardware\inc -I.\misc\inc -I..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\STM32F4xx_HAL_Driver\Inc -I..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include -I..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\CMSIS\Include -I.\hardware\Drivers\inc -I.\misc\context\inc -I.\misc\depend\Arm\CortexM4\inc -I.\misc\inc --cpp11-I E:\KeilProj\platform\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.4.0-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F417xx -Dtftili9486-o .\objects\contextswitching.o --omf_browse .\objects\contextswitching.crf --depend .\objects\contextswitching.d)
+I (.\misc\depend\Arm\CortexM4\inc\contextSwitching.h)(0x5652025B)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x54762B40)
-I (.\misc\context\inc\cpuControlBlock.h)(0x56504802)
-F (.\misc\depend\Arm\CortexM4\src\stackSwitching.s)(0x56505E90)(--cpu Cortex-M4.fp -g --apcs=interwork -I.\misc\inc -I..\platform-I E:\KeilProj\platform\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.4.0--pd "__UVISION_VERSION SETA 514" --pd "_RTE_ SETA 1" --pd "STM32F417xx SETA 1" --pd "stackSwitching SETA 1"--list .\listings\stackswitching.lst --xref -o .\objects\stackswitching.o --depend .\objects\stackswitching.d)
+I (.\misc\context\inc\cpuControlBlock.h)(0x565082BE)
+F (.\misc\depend\Arm\CortexM4\src\stackSwitching.s)(0x5652025B)(--cpu Cortex-M4.fp -g --apcs=interwork -I.\misc\inc -I..\platform-I E:\KeilProj\platform\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.4.0--pd "__UVISION_VERSION SETA 514" --pd "_RTE_ SETA 1" --pd "STM32F417xx SETA 1" --pd "stackSwitching SETA 1"--list .\listings\stackswitching.lst --xref -o .\objects\stackswitching.o --depend .\objects\stackswitching.d)
 F (.\misc\depend\Arm\CortexM4\src\startup_stm32f417xx.s)(0x564FE156)(--cpu Cortex-M4.fp -g --apcs=interwork -I.\misc\inc -I..\platform-I E:\KeilProj\platform\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.4.0--pd "__UVISION_VERSION SETA 514" --pd "_RTE_ SETA 1" --pd "STM32F417xx SETA 1" --pd "stackSwitching SETA 1"--list .\listings\startup_stm32f417xx.lst --xref -o .\objects\startup_stm32f417xx.o --depend .\objects\startup_stm32f417xx.d)
 F (.\entry\src\system_stm32f4xx.c)(0x55FC0E7B)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I.\entry\inc -I.\gui\inc -I.\hardware\inc -I.\misc\inc -I..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\STM32F4xx_HAL_Driver\Inc -I..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include -I..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\CMSIS\Include -I.\hardware\Drivers\inc -I.\misc\context\inc -I.\misc\depend\Arm\CortexM4\inc -I.\misc\inc --cpp11-I E:\KeilProj\platform\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.4.0-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F417xx -Dtftili9486-o .\objects\system_stm32f4xx.o --omf_browse .\objects\system_stm32f4xx.crf --depend .\objects\system_stm32f4xx.d)
 I (..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h)(0x555F64D6)
@@ -1051,8 +1051,8 @@ I (..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\CMSIS\Include\core_cmInstr.h)(0
 I (..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\CMSIS\Include\core_cmFunc.h)(0x555E1438)
 I (..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\CMSIS\Include\core_cmSimd.h)(0x555E1438)
 I (..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h)(0x555F64D6)
-F (.\misc\context\src\VM.cpp)(0x56505AD8)(--cpp -c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I.\entry\inc -I.\gui\inc -I.\hardware\inc -I.\misc\inc -I..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\STM32F4xx_HAL_Driver\Inc -I..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include -I..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\CMSIS\Include -I.\hardware\Drivers\inc -I.\misc\context\inc -I.\misc\depend\Arm\CortexM4\inc -I.\misc\inc --cpp11-I E:\KeilProj\platform\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.4.0-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F417xx -Dtftili9486-o .\objects\vm.o --omf_browse .\objects\vm.crf --depend .\objects\vm.d)
-I (.\misc\context\inc\VM.h)(0x56505C54)
+F (.\misc\context\src\VM.cpp)(0x5651E4FD)(--cpp -c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I.\entry\inc -I.\gui\inc -I.\hardware\inc -I.\misc\inc -I..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\STM32F4xx_HAL_Driver\Inc -I..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include -I..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\CMSIS\Include -I.\hardware\Drivers\inc -I.\misc\context\inc -I.\misc\depend\Arm\CortexM4\inc -I.\misc\inc --cpp11-I E:\KeilProj\platform\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.4.0-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F417xx -Dtftili9486-o .\objects\vm.o --omf_browse .\objects\vm.crf --depend .\objects\vm.d)
+I (.\misc\context\inc\VM.h)(0x56520361)
 I (.\hardware\inc\device.h)(0x56505CBD)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x54762B40)
 I (.\hardware\inc\init.h)(0x56472DDE)
@@ -1093,9 +1093,9 @@ I (..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f
 I (..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h)(0x555F64EC)
 I (.\misc\inc\memory_alloc.h)(0x564C361F)
 I (C:\Keil_v5\ARM\ARMCC\include\errno.h)(0x54762B40)
-I (.\misc\inc\ArrayListStatic.h)(0x5650542C)
+I (.\misc\inc\ArrayListStatic.h)(0x5651D43D)
 I (.\misc\inc\memory_template.h)(0x564C3491)
-I (.\misc\inc\ArrayList.h)(0x56505888)
+I (.\misc\inc\ArrayList.h)(0x56509784)
 I (.\misc\inc\syncClass.h)(0x564F5E8F)
 I (.\misc\inc\String.h)(0x564F5E8F)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x54762B40)
@@ -1106,15 +1106,15 @@ I (.\misc\inc\eventListener.h)(0x5648B559)
 I (.\hardware\inc\gpio_ex.h)(0x564757E5)
 I (.\hardware\Drivers\inc\screen_driver.h)(0x564764D6)
 I (.\gui\inc\gui_defs.h)(0x56472D6E)
-I (.\hardware\inc\TFTili9486.h)(0x564F5E8F)
+I (.\hardware\inc\TFTili9486.h)(0x5651D4C0)
 I (.\misc\inc\dimensions.h)(0x5647660C)
 I (.\gui\inc\graphicFrameClass.h)(0x56476BC8)
 I (.\entry\inc\extern.h)(0x564DE511)
-I (.\misc\context\inc\Thread.h)(0x564FE0E3)
-I (.\misc\depend\Arm\CortexM4\inc\contextSwitching.h)(0x564FF1EA)
+I (.\misc\context\inc\Thread.h)(0x5651DA1D)
+I (.\misc\depend\Arm\CortexM4\inc\contextSwitching.h)(0x5652025B)
 I (.\misc\inc\stack.h)(0x564F5ED9)
-F (.\misc\depend\Arm\CortexM4\src\cpuControlBlock.c)(0x565045F8)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I.\entry\inc -I.\gui\inc -I.\hardware\inc -I.\misc\inc -I..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\STM32F4xx_HAL_Driver\Inc -I..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include -I..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\CMSIS\Include -I.\hardware\Drivers\inc -I.\misc\context\inc -I.\misc\depend\Arm\CortexM4\inc -I.\misc\inc --cpp11-I E:\KeilProj\platform\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.4.0-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F417xx -Dtftili9486-o .\objects\cpucontrolblock.o --omf_browse .\objects\cpucontrolblock.crf --depend .\objects\cpucontrolblock.d)
-I (.\misc\context\inc\cpuControlBlock.h)(0x56504802)
+F (.\misc\depend\Arm\CortexM4\src\cpuControlBlock.c)(0x56508EF3)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I.\entry\inc -I.\gui\inc -I.\hardware\inc -I.\misc\inc -I..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\STM32F4xx_HAL_Driver\Inc -I..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include -I..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\CMSIS\Include -I.\hardware\Drivers\inc -I.\misc\context\inc -I.\misc\depend\Arm\CortexM4\inc -I.\misc\inc --cpp11-I E:\KeilProj\platform\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.4.0-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F417xx -Dtftili9486-o .\objects\cpucontrolblock.o --omf_browse .\objects\cpucontrolblock.crf --depend .\objects\cpucontrolblock.d)
+I (.\misc\context\inc\cpuControlBlock.h)(0x565082BE)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x54762B40)
-I (.\misc\depend\Arm\CortexM4\inc\contextSwitching.h)(0x564FF1EA)
+I (.\misc\depend\Arm\CortexM4\inc\contextSwitching.h)(0x5652025B)
 F (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Lib\ARM\arm_cortexM4lf_math.lib)(0x5423971C)()

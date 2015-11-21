@@ -4,6 +4,8 @@
                                 privilege   Value       -**-
 */
 
+
+
 SCB_AdressSpace ScbAdressSpace = {
     0xE000E008,
     0xE000ED00,
@@ -36,7 +38,7 @@ SCB_CPUID readCpuId ()
         (id & Variant)     >> VariantGp,
         (id & Constant)    >> ConstantGp,
         (id & PartNo)      >> PartNoGp,
-        (id & Revision)    >> RevisionGp
+        (id & Revision)    >> RevisionGp,
     };
     return s;
 }
@@ -315,6 +317,7 @@ bool writeHfsr (SCB_HFSR v)
 /*
 
 */
+
 
 
 

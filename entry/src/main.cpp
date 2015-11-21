@@ -22,16 +22,18 @@ class TestClass {
 };
 
 ArrayList<TestClass> arrayList;
-
-uint32_t systemHeap[20000];
+uint32_t systemHeap[20000] __attribute__((section("CCM")));
 
 int SystemEventBurner3 (Runnable *r)
-{
+{   
+    device.enableBackLight(true);
     for (;;) {
-        device.enableBackLight(true);
         HAL_Delay(700);
+        device.fill(0x12bc);
     }
 }
+
+
 
 int main ()
 {
@@ -48,6 +50,7 @@ int main ()
     device(Lcd_Rgb_Port, spiLcd);
     device.init();
     device.enableBackLight(true);
+    device.fill(0x12bc);
     runtime((uint32_t)systemHeap, 20000);
     String str0("need");
     String str1("java");
@@ -71,20 +74,24 @@ int main ()
 	
 	return 0;
 }
-
+extern "C" void *SvcCall (SVC_arg a);
 int SystemEventBurner (Runnable *r)
 {
     runtime.addRunnable(SystemEventBurner3, 0);
+    
     for (;;) {
-        device.enableBackLight(true);
+        device.fill(0xffff);
+        SVC_arg a = {0x342, 0xff, 0xff};
+        SvcCall(a);
         HAL_Delay(1000);
+        
     }
 }
 
 int SystemEventBurner2 (Runnable *r)
 {
     for (;;) {
-        device.enableBackLight(false);
+        device.fill(0xaaaa);
         HAL_Delay(500);
     }
 }

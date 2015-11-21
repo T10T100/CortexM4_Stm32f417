@@ -254,6 +254,11 @@
           <WinNumber>1</WinNumber>
           <ItemText>id</ItemText>
         </Ww>
+        <Ww>
+          <count>12</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>node</ItemText>
+        </Ww>
       </WatchWindow1>
       <WatchWindow2>
         <Ww>

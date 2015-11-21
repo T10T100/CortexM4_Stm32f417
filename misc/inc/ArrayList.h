@@ -287,6 +287,9 @@ template <typename Vector, typename Object>
                     }   else    {
                         r->prevLink = l;
                     }	
+                    if (node == nullptr) {
+                        return firstNode;
+                    }
                     return node;
                 }    
                 
