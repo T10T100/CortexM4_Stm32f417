@@ -12,6 +12,15 @@ Device device;
 SpiSoftTypeDef spiLcd;
 MemoryAllocator Heap;
 
+void *psalloc (uint32_t size)
+{
+    return runtime.psalloc(size);
+}
+void pfree (void *p)
+{
+    runtime.free(p);
+}
+
 void *Alloc (uint32_t size)
 {
     return Heap.New(size);

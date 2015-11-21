@@ -5,6 +5,8 @@
 #include "syncClass.h"
 #include "stack.h"
 
+extern "C"
+void *RuntimeStartup (void *);
 
 int SystemEventBurner (Runnable *);
 int SystemEventBurner2 (Runnable *);  
@@ -16,9 +18,8 @@ int SystemEventBurner2 (Runnable *);
         Iterator<ArrayList<Runnable>, Runnable> *runnablesIterator;
         Runnable *running;
     
-        void *manageThreads (void *frame, void *link)
+        void *manageThreads (void *frame, int32_t link)
         {
-             RuntimeFrame *a = (RuntimeFrame *)frame;
             if (syncFetch(this) == false) { 
                 return frame;
             }
@@ -32,10 +33,16 @@ int SystemEventBurner2 (Runnable *);
             if (runnablesIterator->hasThis() == false) {
                 runnablesIterator = listOfRunnables.iterator();
             } 
-            running = runnablesIterator->getThis();
+            running = runnablesIterator->get();
+            runnablesIterator->next();
             if (running->getStatus() == Stopped) {
-                RuntimeFrame *f = (RuntimeFrame *)(running->getStackRoof() - (4 * sizeof(RuntimeFrame)));
-                *f = *((RuntimeFrame *)frame);
+                RuntimeFrame *f = (RuntimeFrame *)(running->getStackRoof() - (sizeof(RuntimeFrame) * 4));
+                if (link != 1) {
+                    *f = *((RuntimeFrame *)frame);
+                } else {
+                    syncRelease(this);
+                    return (void *)running->getRunnable();
+                }
                 f->PC = (uint32_t)running->getRunnable();
                 running->setStatus(Running);
                 syncRelease(this);
@@ -47,7 +54,16 @@ int SystemEventBurner2 (Runnable *);
         
     public :
         
-        friend void *server(void *frame, void *link);
+        void *psalloc (uint32_t size)
+        {
+            return (void *)((uint32_t)allocator.New(size) + size - 4);
+        }
+        void free (void *p)
+        {
+            //allocator.Delete(p);
+        }
+    
+        friend void *server(void *frame, int32_t link);
     
         Runtime ()
         {
@@ -55,10 +71,13 @@ int SystemEventBurner2 (Runnable *);
         }
         void operator () (uint32_t heapStart, uint32_t heapSize)
         {
+           void *error = nullptr;
            this->allocator(heapStart, heapSize);
            addRunnable(SystemEventBurner, 0);
-           addRunnable(SystemEventBurner2, 0);
+           running = addRunnable(SystemEventBurner2, 0);
+           running->setStatus(Stopped);
            runnablesIterator = listOfRunnables.iterator();
+           error = RuntimeStartup ((void *)((uint32_t)allocator.New(6024 * 4) + 6022 * 4));
         }
         
         Runnable *addRunnable (Runnable_t runnable, uint32_t args)

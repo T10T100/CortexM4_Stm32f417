@@ -71,7 +71,7 @@ class Runnable {
     }
     void *getRunnable ()
     {
-        return this->runnable;
+        return (void *)this->runnable;
     }
     uint32_t getStackRoof ()
     {
@@ -90,7 +90,7 @@ class Runnable {
     template <typename A>
         bool assert (A a)
         {
-            
+            return false;
         }
     
 };

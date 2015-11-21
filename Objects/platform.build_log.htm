@@ -27,73 +27,47 @@ Project File Date:  11/18/2015
 <h2>Output:</h2>
 Build target 'Target 1'
 compiling main.cpp...
-.\misc\inc\syncClass.h(47): warning:  #1-D: last line of file ends without a newline
-  /*End of file*/
 .\misc\inc\ArrayList.h(34): warning:  #794-D: template parameter "List" may not be used in an elaborated type specifier
           friend class List;
 .\misc\inc\ArrayList.h(50): warning:  #794-D: template parameter "Vector" may not be used in an elaborated type specifier
           friend class Vector;
-.\misc\inc\String.h(173): warning:  #1-D: last line of file ends without a newline
-  /*End od file*/
-.\misc\inc\eventObject.h(23): warning:  #1-D: last line of file ends without a newline
-  /*End of file*/
-.\hardware\inc\TFTili9486.h(538): warning:  #177-D: variable "nClk" was declared but never referenced
-          uint32_t nClk = LCD_Clk_Pin << 16;
+.\misc\inc\ArrayList.h(328): warning:  #940-D: missing return statement at end of non-void function "Iterator<Vector, Object>::next"
+          }
 .\gui\inc\graphicFrameClass.h(32): warning:  #794-D: template parameter "Factory" may not be used in an elaborated type specifier
           friend class Factory;
-.\misc\context\inc\Thread.h(74): warning:  #120-D: return value type does not match the function type
-          return this->runnable;
-.\misc\context\inc\Thread.h(94): warning:  #940-D: missing return statement at end of non-void function "Runnable::assert(A) [with A=RunnableStatus]"
-          }
-          detected during instantiation of "bool Runnable::assert(A) [with A=RunnableStatus]" at line 82
-.\misc\context\inc\Thread.h(94): warning:  #940-D: missing return statement at end of non-void function "Runnable::assert(A)"
-          }
-.\misc\inc\stack.h(43): warning:  #940-D: missing return statement at end of non-void function "Stack<Object>::push(Object &)"
-              }
-.\misc\inc\stack.h(68): warning:  #940-D: missing return statement at end of non-void function "Stack<Object>::clone"
-              }
-.\misc\context\inc\VM.h(21): warning:  #177-D: variable "a" was declared but never referenced
-               RuntimeFrame *a = (RuntimeFrame *)frame;
-entry\src\main.cpp(70): warning:  #111-D: statement is unreachable
+.\misc\context\inc\VM.h(74): warning:  #550-D: variable "error" was set but never used
+             void *error = nullptr;
+entry\src\main.cpp(66): warning:  #111-D: statement is unreachable
         return 0;
-entry\src\main.cpp(12): warning:  #177-D: variable "myName" was declared but never referenced
-  const char myName[] = "My name is";
-entry\src\main.cpp: 15 warnings, 0 errors
-compiling VM.cpp...
-.\misc\inc\syncClass.h(47): warning:  #1-D: last line of file ends without a newline
-  /*End of file*/
+entry\src\main.cpp: 6 warnings, 0 errors
+compiling device.cpp...
 .\misc\inc\ArrayList.h(34): warning:  #794-D: template parameter "List" may not be used in an elaborated type specifier
           friend class List;
 .\misc\inc\ArrayList.h(50): warning:  #794-D: template parameter "Vector" may not be used in an elaborated type specifier
           friend class Vector;
-.\misc\inc\String.h(173): warning:  #1-D: last line of file ends without a newline
-  /*End od file*/
-.\misc\inc\eventObject.h(23): warning:  #1-D: last line of file ends without a newline
-  /*End of file*/
-.\hardware\inc\TFTili9486.h(538): warning:  #177-D: variable "nClk" was declared but never referenced
-          uint32_t nClk = LCD_Clk_Pin << 16;
+.\misc\inc\ArrayList.h(328): warning:  #940-D: missing return statement at end of non-void function "Iterator<Vector, Object>::next"
+          }
 .\gui\inc\graphicFrameClass.h(32): warning:  #794-D: template parameter "Factory" may not be used in an elaborated type specifier
           friend class Factory;
-.\misc\context\inc\Thread.h(74): warning:  #120-D: return value type does not match the function type
-          return this->runnable;
-.\misc\context\inc\Thread.h(94): warning:  #940-D: missing return statement at end of non-void function "Runnable::assert(A) [with A=RunnableStatus]"
+.\misc\context\inc\VM.h(74): warning:  #550-D: variable "error" was set but never used
+             void *error = nullptr;
+hardware\src\device.cpp: 5 warnings, 0 errors
+compiling VM.cpp...
+.\misc\inc\ArrayList.h(34): warning:  #794-D: template parameter "List" may not be used in an elaborated type specifier
+          friend class List;
+.\misc\inc\ArrayList.h(50): warning:  #794-D: template parameter "Vector" may not be used in an elaborated type specifier
+          friend class Vector;
+.\misc\inc\ArrayList.h(328): warning:  #940-D: missing return statement at end of non-void function "Iterator<Vector, Object>::next"
           }
-          detected during instantiation of "bool Runnable::assert(A) [with A=RunnableStatus]" at line 82
-.\misc\context\inc\Thread.h(94): warning:  #940-D: missing return statement at end of non-void function "Runnable::assert(A)"
-          }
-.\misc\inc\stack.h(43): warning:  #940-D: missing return statement at end of non-void function "Stack<Object>::push(Object &)"
-              }
-.\misc\inc\stack.h(68): warning:  #940-D: missing return statement at end of non-void function "Stack<Object>::clone"
-              }
-.\misc\context\inc\VM.h(21): warning:  #177-D: variable "a" was declared but never referenced
-               RuntimeFrame *a = (RuntimeFrame *)frame;
-misc\context\src\VM.cpp(22): warning:  #1-D: last line of file ends without a newline
-  }
-misc\context\src\VM.cpp: 14 warnings, 0 errors
+.\gui\inc\graphicFrameClass.h(32): warning:  #794-D: template parameter "Factory" may not be used in an elaborated type specifier
+          friend class Factory;
+.\misc\context\inc\VM.h(74): warning:  #550-D: variable "error" was set but never used
+             void *error = nullptr;
+misc\context\src\VM.cpp: 5 warnings, 0 errors
 linking...
-Program Size: Code=10046 RO-data=762 RW-data=44 ZI-data=42340  
+Program Size: Code=10162 RO-data=778 RW-data=44 ZI-data=82336  
 FromELF: creating hex file...
-".\Objects\platform.axf" - 0 Error(s), 29 Warning(s).
+".\Objects\platform.axf" - 0 Error(s), 16 Warning(s).
 
 <h2>Software Packages used:</h2>
 

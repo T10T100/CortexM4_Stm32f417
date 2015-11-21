@@ -44,8 +44,8 @@ template <typename Vector, typename Object>
         public :
             bool hasNext ();  
             bool hasThis ();        
-            Object *getNext ();
-            Object *getThis ();
+            Object *next ();
+            Object *get ();
 
         friend class Vector;
     };
@@ -168,9 +168,8 @@ template <typename Vector, typename Object>
 			 
              Iterator<ArrayList<Object>, Object> *iterator ()
              {
-                DefaultArrayListNode<ArrayList<Object>, Object> *node = this->firstNode;
                 static Iterator<ArrayList<Object>, Object> i;
-                i(*node);
+                i(*this->firstNode);
                 return &i;
              }
 			
@@ -323,17 +322,14 @@ template <typename Vector, typename Object>
             }
         }
         template <typename V, typename o>
-        o *Iterator<V, o>::getNext ()
+        o *Iterator<V, o>::next()
         {
             node = node->nextLink;
-            return node->getUserObject();
         }
         template <typename V, typename o>
-        o *Iterator<V, o>::getThis ()
+        o *Iterator<V, o>::get()
         {
-            DefaultArrayListNode<V, o> *n = node;
-            node = node->nextLink;
-            return n->getUserObject();
+            return node->getUserObject();
         }
 #endif /*ARRAY_LIST_BASE*/
 

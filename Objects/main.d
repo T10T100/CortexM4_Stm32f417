@@ -62,4 +62,3 @@
 .\objects\main.o: .\misc\depend\Arm\CortexM4\inc\contextSwitching.h
 .\objects\main.o: .\misc\inc\stack.h
 .\objects\main.o: .\entry\inc\extern.h
-.\objects\main.o: .\misc\depend\Arm\CortexM4\inc\stackSwitching.h
