@@ -966,6 +966,7 @@ Section Cross References
     vm.o(.ARM.exidx) refers to vm.o(i._Z6serverPvi) for i._Z6serverPvi
     vm.o(.ARM.exidx) refers to vm.o(i._Z17SystemEventBurnerP8Runnable) for i._Z17SystemEventBurnerP8Runnable
     vm.o(.ARM.exidx) refers to vm.o(i._Z18SystemEventBurner2P8Runnable) for i._Z18SystemEventBurner2P8Runnable
+<<<<<<< HEAD
     cpucontrolblock.o(i._Z10writeAirCr9SCB_AIRCR) refers to cpucontrolblock.o(.data) for ScbAdressSpace
     cpucontrolblock.o(i._Z10writeShcrs9SCB_SHCRS) refers to cpucontrolblock.o(.data) for ScbAdressSpace
     cpucontrolblock.o(i._Z10writeShpr19SCB_SHPR1) refers to cpucontrolblock.o(.data) for ScbAdressSpace
@@ -1014,6 +1015,8 @@ Section Cross References
     cpucontrolblock.o(.ARM.exidx) refers to cpucontrolblock.o(i._Z9writeCfsr8SCB_CFSR) for i._Z9writeCfsr8SCB_CFSR
     cpucontrolblock.o(.ARM.exidx) refers to cpucontrolblock.o(i._Z8readHfsrv) for i._Z8readHfsrv
     cpucontrolblock.o(.ARM.exidx) refers to cpucontrolblock.o(i._Z9writeHfsr8SCB_HFSR) for i._Z9writeHfsr8SCB_HFSR
+=======
+>>>>>>> remotes/master/master
     rt_errno_addr.o(.text) refers to rt_errno_addr.o(.bss) for __aeabi_errno_addr_data
     rt_errno_addr_intlibspace.o(.text) refers to libspace.o(.bss) for __libspace_start
     __main.o(!!!main) refers to __rtentry.o(.ARM.Collect$$rtentry$$00000000) for __rt_entry
@@ -2730,6 +2733,7 @@ Removing Unused input sections from the image.
     Removing vm.o(.ARM.exidx), (8 bytes).
     Removing vm.o(.ARM.exidx), (8 bytes).
     Removing vm.o(.bss), (20 bytes).
+<<<<<<< HEAD
     Removing cpucontrolblock.o(i._Z10writeAirCr9SCB_AIRCR), (76 bytes).
     Removing cpucontrolblock.o(i._Z10writeCpuId9SCB_CPUID), (4 bytes).
     Removing cpucontrolblock.o(i._Z10writeShcrs9SCB_SHCRS), (156 bytes).
@@ -2775,6 +2779,8 @@ Removing Unused input sections from the image.
     Removing cpucontrolblock.o(.ARM.exidx), (8 bytes).
     Removing cpucontrolblock.o(.ARM.exidx), (8 bytes).
     Removing cpucontrolblock.o(.data), (76 bytes).
+=======
+>>>>>>> remotes/master/master
     Removing main.o(i._ZN6StringD1Ev), (36 bytes).
     Removing main.o(.ARM.exidx), (8 bytes).
     Removing main.o(.ARM.exidx), (8 bytes).
@@ -2891,7 +2897,11 @@ Removing Unused input sections from the image.
     Removing vm.o(.ARM.exidx), (8 bytes).
     Removing vm.o(.ARM.exidx), (8 bytes).
 
+<<<<<<< HEAD
 1139 unused section(s) (total 63977 bytes) removed from the image.
+=======
+1094 unused section(s) (total 62581 bytes) removed from the image.
+>>>>>>> remotes/master/master
 
 ==============================================================================
 
@@ -2965,8 +2975,15 @@ Image Symbol Table
     ../clib/heap1.c                          0x00000000   Number         0  h1_free_mt.o ABSOLUTE
     ../clib/heap1.c                          0x00000000   Number         0  h1_init.o ABSOLUTE
     ../clib/heap1.c                          0x00000000   Number         0  h1_alloc.o ABSOLUTE
+    ../clib/heap1.c                          0x00000000   Number         0  h1_free_mt.o ABSOLUTE
     ../clib/heap1.c                          0x00000000   Number         0  h1_extend_mt.o ABSOLUTE
+<<<<<<< HEAD
     ../clib/heap2.c                          0x00000000   Number         0  heap2mt.o ABSOLUTE
+=======
+    ../clib/heap1.c                          0x00000000   Number         0  h1_final_mt.o ABSOLUTE
+    ../clib/heap1.c                          0x00000000   Number         0  h1_extend.o ABSOLUTE
+    ../clib/heap1.c                          0x00000000   Number         0  h1_final.o ABSOLUTE
+>>>>>>> remotes/master/master
     ../clib/heap2.c                          0x00000000   Number         0  fdtree.o ABSOLUTE
     ../clib/heap2.c                          0x00000000   Number         0  heap2.o ABSOLUTE
     ../clib/heapalloc.c                      0x00000000   Number         0  hguard.o ABSOLUTE
@@ -3158,8 +3175,13 @@ Image Symbol Table
     .text                                    0x0800068a   Section        0  arm_exceptions_mem.o(.text)
     .text                                    0x080006c8   Section        0  sys_exit.o(.text)
     .text                                    0x080006d4   Section        2  use_no_semi.o(.text)
+<<<<<<< HEAD
     .text                                    0x080006d6   Section        0  defsig_exit.o(.text)
     .text                                    0x080006d6   Section        0  indicate_semi.o(.text)
+=======
+    .text                                    0x080006d6   Section        0  indicate_semi.o(.text)
+    .text                                    0x080006d6   Section        0  defsig_exit.o(.text)
+>>>>>>> remotes/master/master
     .text                                    0x080006e0   Section        0  defsig_abrt_outer.o(.text)
     .text                                    0x080006f0   Section        0  defsig_rtmem_inner.o(.text)
     .text                                    0x08000740   Section        0  defsig_general.o(.text)
@@ -3753,6 +3775,7 @@ Memory Map of the image
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
     0x08000000   0x00000188   Data   RO         4622    RESET               startup_stm32f417xx.o
+<<<<<<< HEAD
     0x08000188   0x00000008   Code   RO         4977  * !!!main             c_w.l(__main.o)
     0x08000190   0x00000034   Code   RO         5453    !!!scatter          c_w.l(__scatter.o)
     0x080001c4   0x0000001a   Code   RO         5455    !!handler_copy      c_w.l(__scatter_copy.o)
@@ -3842,6 +3865,97 @@ Memory Map of the image
     0x08000772   0x00000002   PAD
     0x08000774   0x00000030   Code   RO         5413    .text               c_w.l(defsig_abrt_inner.o)
     0x080007a4   0x0000000e   Code   RO         5430    .text               c_w.l(sys_wrch.o)
+=======
+    0x08000188   0x00000008   Code   RO         4803  * !!!main             c_w.l(__main.o)
+    0x08000190   0x00000034   Code   RO         5279    !!!scatter          c_w.l(__scatter.o)
+    0x080001c4   0x0000001a   Code   RO         5281    !!handler_copy      c_w.l(__scatter_copy.o)
+    0x080001de   0x00000002   PAD
+    0x080001e0   0x0000001c   Code   RO         5283    !!handler_zi        c_w.l(__scatter_zi.o)
+    0x080001fc   0x00000002   Code   RO         5190    .ARM.Collect$$libinit$$00000000  c_w.l(libinit.o)
+    0x080001fe   0x00000004   Code   RO         5001    .ARM.Collect$$libinit$$00000001  c_w.l(libinit2.o)
+    0x08000202   0x00000000   Code   RO         5004    .ARM.Collect$$libinit$$00000004  c_w.l(libinit2.o)
+    0x08000202   0x00000008   Code   RO         5005    .ARM.Collect$$libinit$$00000005  c_w.l(libinit2.o)
+    0x0800020a   0x00000000   Code   RO         5007    .ARM.Collect$$libinit$$0000000A  c_w.l(libinit2.o)
+    0x0800020a   0x00000000   Code   RO         5009    .ARM.Collect$$libinit$$0000000C  c_w.l(libinit2.o)
+    0x0800020a   0x00000000   Code   RO         5011    .ARM.Collect$$libinit$$0000000E  c_w.l(libinit2.o)
+    0x0800020a   0x00000000   Code   RO         5014    .ARM.Collect$$libinit$$00000011  c_w.l(libinit2.o)
+    0x0800020a   0x00000000   Code   RO         5016    .ARM.Collect$$libinit$$00000013  c_w.l(libinit2.o)
+    0x0800020a   0x00000000   Code   RO         5018    .ARM.Collect$$libinit$$00000015  c_w.l(libinit2.o)
+    0x0800020a   0x00000000   Code   RO         5020    .ARM.Collect$$libinit$$00000017  c_w.l(libinit2.o)
+    0x0800020a   0x00000000   Code   RO         5022    .ARM.Collect$$libinit$$00000019  c_w.l(libinit2.o)
+    0x0800020a   0x00000000   Code   RO         5024    .ARM.Collect$$libinit$$0000001B  c_w.l(libinit2.o)
+    0x0800020a   0x00000000   Code   RO         5026    .ARM.Collect$$libinit$$0000001D  c_w.l(libinit2.o)
+    0x0800020a   0x00000000   Code   RO         5028    .ARM.Collect$$libinit$$0000001F  c_w.l(libinit2.o)
+    0x0800020a   0x00000000   Code   RO         5030    .ARM.Collect$$libinit$$00000021  c_w.l(libinit2.o)
+    0x0800020a   0x00000000   Code   RO         5032    .ARM.Collect$$libinit$$00000023  c_w.l(libinit2.o)
+    0x0800020a   0x00000000   Code   RO         5034    .ARM.Collect$$libinit$$00000025  c_w.l(libinit2.o)
+    0x0800020a   0x00000000   Code   RO         5038    .ARM.Collect$$libinit$$0000002C  c_w.l(libinit2.o)
+    0x0800020a   0x00000000   Code   RO         5040    .ARM.Collect$$libinit$$0000002E  c_w.l(libinit2.o)
+    0x0800020a   0x00000000   Code   RO         5042    .ARM.Collect$$libinit$$00000030  c_w.l(libinit2.o)
+    0x0800020a   0x00000004   Code   RO         5043    .ARM.Collect$$libinit$$00000031  c_w.l(libinit2.o)
+    0x0800020e   0x00000000   Code   RO         5044    .ARM.Collect$$libinit$$00000032  c_w.l(libinit2.o)
+    0x0800020e   0x00000002   Code   RO         5045    .ARM.Collect$$libinit$$00000033  c_w.l(libinit2.o)
+    0x08000210   0x00000002   Code   RO         5262    .ARM.Collect$$libshutdown$$00000000  c_w.l(libshutdown.o)
+    0x08000212   0x00000000   Code   RO         5243    .ARM.Collect$$libshutdown$$00000003  c_w.l(libshutdown2.o)
+    0x08000212   0x00000000   Code   RO         5246    .ARM.Collect$$libshutdown$$00000006  c_w.l(libshutdown2.o)
+    0x08000212   0x00000000   Code   RO         5249    .ARM.Collect$$libshutdown$$00000009  c_w.l(libshutdown2.o)
+    0x08000212   0x00000000   Code   RO         5251    .ARM.Collect$$libshutdown$$0000000B  c_w.l(libshutdown2.o)
+    0x08000212   0x00000000   Code   RO         5254    .ARM.Collect$$libshutdown$$0000000E  c_w.l(libshutdown2.o)
+    0x08000212   0x00000002   Code   RO         5255    .ARM.Collect$$libshutdown$$0000000F  c_w.l(libshutdown2.o)
+    0x08000214   0x00000000   Code   RO         4933    .ARM.Collect$$rtentry$$00000000  c_w.l(__rtentry.o)
+    0x08000214   0x00000000   Code   RO         5080    .ARM.Collect$$rtentry$$00000002  c_w.l(__rtentry2.o)
+    0x08000214   0x00000006   Code   RO         5092    .ARM.Collect$$rtentry$$00000004  c_w.l(__rtentry4.o)
+    0x0800021a   0x00000000   Code   RO         5082    .ARM.Collect$$rtentry$$00000009  c_w.l(__rtentry2.o)
+    0x0800021a   0x00000004   Code   RO         5083    .ARM.Collect$$rtentry$$0000000A  c_w.l(__rtentry2.o)
+    0x0800021e   0x00000000   Code   RO         5085    .ARM.Collect$$rtentry$$0000000C  c_w.l(__rtentry2.o)
+    0x0800021e   0x00000008   Code   RO         5086    .ARM.Collect$$rtentry$$0000000D  c_w.l(__rtentry2.o)
+    0x08000226   0x00000002   Code   RO         5208    .ARM.Collect$$rtexit$$00000000  c_w.l(rtexit.o)
+    0x08000228   0x00000000   Code   RO         5225    .ARM.Collect$$rtexit$$00000002  c_w.l(rtexit2.o)
+    0x08000228   0x00000004   Code   RO         5226    .ARM.Collect$$rtexit$$00000003  c_w.l(rtexit2.o)
+    0x0800022c   0x00000006   Code   RO         5227    .ARM.Collect$$rtexit$$00000004  c_w.l(rtexit2.o)
+    0x08000232   0x00000002   PAD
+    0x08000234   0x00000000   Code   RO         5164    .emb_text           c_w.l(maybetermalloc1.o)
+    0x08000234   0x000000be   Code   RO         4616    .text               stackswitching.o
+    0x080002f2   0x00000002   PAD
+    0x080002f4   0x00000040   Code   RO         4623    .text               startup_stm32f417xx.o
+    0x08000334   0x00000008   Code   RO         4795    .text               c_w.l(rt_errno_addr_intlibspace.o)
+    0x0800033c   0x0000003e   Code   RO         4797    .text               c_w.l(strlen.o)
+    0x0800037a   0x00000064   Code   RO         4799    .text               c_w.l(rt_memcpy_w.o)
+    0x080003de   0x00000006   Code   RO         4801    .text               c_w.l(heapauxi.o)
+    0x080003e4   0x00000024   Code   RO         4808    .text               c_w.l(init_aeabi.o)
+    0x08000408   0x00000008   Code   RO         4930    .text               c_w.l(libspace.o)
+    0x08000410   0x00000008   Code   RO         4937    .text               c_w.l(rt_new_handler_addr_intlibspace.o)
+    0x08000418   0x0000005e   Code   RO         4943    .text               c_w.l(h1_alloc.o)
+    0x08000476   0x0000004e   Code   RO         4945    .text               c_w.l(h1_free.o)
+    0x080004c4   0x00000004   Code   RO         5051    .text               cpprt_w.l(arm_newhandler_noexceptions.o)
+    0x080004c8   0x00000008   Code   RO         5097    .text               c_w.l(rt_heap_descriptor_intlibspace.o)
+    0x080004d0   0x00000004   Code   RO         5099    .text               c_w.l(hguard.o)
+    0x080004d4   0x0000008a   Code   RO         5101    .text               c_w.l(init_alloc.o)
+    0x0800055e   0x0000000e   Code   RO         5105    .text               c_w.l(h1_init.o)
+    0x0800056c   0x0000001a   Code   RO         5145    .text               cpprt_w.l(arm_exceptions_terminate.o)
+    0x08000586   0x00000002   PAD
+    0x08000588   0x00000050   Code   RO         5148    .text               cpprt_w.l(arm_exceptions_globs.o)
+    0x080005d8   0x0000004a   Code   RO         5155    .text               c_w.l(sys_stackheap_outer.o)
+    0x08000622   0x00000002   PAD
+    0x08000624   0x00000008   Code   RO         5160    .text               c_w.l(rt_eh_globals_addr_intlibspace.o)
+    0x0800062c   0x00000034   Code   RO         5166    .text               c_w.l(h1_extend.o)
+    0x08000660   0x0000000c   Code   RO         5170    .text               c_w.l(exit.o)
+    0x0800066c   0x00000010   Code   RO         5172    .text               c_w.l(abort.o)
+    0x0800067c   0x0000000e   Code   RO         5174    .text               c_w.l(defsig_rtmem_outer.o)
+    0x0800068a   0x0000003c   Code   RO         5200    .text               cpprt_w.l(arm_exceptions_mem.o)
+    0x080006c6   0x00000002   PAD
+    0x080006c8   0x0000000c   Code   RO         5203    .text               c_w.l(sys_exit.o)
+    0x080006d4   0x00000002   Code   RO         5205    .text               c_w.l(use_no_semi.o)
+    0x080006d6   0x00000000   Code   RO         5207    .text               c_w.l(indicate_semi.o)
+    0x080006d6   0x0000000a   Code   RO         5216    .text               c_w.l(defsig_exit.o)
+    0x080006e0   0x0000000e   Code   RO         5218    .text               c_w.l(defsig_abrt_outer.o)
+    0x080006ee   0x00000002   PAD
+    0x080006f0   0x00000050   Code   RO         5222    .text               c_w.l(defsig_rtmem_inner.o)
+    0x08000740   0x00000032   Code   RO         5237    .text               c_w.l(defsig_general.o)
+    0x08000772   0x00000002   PAD
+    0x08000774   0x00000030   Code   RO         5239    .text               c_w.l(defsig_abrt_inner.o)
+    0x080007a4   0x0000000e   Code   RO         5256    .text               c_w.l(sys_wrch.o)
+>>>>>>> remotes/master/master
     0x080007b2   0x00000004   Code   RO         4374    i.BusFault_Handler  stm32f4xx_it.o
     0x080007b6   0x00000002   Code   RO         4375    i.DebugMon_Handler  stm32f4xx_it.o
     0x080007b8   0x00000002   Code   RO         4376    i.EXTI0_IRQHandler  stm32f4xx_it.o
@@ -3918,9 +4032,15 @@ Memory Map of the image
     0x08002020   0x00000094   Code   RO          227    i._ZN7RuntimeclEjj  main.o
     0x080020b4   0x0000000c   Code   RO          206    i._ZN9AllocatorIcEC1Ev  main.o
     0x080020c0   0x00000004   Code   RO          194    i._ZN9TestClassC1Ec  main.o
+<<<<<<< HEAD
     0x080020c4   0x00000008   Code   RO         4985    i._ZdlPv            cpprt_w.l(delete.o)
     0x080020cc   0x00000028   Code   RO         4988    i._Znwj             cpprt_w.l(new.o)
     0x080020f4   0x00000010   Code   RO         4992    i.__cxa_guard_acquire  cpprt_w.l(cxa_guard_acquire.o)
+=======
+    0x080020c4   0x00000008   Code   RO         4811    i._ZdlPv            cpprt_w.l(delete.o)
+    0x080020cc   0x00000028   Code   RO         4814    i._Znwj             cpprt_w.l(new.o)
+    0x080020f4   0x00000010   Code   RO         4818    i.__cxa_guard_acquire  cpprt_w.l(cxa_guard_acquire.o)
+>>>>>>> remotes/master/master
     0x08002104   0x00000048   Code   RO          634    i.__sti___10_device_cpp_runtime  device.o
     0x0800214c   0x00000034   Code   RO            4    i.__sti___8_main_cpp_ca4700dd  main.o
     0x08002180   0x000001a4   Code   RO            5    i.main              main.o
@@ -3971,7 +4091,11 @@ Memory Map of the image
     0x080028b8   0x0000003e   Code   RO          251    t._ZN9ArrayListI9TestClassE8addFirstERS0_  main.o
     0x080028f6   0x00000002   PAD
     0x080028f8   0x00000038   Code   RO           93    t._ZN9ArrayListI9TestClassE8iteratorEv  main.o
+<<<<<<< HEAD
     0x08002930   0x0000000a   Code   RO         5325    x$fpl$fpinit        fz_wm.l(fpinit.o)
+=======
+    0x08002930   0x0000000a   Code   RO         5151    x$fpl$fpinit        fz_wm.l(fpinit.o)
+>>>>>>> remotes/master/master
     0x0800293a   0x00000010   Data   RO         2646    .constdata          stm32f4xx_hal_rcc.o
     0x0800294a   0x00000002   PAD
     0x0800294c   0x0000000c   Data   RO         4542    .constdata__ZTV11MemoryChunk  memory_alloc.o
@@ -3991,10 +4115,17 @@ Memory Map of the image
     0x08002a74   0x00000008   Data   RO           31    .constdata__ZZN6Device4initEvEs  main.o
     0x08002a7c   0x00000007   Data   RO           32    .constdata__ZZN6Device8toStringEvEs  main.o
     0x08002a83   0x00000001   PAD
+<<<<<<< HEAD
     0x08002a84   0x00000030   Data   RO         5451    Region$$Table       anon$$obj.o
     0x08002ab4   0x00000004   Data   RO            9    .init_array         main.o
     0x08002ab8   0x00000004   Data   RO          645    .init_array         device.o
     0x08002abc   0x00000000   Data   RO         4980    .init_array         c_w.l(init_aeabi.o)
+=======
+    0x08002a84   0x00000030   Data   RO         5277    Region$$Table       anon$$obj.o
+    0x08002ab4   0x00000004   Data   RO            9    .init_array         main.o
+    0x08002ab8   0x00000004   Data   RO          645    .init_array         device.o
+    0x08002abc   0x00000000   Data   RO         4806    .init_array         c_w.l(init_aeabi.o)
+>>>>>>> remotes/master/master
 
 
     Execution Region RW_IRAM2 (Base: 0x10000000, Size: 0x00000920, Max: 0x00010000, ABSOLUTE)
@@ -4010,7 +4141,11 @@ Memory Map of the image
     0x1000002c   0x0000009c   Zero   RW          643    .bss                device.o
     0x100000c8   0x00000014   Zero   RW          912    .bss                gpio_ex.o
     0x100000dc   0x000001e4   Zero   RW          992    .bss                init.o
+<<<<<<< HEAD
     0x100002c0   0x00000060   Zero   RW         5105    .bss                c_w.l(libspace.o)
+=======
+    0x100002c0   0x00000060   Zero   RW         4931    .bss                c_w.l(libspace.o)
+>>>>>>> remotes/master/master
     0x10000320   0x00000200   Zero   RW         4621    HEAP                startup_stm32f417xx.o
     0x10000520   0x00000400   Zero   RW         4620    STACK               startup_stm32f417xx.o
 
