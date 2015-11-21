@@ -70,6 +70,8 @@ void Device::ILI9488<GPIO_TypeDef, SpiSoftTypeDef>::backLight (uint8_t value)
     {
         if (value) {
             DEV_Pin_Set(Lcd_light_Port, lcd_led_pin ); 
+        } else {
+            DEV_Pin_Clr(Lcd_light_Port, lcd_led_pin ); 
         }
     }
     

@@ -6,10 +6,18 @@
 #include "stack.h"
 
 extern "C"
-void *RuntimeStartup (void *);
+void *RuntimeStartup (void *, void *);
 
 int SystemEventBurner (Runnable *);
 int SystemEventBurner2 (Runnable *);  
+
+enum /*class*/ {
+    VReady = 0, /*Ready to start, may only once*/
+    VPending = 1, /*Have preserved frame*/
+    VWaiting = 2, /*Wait for somekind signal*/
+    VEvent = 3,   /*Can be an event burner routine*/
+    EndOfThreadTypesEnum
+};
 
     class Runtime : public Synchronizer<Runtime> {
     private :
@@ -17,37 +25,39 @@ int SystemEventBurner2 (Runnable *);
         ArrayList<Runnable> listOfRunnables;
         Iterator<ArrayList<Runnable>, Runnable> *runnablesIterator;
         Runnable *running;
-    
+        ArrayList<Runnable> arrayOfRunnables[EndOfThreadTypesEnum];
+        
         void *manageThreads (void *frame, int32_t link)
         {
             if (syncFetch(this) == false) { 
                 return frame;
             }
-            if (listOfRunnables.isEmpty() == true) {
+            if (link != 1 && running != nullptr) {
+                running->setFrame(frame);
+                arrayOfRunnables[VPending].addLast(running);
+            }
+            if (arrayOfRunnables[VReady].isEmpty() == false) {
+                running = arrayOfRunnables[VReady].removeFirst();
+                RuntimeFrame *f = (RuntimeFrame *)(running->getStackRoof() - (sizeof(RuntimeFrame) * 4));
+                if (link == 1) {
+                    syncRelease(this);
+                    f->R11 = (uint32_t)running->getRunnable();
+                    return (void *)f; 
+                } else {
+                    *f = *((RuntimeFrame *)frame);
+                    f->PC = (uint32_t)running->getRunnable();
+                    running->setStatus(Running);
+                    syncRelease(this);
+                    return (void *)f;
+                }
+            } else if (arrayOfRunnables[VPending].isEmpty() == false) {
+                running = arrayOfRunnables[VPending].removeFirst();
+            } else if (arrayOfRunnables[VWaiting].isEmpty() == false) {
+                running = arrayOfRunnables[VWaiting].removeFirst();
+            } else {
                 syncRelease(this);
                 return frame;
             }
-            if (running != nullptr) {
-                running->setFrame(frame);
-            }
-            if (runnablesIterator->hasThis() == false) {
-                runnablesIterator = listOfRunnables.iterator();
-            } 
-            running = runnablesIterator->get();
-            runnablesIterator->next();
-            if (running->getStatus() == Stopped) {
-                RuntimeFrame *f = (RuntimeFrame *)(running->getStackRoof() - (sizeof(RuntimeFrame) * 4));
-                if (link != 1) {
-                    *f = *((RuntimeFrame *)frame);
-                } else {
-                    syncRelease(this);
-                    return (void *)running->getRunnable();
-                }
-                f->PC = (uint32_t)running->getRunnable();
-                running->setStatus(Running);
-                syncRelease(this);
-                return (void *)f;
-            } 
             syncRelease(this);
             return (void *)running->getFrame();
         }
@@ -74,10 +84,11 @@ int SystemEventBurner2 (Runnable *);
            void *error = nullptr;
            this->allocator(heapStart, heapSize);
            addRunnable(SystemEventBurner, 0);
-           running = addRunnable(SystemEventBurner2, 0);
+           addRunnable(SystemEventBurner2, 0);
            running->setStatus(Stopped);
            runnablesIterator = listOfRunnables.iterator();
-           error = RuntimeStartup ((void *)((uint32_t)allocator.New(6024 * 4) + 6022 * 4));
+           error = RuntimeStartup (0, \
+                                    0 /*(void *)((uint32_t)allocator.New(4096 * 4) + 4040 * 4)*/);
         }
         
         Runnable *addRunnable (Runnable_t runnable, uint32_t args)
@@ -87,7 +98,7 @@ int SystemEventBurner2 (Runnable *);
             }
             Runnable *r = (Runnable *)((uint32_t)allocator.New(sizeof(Runnable) + (480 * 4)));
             (*r)(runnable, (uint32_t)r + sizeof(Runnable) + 478 * 4);
-            listOfRunnables.addFirst(r);
+            arrayOfRunnables[VReady].addFirst(r);
             syncRelease(this);
             return r;
         }

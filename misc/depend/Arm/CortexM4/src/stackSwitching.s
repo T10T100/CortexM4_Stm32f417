@@ -2,6 +2,7 @@
             EXPORT SysTick_Handler   
             EXPORT PendSV_Handler 
             EXPORT RuntimeStartup
+            EXPORT EnableFPU
                 
             AREA    |.text|, CODE, READONLY
      IMPORT StackSwitch   
@@ -9,16 +10,20 @@
      IMPORT RuntimeInit
 
 RuntimeStartup   FUNCTION
-                    ;MSR     MSP, R0
-                    BL      RuntimeInit
-                    MSR     PSP, R0 
+                    
+                    CPSID   I
+                    ;MSR     MSP, R1 
+                    BL      RuntimeInit 
                     MOV     R1, #1
-                    BL      StackSwitch                  
+                    BL      StackSwitch  
+                    MSR     PSP, R0                     
                     MOV     R1, #6
                     MSR     CONTROL, R1
-                    BX      R0
+                    CPSIE   I
+                    POP     {PC}
             ENDP
 SysTick_Handler  FUNCTION 
+                    CPSID   I
                     MRS     R0, PSP
                     STMDB   R0!, {R4-R11}
                     PUSH    {LR}  
@@ -26,56 +31,44 @@ SysTick_Handler  FUNCTION
                     BL      StackSwitch
                     LDMIA   R0!, {R4-R11}
                     MSR     PSP, R0
+                    CPSIE   I
                     POP     {PC}
             ENDP  
 PendSV_Handler  FUNCTION      
-                    PUSH    {R4}
-                    PUSH    {R5}
-                    PUSH    {R6}
-                    PUSH    {R7}
-                    PUSH    {R8}
-                    PUSH    {R9}
-                    PUSH    {R10}
-                    PUSH    {R11}
+                    MRS     R0, PSP
+                    STMDB   R0!, {R4-R11}
                     PUSH    {LR}  
-                    MRS     R0, MSP
-                    BL StackSwitchPSV
-                    MSR     MSP, R0 
-                    POP     {LR}
-                    POP     {R11}
-                    POP     {R10}
-                    POP     {R9}
-                    POP     {R8}
-                    POP     {R7}
-                    POP     {R6}
-                    POP     {R5}
-                    POP     {R4}     
-                    BX      LR
+                    MOV     R1, #0
+                    BL      StackSwitchPSV
+                    LDMIA   R0!, {R4-R11}
+                    MSR     PSP, R0
+                    POP     {PC}
             ENDP  
 SVC_Handler  FUNCTION      
-                    PUSH    {R4}
-                    PUSH    {R5}
-                    PUSH    {R6}
-                    PUSH    {R7}
-                    PUSH    {R8}
-                    PUSH    {R9}
-                    PUSH    {R10}
-                    PUSH    {R11}
+                    MRS     R0, PSP
+                    STMDB   R0!, {R4-R11}
                     PUSH    {LR}  
-                    MRS     R0, MSP
-                    BL StackSwitchPSV
-                    MSR     MSP, R0 
-                    POP     {LR}
-                    POP     {R11}
-                    POP     {R10}
-                    POP     {R9}
-                    POP     {R8}
-                    POP     {R7}
-                    POP     {R6}
-                    POP     {R5}
-                    POP     {R4}     
-                    BX      LR
+                    MOV     R1, #0
+                    BL      StackSwitchPSV
+                    LDMIA   R0!, {R4-R11}
+                    MSR     PSP, R0
+                    POP     {PC}
             ENDP 
+
+                
+EnableFPU   FUNCTION
+                    ; CPACR is located at address 0xE000ED88
+                    LDR R0, =0xE000ED88
+                    ; Read CPACR
+                    LDR R1, [R0]
+                    ; Set bits 20-23 to enable CP10 and CP11 coprocessors
+                    ORR R1, R1, #(0xF << 20)
+                    ; Write back the modified value to the CPACR
+                    STR R1, [R0]; wait for store to complete
+                    DSB
+                    ;reset pipeline now the FPU is enabled
+                    ISB
+            ENDP
             END
                 
                 

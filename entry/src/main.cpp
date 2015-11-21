@@ -25,7 +25,13 @@ ArrayList<TestClass> arrayList;
 
 uint32_t systemHeap[20000];
 
-
+int SystemEventBurner3 (Runnable *r)
+{
+    for (;;) {
+        device.enableBackLight(true);
+        HAL_Delay(700);
+    }
+}
 
 int main ()
 {
@@ -66,3 +72,19 @@ int main ()
 	return 0;
 }
 
+int SystemEventBurner (Runnable *r)
+{
+    runtime.addRunnable(SystemEventBurner3, 0);
+    for (;;) {
+        device.enableBackLight(true);
+        HAL_Delay(1000);
+    }
+}
+
+int SystemEventBurner2 (Runnable *r)
+{
+    for (;;) {
+        device.enableBackLight(false);
+        HAL_Delay(500);
+    }
+}

@@ -1,14 +1,17 @@
 
 #include "contextSwitching.h"
+#include "cpuControlBlock.h"
 
 extern void CMSIS_Tick();
 extern void *server(void *,int32_t);
 extern void *psalloc (uint32_t);
+extern SCB_CPUID readCpuId ();
 
 extern "C"
     void *RuntimeInit (void *p)
     {
-       return (void *)0x1000F000; 
+       SCB_CPUID cpuId =  readCpuId (); 
+       return (void *)0;
     }
 
 extern "C"

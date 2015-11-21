@@ -8,91 +8,87 @@ ARM Macro Assembler    Page 1
     2 00000000                 EXPORT           SysTick_Handler
     3 00000000                 EXPORT           PendSV_Handler
     4 00000000                 EXPORT           RuntimeStartup
-    5 00000000         
-    6 00000000                 AREA             |.text|, CODE, READONLY
-    7 00000000                 IMPORT           StackSwitch
-    8 00000000                 IMPORT           StackSwitchPSV
-    9 00000000                 IMPORT           RuntimeInit
-   10 00000000         
-   11 00000000         RuntimeStartup
+    5 00000000                 EXPORT           EnableFPU
+    6 00000000         
+    7 00000000                 AREA             |.text|, CODE, READONLY
+    8 00000000                 IMPORT           StackSwitch
+    9 00000000                 IMPORT           StackSwitchPSV
+   10 00000000                 IMPORT           RuntimeInit
+   11 00000000         
+   12 00000000         RuntimeStartup
                                FUNCTION
-   12 00000000         ;MSR     MSP, R0
-   13 00000000 F7FF FFFE       BL               RuntimeInit
-   14 00000004 F380 8809       MSR              PSP, R0
-   15 00000008 F04F 0101       MOV              R1, #1
-   16 0000000C F7FF FFFE       BL               StackSwitch
-   17 00000010 F04F 0106       MOV              R1, #6
-   18 00000014 F381 8814       MSR              CONTROL, R1
-   19 00000018 4700            BX               R0
-   20 0000001A                 ENDP
-   21 0000001A         SysTick_Handler
+   13 00000000         
+   14 00000000 B672            CPSID            I
+   15 00000002         ;MSR     MSP, R1 
+   16 00000002 F7FF FFFE       BL               RuntimeInit
+   17 00000006 F04F 0101       MOV              R1, #1
+   18 0000000A F7FF FFFE       BL               StackSwitch
+   19 0000000E F380 8809       MSR              PSP, R0
+   20 00000012 F04F 0106       MOV              R1, #6
+   21 00000016 F381 8814       MSR              CONTROL, R1
+   22 0000001A B662            CPSIE            I
+   23 0000001C BD00            POP              {PC}
+   24 0000001E                 ENDP
+   25 0000001E         SysTick_Handler
                                FUNCTION
-   22 0000001A F3EF 8009       MRS              R0, PSP
-   23 0000001E E920 0FF0       STMDB            R0!, {R4-R11}
-   24 00000022 B500            PUSH             {LR}
-   25 00000024 F04F 0100       MOV              R1, #0
-   26 00000028 F7FF FFFE       BL               StackSwitch
-   27 0000002C E8B0 0FF0       LDMIA            R0!, {R4-R11}
-   28 00000030 F380 8809       MSR              PSP, R0
-   29 00000034 BD00            POP              {PC}
-   30 00000036                 ENDP
-   31 00000036         PendSV_Handler
+   26 0000001E B672            CPSID            I
+   27 00000020 F3EF 8009       MRS              R0, PSP
+   28 00000024 E920 0FF0       STMDB            R0!, {R4-R11}
+   29 00000028 B500            PUSH             {LR}
+   30 0000002A F04F 0100       MOV              R1, #0
+   31 0000002E F7FF FFFE       BL               StackSwitch
+   32 00000032 E8B0 0FF0       LDMIA            R0!, {R4-R11}
+   33 00000036 F380 8809       MSR              PSP, R0
+   34 0000003A B662            CPSIE            I
+   35 0000003C BD00            POP              {PC}
+   36 0000003E                 ENDP
+   37 0000003E         PendSV_Handler
                                FUNCTION
-   32 00000036 B410            PUSH             {R4}
-   33 00000038 B420            PUSH             {R5}
-   34 0000003A B440            PUSH             {R6}
-   35 0000003C B480            PUSH             {R7}
-   36 0000003E F84D 8D04       PUSH             {R8}
-   37 00000042 F84D 9D04       PUSH             {R9}
-   38 00000046 F84D AD04       PUSH             {R10}
-   39 0000004A F84D BD04       PUSH             {R11}
-   40 0000004E B500            PUSH             {LR}
-   41 00000050 F3EF 8008       MRS              R0, MSP
-   42 00000054 F7FF FFFE       BL               StackSwitchPSV
-   43 00000058 F380 8808       MSR              MSP, R0
-   44 0000005C F85D EB04       POP              {LR}
-   45 00000060 F85D BB04       POP              {R11}
-   46 00000064 F85D AB04       POP              {R10}
-   47 00000068 F85D 9B04       POP              {R9}
-   48 0000006C F85D 8B04       POP              {R8}
-   49 00000070 BC80            POP              {R7}
-   50 00000072 BC40            POP              {R6}
-   51 00000074 BC20            POP              {R5}
-   52 00000076 BC10            POP              {R4}
-   53 00000078 4770            BX               LR
-   54 0000007A                 ENDP
-   55 0000007A         SVC_Handler
+   38 0000003E F3EF 8009       MRS              R0, PSP
+   39 00000042 E920 0FF0       STMDB            R0!, {R4-R11}
+   40 00000046 B500            PUSH             {LR}
+   41 00000048 F04F 0100       MOV              R1, #0
+   42 0000004C F7FF FFFE       BL               StackSwitchPSV
+   43 00000050 E8B0 0FF0       LDMIA            R0!, {R4-R11}
+   44 00000054 F380 8809       MSR              PSP, R0
+   45 00000058 BD00            POP              {PC}
+   46 0000005A                 ENDP
+   47 0000005A         SVC_Handler
                                FUNCTION
+   48 0000005A F3EF 8009       MRS              R0, PSP
+   49 0000005E E920 0FF0       STMDB            R0!, {R4-R11}
+   50 00000062 B500            PUSH             {LR}
+   51 00000064 F04F 0100       MOV              R1, #0
+   52 00000068 F7FF FFFE       BL               StackSwitchPSV
+   53 0000006C E8B0 0FF0       LDMIA            R0!, {R4-R11}
+   54 00000070 F380 8809       MSR              PSP, R0
+   55 00000074 BD00            POP              {PC}
 
 
 
 ARM Macro Assembler    Page 2 
 
 
-   56 0000007A B410            PUSH             {R4}
-   57 0000007C B420            PUSH             {R5}
-   58 0000007E B440            PUSH             {R6}
-   59 00000080 B480            PUSH             {R7}
-   60 00000082 F84D 8D04       PUSH             {R8}
-   61 00000086 F84D 9D04       PUSH             {R9}
-   62 0000008A F84D AD04       PUSH             {R10}
-   63 0000008E F84D BD04       PUSH             {R11}
-   64 00000092 B500            PUSH             {LR}
-   65 00000094 F3EF 8008       MRS              R0, MSP
-   66 00000098 F7FF FFFE       BL               StackSwitchPSV
-   67 0000009C F380 8808       MSR              MSP, R0
-   68 000000A0 F85D EB04       POP              {LR}
-   69 000000A4 F85D BB04       POP              {R11}
-   70 000000A8 F85D AB04       POP              {R10}
-   71 000000AC F85D 9B04       POP              {R9}
-   72 000000B0 F85D 8B04       POP              {R8}
-   73 000000B4 BC80            POP              {R7}
-   74 000000B6 BC40            POP              {R6}
-   75 000000B8 BC20            POP              {R5}
-   76 000000BA BC10            POP              {R4}
-   77 000000BC 4770            BX               LR
-   78 000000BE                 ENDP
-   79 000000BE                 END
+   56 00000076                 ENDP
+   57 00000076         
+   58 00000076         
+   59 00000076         EnableFPU
+                               FUNCTION
+   60 00000076         ; CPACR is located at address 0xE000ED88
+   61 00000076 4804            LDR              R0, =0xE000ED88
+   62 00000078         ; Read CPACR
+   63 00000078 6801            LDR              R1, [R0]
+   64 0000007A         ; Set bits 20-23 to enable CP10 and CP11 coprocessors
+   65 0000007A F441 0170       ORR              R1, R1, #(0xF << 20)
+   66 0000007E         ; Write back the modified value to the CPACR
+   67 0000007E 6001            STR              R1, [R0]    ; wait for store to
+                                                             complete
+   68 00000080 F3BF 8F4F       DSB
+   69 00000084         ;reset pipeline now the FPU is enabled
+   70 00000084 F3BF 8F6F       ISB
+   71 00000088                 ENDP
+   72 00000088                 END
+              E000ED88 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --apcs=int
 erwork --depend=.\objects\stackswitching.d -o.\objects\stackswitching.o -I.\mis
 c\inc -I..\platform -IE:\KeilProj\platform\RTE -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\
@@ -110,15 +106,23 @@ Relocatable symbols
 
 Symbol: .text
    Definitions
-      At line 6 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
+      At line 7 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
    Uses
       None
 Comment: .text unused
-PendSV_Handler 00000036
+EnableFPU 00000076
+
+Symbol: EnableFPU
+   Definitions
+      At line 59 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
+   Uses
+      At line 5 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
+Comment: EnableFPU used once
+PendSV_Handler 0000003E
 
 Symbol: PendSV_Handler
    Definitions
-      At line 31 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
+      At line 37 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
    Uses
       At line 3 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
 Comment: PendSV_Handler used once
@@ -126,27 +130,27 @@ RuntimeStartup 00000000
 
 Symbol: RuntimeStartup
    Definitions
-      At line 11 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
+      At line 12 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
    Uses
       At line 4 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
 Comment: RuntimeStartup used once
-SVC_Handler 0000007A
+SVC_Handler 0000005A
 
 Symbol: SVC_Handler
    Definitions
-      At line 55 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
+      At line 47 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
    Uses
       None
 Comment: SVC_Handler unused
-SysTick_Handler 0000001A
+SysTick_Handler 0000001E
 
 Symbol: SysTick_Handler
    Definitions
-      At line 21 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
+      At line 25 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
    Uses
       At line 2 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
 Comment: SysTick_Handler used once
-5 symbols
+6 symbols
 
 
 
@@ -157,27 +161,27 @@ RuntimeInit 00000000
 
 Symbol: RuntimeInit
    Definitions
-      At line 9 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
+      At line 10 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
    Uses
-      At line 13 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
+      At line 16 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
 Comment: RuntimeInit used once
 StackSwitch 00000000
 
 Symbol: StackSwitch
    Definitions
-      At line 7 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
+      At line 8 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
    Uses
-      At line 16 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
-      At line 26 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
+      At line 18 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
+      At line 31 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
 
 StackSwitchPSV 00000000
 
 Symbol: StackSwitchPSV
    Definitions
-      At line 8 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
+      At line 9 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
    Uses
       At line 42 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
-      At line 66 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
+      At line 52 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
 
 3 symbols
-343 symbols in table
+346 symbols in table

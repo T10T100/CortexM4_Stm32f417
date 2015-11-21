@@ -128,7 +128,7 @@ template <typename Vector, typename Object>
 			}
 			
 			
-			Object &remove (Object &o)
+			Object *remove (Object &o)
 			{
                 DefaultArrayListNode<ArrayList<Object>, Object> *iterator = this->firstNode;
                 while (iterator != nullptr && (iterator->getUserObject() != &o)) {
@@ -137,23 +137,25 @@ template <typename Vector, typename Object>
                 if (iterator != nullptr) {
                     this->removeBase(*iterator);
                 }
-                delete(iterator);
-                return o;
+                this->Delete(iterator);
+                return &o;
 			}
             
-			Object &remove (Object *object)
+			Object *remove (Object *object)
 			{
-				return this->remove(object);
+				return this->remove(*object);
 			}
 			
-			Object &removeFirst ()
+			Object *removeFirst ()
 			{
-				return this->remove(this->firstNode);
+                this->Delete(this->firstNode);
+				return this->removeBase(this->firstNode)->getUserObject();
 			}
 			
-			Object &removeLast (Object &object)
+			Object *removeLast ()
 			{
-				return this->remove(this->lastNode);
+                 this->Delete(this->lastNode);
+				return this->removeBase(this->lastNode)->getUserObject();
 			}
 			
 			void removeAll ()
@@ -225,7 +227,7 @@ template <typename Vector, typename Object>
                     node.prevLink = j;
                     return node;					
                 }  
-                DefaultArrayListNode<ArrayList<Object>, Object> &addFirstBase (DefaultArrayListNode<ArrayList<Object>, Object> &node)
+                DefaultArrayListNode<ArrayList<Object>, Object> *addFirstBase (DefaultArrayListNode<ArrayList<Object>, Object> &node)
                 {
                         this->elementCount++;
                         DefaultArrayListNode<ArrayList<Object>, Object> *i;
@@ -234,22 +236,22 @@ template <typename Vector, typename Object>
                             this->lastNode = &node;
                             node.nextLink = nullptr;
                             node.prevLink = nullptr;
-                            return node;
+                            return &node;
                         }
                         i = this->firstNode;
                         node.nextLink = i;
                         node.prevLink = nullptr;
                         i->prevLink = &node;
                         this->firstNode = &node;
-                        return node;				
+                        return &node;				
                 }
-                DefaultArrayListNode<ArrayList<Object>, Object>&addLastBase (DefaultArrayListNode<ArrayList<Object>, Object> &node)
+                DefaultArrayListNode<ArrayList<Object>, Object> *addLastBase (DefaultArrayListNode<ArrayList<Object>, Object> *node)
                 {
                     this->elementCount++;
                     DefaultArrayListNode<ArrayList<Object>, Object> *i;
                     if (this->firstNode == nullptr) {
-                        this->firstNode = &node;
-                        this->lastNode = &node;
+                        this->firstNode = node;
+                        this->lastNode = node;
                         node->nextLink = nullptr;
                         node->prevLink = nullptr;
                         return node;
@@ -257,17 +259,17 @@ template <typename Vector, typename Object>
                     i = this->lastNode;
                     node->prevLink = i;
                     node->nextLink = nullptr;
-                    i->netLink = node;
+                    i->nextLink = node;
                     this->lastNode = node;			
                     return node;
                 }
-                DefaultArrayListNode<ArrayList<Object>, Object> &removeBase (DefaultArrayListNode<ArrayList<Object>, Object> &node)
+                DefaultArrayListNode<ArrayList<Object>, Object> *removeBase (DefaultArrayListNode<ArrayList<Object>, Object> *node)
                 {
                     if (this->elementCount <= 0){
                         return node;
                     }
                     this->elementCount--;
-                    DefaultArrayListNode<ArrayList<Object>, Object> *l = node.prevLink,*r = node.nextLink;
+                    DefaultArrayListNode<ArrayList<Object>, Object> *l = node->prevLink,*r = node->nextLink;
                     if (!l&&!r) {
                         this->firstNode = nullptr;
                         this->lastNode = nullptr;
@@ -286,7 +288,7 @@ template <typename Vector, typename Object>
                         r->prevLink = l;
                     }	
                     return node;
-                }                
+                }    
                 
                 uint32_t elementCount;
                 DefaultArrayListNode<ArrayList<Object>, Object> *firstNode;

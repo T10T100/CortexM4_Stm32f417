@@ -53,7 +53,7 @@ template <typename Object>
                     i = this->firstNode;
                     j = nullptr;
                     while (i != nullptr) {
-                        if (i->equals(item)) {
+                        if (i->equals(item) == false) {
                             j = i;
                             i = i->nextLink;
                             continue;
