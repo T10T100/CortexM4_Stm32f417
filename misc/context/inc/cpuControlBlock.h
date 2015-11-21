@@ -30,11 +30,19 @@ typedef struct SCB_AdressSpace__ {
 
 /**/
 enum SCB_CPUID_bm {
+<<<<<<< HEAD
     Implementer  = (0xFF    << 24),
     Variant      = (0xF     << 20),
     Constant     = (0xF     << 16), 
     PartNo       = (0xFFF   << 4),
     Revision     = (0xF     << 0),
+=======
+    Implementer  = (0xFF << 23),
+    Variant      = (0xF << 19),
+    Constant     = (0xF << 15), 
+    PartNo       = (0xFFF << 3),
+    Revision     = (0xF << 0),
+>>>>>>> remotes/master/master
     ImplementerBp  = (24),
     VariantGp      = (20),
     ConstantGp     = (16), 
@@ -53,8 +61,13 @@ typedef struct {
 
 /**/
 enum SCB_VTOR_bm {
+<<<<<<< HEAD
     TBLOFF  = ((0xFFFFFF | (1 << 8)) << 8),
     TBLOFFgp   = (8),
+=======
+    TBLOFF  = ((0xFFFFFF | (1 << 7)) << 7),
+    TBLOFFgp   = (7),
+>>>>>>> remotes/master/master
     ReservedGp = 20,
 };
 typedef struct {
@@ -65,13 +78,21 @@ typedef struct {
 
 /**/
 enum SCB_AIRCR_bm {
+<<<<<<< HEAD
     VECTKEYSTAT   = (0xFFFF  << 16),
+=======
+    VECTKEYSTAT   = (0xFFFF  << 15),
+>>>>>>> remotes/master/master
     ENDIANNESS    = (1 << 15),
     PRIGROUP      = (3 << 7),
     SYSRESETREQ   = (1 << 2),
     VECTCLRACTIVE = (1 << 1),
     VECTRESET     = (1 << 0),
+<<<<<<< HEAD
     VECTKEYSTATgp   = (16),
+=======
+    VECTKEYSTATgp   = (15),
+>>>>>>> remotes/master/master
     ENDIANNESSgp    = (15),
     PRIGROUPgp      = (8),
     SYSRESETREQgp   = (2),
@@ -137,8 +158,13 @@ typedef struct {
 
 /**/
 enum SCB_SHPR1_bm {
+<<<<<<< HEAD
     PRI_6       = (0xFF << 16),
     PRI_5       = (0xFF << 8),
+=======
+    PRI_6       = (0xFF << 15),
+    PRI_5       = (0xFF << 7),
+>>>>>>> remotes/master/master
     PRI_4       = (0xFF << 0),
     PRI_6gp       = (16),
     PRI_5gp       = (8),
@@ -155,7 +181,11 @@ typedef struct {
 
 /**/
 enum SCB_SHPR2_bm {
+<<<<<<< HEAD
     PRI_11       = (0xFF << 24),
+=======
+    PRI_11       = (0xFF << 23),
+>>>>>>> remotes/master/master
     PRI_11gp       = (24),
 };
 typedef struct {
@@ -167,10 +197,17 @@ typedef struct {
 
 /**/
 enum SCB_SHPR3_bm {
+<<<<<<< HEAD
     PRI_15       = (0xFF << 24),
     PRI_14       = (0xFF << 16),
     PRI_15gp       = (24),
     PRI_14gp       = (16),
+=======
+    PRI_15       = (0xFF << 23),
+    PRI_14       = (0xFF << 15),
+    PRI_15gp       = (23),
+    PRI_14gp       = (15),
+>>>>>>> remotes/master/master
 };
 typedef struct {
     uint32_t PRI_15; 
@@ -236,8 +273,13 @@ typedef struct {
 
 /**/
 enum SCB_CFSR_bm {
+<<<<<<< HEAD
     UFSR       = (0xFFFF << 16),
     BFSR      = (0xFF << 8),
+=======
+    UFSR       = (0xFFFF << 15),
+    BFSR      = (0xFF << 7),
+>>>>>>> remotes/master/master
     MMFSR      = (0xFF << 0),
     UFSRgp       = (16),
     BFSRgp      = (8),
@@ -276,7 +318,11 @@ enum SCB_ICSR_bm {
     PENDSTSET   = (1 << 26),
     PENDSTCLR   = (1 << 25),
     ISRPENDING  = (1 << 22),
+<<<<<<< HEAD
     VECTPENDING = (0x3F << 12),
+=======
+    VECTPENDING = (0x3F << 11),
+>>>>>>> remotes/master/master
     RETTOBASE   = (1 << 1),
     VECTACTIVE  = (0xFF << 0),
     NMIPENDSETgp  = (31),

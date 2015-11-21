@@ -26,6 +26,51 @@ Project File Date:  11/21/2015
 
 <h2>Output:</h2>
 Build target 'Target 1'
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+compiling cpuControlBlock.c...
+.\misc\context\inc\cpuControlBlock.h(256): warning:  #61-D: integer operation result is out of range
+      DEBUGEVT       = (1 << 31),
+.\misc\context\inc\cpuControlBlock.h(273): warning:  #61-D: integer operation result is out of range
+      NMIPENDSET  = (1 << 31),
+misc\depend\Arm\CortexM4\src\cpuControlBlock.c(225): warning:  #3630-D: invalid narrowing conversion from "unsigned int" to "signed int"
+          off & USGFAULTENA,
+misc\depend\Arm\CortexM4\src\cpuControlBlock.c(226): warning:  #3630-D: invalid narrowing conversion from "unsigned int" to "signed int"
+          off & BUSFAULTENA,
+misc\depend\Arm\CortexM4\src\cpuControlBlock.c(227): warning:  #3630-D: invalid narrowing conversion from "unsigned int" to "signed int"
+          off & MEMFAULTENA,
+misc\depend\Arm\CortexM4\src\cpuControlBlock.c(228): warning:  #3630-D: invalid narrowing conversion from "unsigned int" to "signed int"
+          off & BUSFAULTPENDED,
+misc\depend\Arm\CortexM4\src\cpuControlBlock.c(229): warning:  #3630-D: invalid narrowing conversion from "unsigned int" to "signed int"
+          off & MEMFAULTPENDED,
+misc\depend\Arm\CortexM4\src\cpuControlBlock.c(230): warning:  #3630-D: invalid narrowing conversion from "unsigned int" to "signed int"
+          off & USGFAULTPENDED,
+misc\depend\Arm\CortexM4\src\cpuControlBlock.c(231): warning:  #3630-D: invalid narrowing conversion from "unsigned int" to "signed int"
+          off & SYSTICKACT,
+misc\depend\Arm\CortexM4\src\cpuControlBlock.c(232): warning:  #3630-D: invalid narrowing conversion from "unsigned int" to "signed int"
+          off & PENDSVACT,
+misc\depend\Arm\CortexM4\src\cpuControlBlock.c(233): warning:  #3630-D: invalid narrowing conversion from "unsigned int" to "signed int"
+          off & Reserved,
+misc\depend\Arm\CortexM4\src\cpuControlBlock.c(234): warning:  #3630-D: invalid narrowing conversion from "unsigned int" to "signed int"
+          off & MONITORACT,
+misc\depend\Arm\CortexM4\src\cpuControlBlock.c(235): warning:  #3630-D: invalid narrowing conversion from "unsigned int" to "signed int"
+          off & SVCALLACT,
+misc\depend\Arm\CortexM4\src\cpuControlBlock.c(236): warning:  #3630-D: invalid narrowing conversion from "unsigned int" to "signed int"
+          off & BUSFAULTACT,
+misc\depend\Arm\CortexM4\src\cpuControlBlock.c(237): warning:  #3630-D: invalid narrowing conversion from "unsigned int" to "signed int"
+          off & MEMFAULTACT,
+misc\depend\Arm\CortexM4\src\cpuControlBlock.c(298): warning:  #68-D: integer conversion resulted in a change of sign
+          off & DEBUGEVT,
+misc\depend\Arm\CortexM4\src\cpuControlBlock.c(307): warning:  #68-D: integer conversion resulted in a change of sign
+                          ((v.DEBUGEVT        & DEBUGEVT)          << DEBUGEVTgp) | \
+misc\depend\Arm\CortexM4\src\cpuControlBlock.c: 17 warnings, 0 errors
+linking...
+Program Size: Code=10162 RO-data=778 RW-data=44 ZI-data=82336  
+FromELF: creating hex file...
+".\Objects\platform.axf" - 0 Error(s), 17 Warning(s).
+=======
+>>>>>>> remotes/master/master
 compiling main.cpp...
 .\misc\inc\ArrayList.h(34): warning:  #794-D: template parameter "List" may not be used in an elaborated type specifier
           friend class List;
@@ -39,6 +84,7 @@ compiling main.cpp...
              void *error = nullptr;
 entry\src\main.cpp(72): warning:  #111-D: statement is unreachable
         return 0;
+<<<<<<< HEAD
 entry\src\main.cpp(90): warning:  #1-D: last line of file ends without a newline
   }
 entry\src\main.cpp: 7 warnings, 0 errors
@@ -46,6 +92,38 @@ linking...
 Program Size: Code=10726 RO-data=778 RW-data=120 ZI-data=82436  
 FromELF: creating hex file...
 ".\Objects\platform.axf" - 0 Error(s), 7 Warning(s).
+=======
+entry\src\main.cpp: 6 warnings, 0 errors
+compiling device.cpp...
+.\misc\inc\ArrayList.h(34): warning:  #794-D: template parameter "List" may not be used in an elaborated type specifier
+          friend class List;
+.\misc\inc\ArrayList.h(50): warning:  #794-D: template parameter "Vector" may not be used in an elaborated type specifier
+          friend class Vector;
+.\misc\inc\ArrayList.h(328): warning:  #940-D: missing return statement at end of non-void function "Iterator<Vector, Object>::next"
+          }
+.\gui\inc\graphicFrameClass.h(32): warning:  #794-D: template parameter "Factory" may not be used in an elaborated type specifier
+          friend class Factory;
+.\misc\context\inc\VM.h(74): warning:  #550-D: variable "error" was set but never used
+             void *error = nullptr;
+hardware\src\device.cpp: 5 warnings, 0 errors
+compiling VM.cpp...
+.\misc\inc\ArrayList.h(34): warning:  #794-D: template parameter "List" may not be used in an elaborated type specifier
+          friend class List;
+.\misc\inc\ArrayList.h(50): warning:  #794-D: template parameter "Vector" may not be used in an elaborated type specifier
+          friend class Vector;
+.\misc\inc\ArrayList.h(328): warning:  #940-D: missing return statement at end of non-void function "Iterator<Vector, Object>::next"
+          }
+.\gui\inc\graphicFrameClass.h(32): warning:  #794-D: template parameter "Factory" may not be used in an elaborated type specifier
+          friend class Factory;
+.\misc\context\inc\VM.h(74): warning:  #550-D: variable "error" was set but never used
+             void *error = nullptr;
+misc\context\src\VM.cpp: 5 warnings, 0 errors
+linking...
+Program Size: Code=10162 RO-data=778 RW-data=44 ZI-data=82336  
+FromELF: creating hex file...
+".\Objects\platform.axf" - 0 Error(s), 16 Warning(s).
+>>>>>>> remotes/master/master
+>>>>>>> remotes/master/master
 
 <h2>Software Packages used:</h2>
 

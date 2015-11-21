@@ -32,11 +32,19 @@ SCB_CPUID readCpuId ()
 {
     uint32_t id = *(uint32_t *)ScbAdressSpace.SCB_CPUID;
     SCB_CPUID s = {
+<<<<<<< HEAD
         (id & Implementer) >> ImplementerBp,
         (id & Variant)     >> VariantGp,
         (id & Constant)    >> ConstantGp,
         (id & PartNo)      >> PartNoGp,
         (id & Revision)    >> RevisionGp
+=======
+        id & Implementer,
+        id & Variant,
+        id & Constant,
+        id & PartNo,
+        id & Revision
+>>>>>>> remotes/master/master
     };
     return s;
 }

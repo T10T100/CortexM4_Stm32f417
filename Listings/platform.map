@@ -988,6 +988,12 @@ Section Cross References
     vm.o(i._Z6serverPvi) refers to vm.o(i._ZN7Runtime13manageThreadsEPvi) for Runtime::manageThreads(void*, int)
     vm.o(i._Z6serverPvi) refers to device.o(.bss) for runtime
     vm.o(.ARM.exidx) refers to vm.o(i._Z6serverPvi) for i._Z6serverPvi
+<<<<<<< HEAD
+=======
+    vm.o(.ARM.exidx) refers to vm.o(i._Z17SystemEventBurnerP8Runnable) for i._Z17SystemEventBurnerP8Runnable
+    vm.o(.ARM.exidx) refers to vm.o(i._Z18SystemEventBurner2P8Runnable) for i._Z18SystemEventBurner2P8Runnable
+<<<<<<< HEAD
+>>>>>>> remotes/master/master
     cpucontrolblock.o(i._Z10writeAirCr9SCB_AIRCR) refers to cpucontrolblock.o(.data) for ScbAdressSpace
     cpucontrolblock.o(i._Z10writeShcrs9SCB_SHCRS) refers to cpucontrolblock.o(.data) for ScbAdressSpace
     cpucontrolblock.o(i._Z10writeShpr19SCB_SHPR1) refers to cpucontrolblock.o(.data) for ScbAdressSpace
@@ -1036,6 +1042,11 @@ Section Cross References
     cpucontrolblock.o(.ARM.exidx) refers to cpucontrolblock.o(i._Z9writeCfsr8SCB_CFSR) for i._Z9writeCfsr8SCB_CFSR
     cpucontrolblock.o(.ARM.exidx) refers to cpucontrolblock.o(i._Z8readHfsrv) for i._Z8readHfsrv
     cpucontrolblock.o(.ARM.exidx) refers to cpucontrolblock.o(i._Z9writeHfsr8SCB_HFSR) for i._Z9writeHfsr8SCB_HFSR
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> remotes/master/master
+>>>>>>> remotes/master/master
     rt_errno_addr.o(.text) refers to rt_errno_addr.o(.bss) for __aeabi_errno_addr_data
     rt_errno_addr_intlibspace.o(.text) refers to libspace.o(.bss) for __libspace_start
     __main.o(!!!main) refers to __rtentry.o(.ARM.Collect$$rtentry$$00000000) for __rt_entry
@@ -2753,7 +2764,12 @@ Removing Unused input sections from the image.
     Removing vm.o(.rrx_text), (6 bytes).
     Removing vm.o(.ARM.exidx), (8 bytes).
     Removing vm.o(.bss), (20 bytes).
+<<<<<<< HEAD
     Removing cpucontrolblock.o(i._Z10writeAirCr9SCB_AIRCR), (72 bytes).
+=======
+<<<<<<< HEAD
+    Removing cpucontrolblock.o(i._Z10writeAirCr9SCB_AIRCR), (76 bytes).
+>>>>>>> remotes/master/master
     Removing cpucontrolblock.o(i._Z10writeCpuId9SCB_CPUID), (4 bytes).
     Removing cpucontrolblock.o(i._Z10writeShcrs9SCB_SHCRS), (156 bytes).
     Removing cpucontrolblock.o(i._Z10writeShpr19SCB_SHPR1), (36 bytes).
@@ -2796,7 +2812,13 @@ Removing Unused input sections from the image.
     Removing cpucontrolblock.o(.ARM.exidx), (8 bytes).
     Removing cpucontrolblock.o(.ARM.exidx), (8 bytes).
     Removing cpucontrolblock.o(.ARM.exidx), (8 bytes).
+<<<<<<< HEAD
     Removing main.o(.ARM.exidx), (8 bytes).
+=======
+    Removing cpucontrolblock.o(.data), (76 bytes).
+=======
+>>>>>>> remotes/master/master
+>>>>>>> remotes/master/master
     Removing main.o(i._ZN6StringD1Ev), (36 bytes).
     Removing main.o(.ARM.exidx), (8 bytes).
     Removing main.o(.ARM.exidx), (8 bytes).
@@ -2914,7 +2936,15 @@ Removing Unused input sections from the image.
     Removing vm.o(.ARM.exidx), (8 bytes).
     Removing vm.o(.ARM.exidx), (8 bytes).
 
+<<<<<<< HEAD
 1137 unused section(s) (total 63573 bytes) removed from the image.
+=======
+<<<<<<< HEAD
+1139 unused section(s) (total 63977 bytes) removed from the image.
+=======
+1094 unused section(s) (total 62581 bytes) removed from the image.
+>>>>>>> remotes/master/master
+>>>>>>> remotes/master/master
 
 ==============================================================================
 
@@ -2982,14 +3012,25 @@ Image Symbol Table
     ../clib/armsys.c                         0x00000000   Number         0  argv_veneer.o ABSOLUTE
     ../clib/heap1.c                          0x00000000   Number         0  h1_init.o ABSOLUTE
     ../clib/heap1.c                          0x00000000   Number         0  h1_extend_mt.o ABSOLUTE
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    ../clib/heap2.c                          0x00000000   Number         0  heap2mt.o ABSOLUTE
+=======
+    ../clib/heap1.c                          0x00000000   Number         0  h1_final_mt.o ABSOLUTE
+>>>>>>> remotes/master/master
     ../clib/heap1.c                          0x00000000   Number         0  h1_extend.o ABSOLUTE
     ../clib/heap1.c                          0x00000000   Number         0  h1_alloc.o ABSOLUTE
     ../clib/heap1.c                          0x00000000   Number         0  h1_final_mt.o ABSOLUTE
     ../clib/heap1.c                          0x00000000   Number         0  h1_final.o ABSOLUTE
+<<<<<<< HEAD
     ../clib/heap1.c                          0x00000000   Number         0  h1_init_mt.o ABSOLUTE
     ../clib/heap1.c                          0x00000000   Number         0  h1_free.o ABSOLUTE
     ../clib/heap1.c                          0x00000000   Number         0  h1_alloc_mt.o ABSOLUTE
     ../clib/heap1.c                          0x00000000   Number         0  h1_free_mt.o ABSOLUTE
+=======
+>>>>>>> remotes/master/master
+>>>>>>> remotes/master/master
     ../clib/heap2.c                          0x00000000   Number         0  fdtree.o ABSOLUTE
     ../clib/heap2.c                          0x00000000   Number         0  heap2.o ABSOLUTE
     ../clib/heap2.c                          0x00000000   Number         0  heap2mt.o ABSOLUTE
@@ -3154,6 +3195,7 @@ Image Symbol Table
     .emb_text                                0x08000234   Section        0  maybetermalloc1.o(.emb_text)
     .text                                    0x08000234   Section      140  stackswitching.o(.text)
     $v0                                      0x08000234   Number         0  stackswitching.o(.text)
+<<<<<<< HEAD
     .text                                    0x080002c0   Section       64  startup_stm32f417xx.o(.text)
     $v0                                      0x080002c0   Number         0  startup_stm32f417xx.o(.text)
     .text                                    0x08000300   Section        8  rt_errno_addr_intlibspace.o(.text)
@@ -3348,6 +3390,197 @@ Image Symbol Table
     .init_array                              0x08002ce8   Section        4  main.o(.init_array)
     .init_array                              0x08002cec   Section        4  device.o(.init_array)
     .init_array                              0x08002cf0   Section        0  init_aeabi.o(.init_array)
+=======
+    .text                                    0x080002f4   Section       64  startup_stm32f417xx.o(.text)
+    $v0                                      0x080002f4   Number         0  startup_stm32f417xx.o(.text)
+    .text                                    0x08000334   Section        8  rt_errno_addr_intlibspace.o(.text)
+    .text                                    0x0800033c   Section        0  strlen.o(.text)
+    .text                                    0x0800037a   Section      100  rt_memcpy_w.o(.text)
+    .text                                    0x080003de   Section        0  heapauxi.o(.text)
+    .text                                    0x080003e4   Section        0  init_aeabi.o(.text)
+    .text                                    0x08000408   Section        8  libspace.o(.text)
+    .text                                    0x08000410   Section        8  rt_new_handler_addr_intlibspace.o(.text)
+    .text                                    0x08000418   Section        0  h1_alloc.o(.text)
+    .text                                    0x08000476   Section        0  h1_free.o(.text)
+    .text                                    0x080004c4   Section        0  arm_newhandler_noexceptions.o(.text)
+    .text                                    0x080004c8   Section        8  rt_heap_descriptor_intlibspace.o(.text)
+    .text                                    0x080004d0   Section        0  hguard.o(.text)
+    .text                                    0x080004d4   Section        0  init_alloc.o(.text)
+    .text                                    0x0800055e   Section        0  h1_init.o(.text)
+    .text                                    0x0800056c   Section        0  arm_exceptions_terminate.o(.text)
+    .text                                    0x08000588   Section        0  arm_exceptions_globs.o(.text)
+    [local to arm_exceptions_c]::__default_terminate_handler() 0x08000589   Thumb Code     6  arm_exceptions_globs.o(.text)
+    .text                                    0x080005d8   Section       74  sys_stackheap_outer.o(.text)
+    .text                                    0x08000624   Section        8  rt_eh_globals_addr_intlibspace.o(.text)
+    .text                                    0x0800062c   Section        0  h1_extend.o(.text)
+    .text                                    0x08000660   Section        0  exit.o(.text)
+    .text                                    0x0800066c   Section        0  abort.o(.text)
+    .text                                    0x0800067c   Section        0  defsig_rtmem_outer.o(.text)
+    .text                                    0x0800068a   Section        0  arm_exceptions_mem.o(.text)
+    .text                                    0x080006c8   Section        0  sys_exit.o(.text)
+    .text                                    0x080006d4   Section        2  use_no_semi.o(.text)
+<<<<<<< HEAD
+    .text                                    0x080006d6   Section        0  defsig_exit.o(.text)
+    .text                                    0x080006d6   Section        0  indicate_semi.o(.text)
+=======
+    .text                                    0x080006d6   Section        0  indicate_semi.o(.text)
+    .text                                    0x080006d6   Section        0  defsig_exit.o(.text)
+>>>>>>> remotes/master/master
+    .text                                    0x080006e0   Section        0  defsig_abrt_outer.o(.text)
+    .text                                    0x080006f0   Section        0  defsig_rtmem_inner.o(.text)
+    .text                                    0x08000740   Section        0  defsig_general.o(.text)
+    .text                                    0x08000774   Section        0  defsig_abrt_inner.o(.text)
+    .text                                    0x080007a4   Section        0  sys_wrch.o(.text)
+    i.BusFault_Handler                       0x080007b2   Section        0  stm32f4xx_it.o(i.BusFault_Handler)
+    i.DebugMon_Handler                       0x080007b6   Section        0  stm32f4xx_it.o(i.DebugMon_Handler)
+    i.EXTI0_IRQHandler                       0x080007b8   Section        0  stm32f4xx_it.o(i.EXTI0_IRQHandler)
+    i.FSMC_NORSRAM_Extended_Timing_Init      0x080007ba   Section        0  stm32f4xx_ll_fsmc.o(i.FSMC_NORSRAM_Extended_Timing_Init)
+    i.FSMC_NORSRAM_Init                      0x0800080c   Section        0  stm32f4xx_ll_fsmc.o(i.FSMC_NORSRAM_Init)
+    i.FSMC_NORSRAM_Timing_Init               0x08000864   Section        0  stm32f4xx_ll_fsmc.o(i.FSMC_NORSRAM_Timing_Init)
+    i.HAL_DMA_Init                           0x080008a8   Section        0  stm32f4xx_hal_dma.o(i.HAL_DMA_Init)
+    i.HAL_Delay                              0x08000924   Section        0  stm32f4xx_hal.o(i.HAL_Delay)
+    i.HAL_GPIO_Init                          0x08000940   Section        0  stm32f4xx_hal_gpio.o(i.HAL_GPIO_Init)
+    i.HAL_GetREVID                           0x08000b48   Section        0  stm32f4xx_hal.o(i.HAL_GetREVID)
+    i.HAL_GetTick                            0x08000b54   Section        0  stm32f4xx_hal.o(i.HAL_GetTick)
+    i.HAL_IncTick                            0x08000b60   Section        0  stm32f4xx_hal.o(i.HAL_IncTick)
+    i.HAL_Init                               0x08000b70   Section        0  stm32f4xx_hal.o(i.HAL_Init)
+    i.HAL_InitTick                           0x08000ba0   Section        0  stm32f4xx_hal.o(i.HAL_InitTick)
+    i.HAL_MspInit                            0x08000bc4   Section        0  stm32f4xx_hal.o(i.HAL_MspInit)
+    i.HAL_NVIC_SetPriority                   0x08000bc6   Section        0  stm32f4xx_hal_cortex.o(i.HAL_NVIC_SetPriority)
+    i.HAL_NVIC_SetPriorityGrouping           0x08000c44   Section        0  stm32f4xx_hal_cortex.o(i.HAL_NVIC_SetPriorityGrouping)
+    i.HAL_RCC_ClockConfig                    0x08000c6c   Section        0  stm32f4xx_hal_rcc.o(i.HAL_RCC_ClockConfig)
+    i.HAL_RCC_GetHCLKFreq                    0x08000f1c   Section        0  stm32f4xx_hal_rcc.o(i.HAL_RCC_GetHCLKFreq)
+    i.HAL_RCC_GetSysClockFreq                0x08000f54   Section        0  stm32f4xx_hal_rcc.o(i.HAL_RCC_GetSysClockFreq)
+    i.HAL_RCC_OscConfig                      0x08001008   Section        0  stm32f4xx_hal_rcc.o(i.HAL_RCC_OscConfig)
+    i.HAL_SRAM_Init                          0x08001408   Section        0  stm32f4xx_hal_sram.o(i.HAL_SRAM_Init)
+    i.HAL_SRAM_MspInit                       0x08001460   Section        0  stm32f4xx_hal_sram.o(i.HAL_SRAM_MspInit)
+    i.HAL_SYSTICK_Config                     0x08001462   Section        0  stm32f4xx_hal_cortex.o(i.HAL_SYSTICK_Config)
+    i.HAL_TIMEx_BreakCallback                0x08001496   Section        0  stm32f4xx_hal_tim_ex.o(i.HAL_TIMEx_BreakCallback)
+    i.HAL_TIMEx_CommutationCallback          0x08001498   Section        0  stm32f4xx_hal_tim_ex.o(i.HAL_TIMEx_CommutationCallback)
+    i.HAL_TIM_IC_CaptureCallback             0x0800149a   Section        0  stm32f4xx_hal_tim.o(i.HAL_TIM_IC_CaptureCallback)
+    i.HAL_TIM_IRQHandler                     0x0800149c   Section        0  stm32f4xx_hal_tim.o(i.HAL_TIM_IRQHandler)
+    i.HAL_TIM_OC_DelayElapsedCallback        0x08001632   Section        0  stm32f4xx_hal_tim.o(i.HAL_TIM_OC_DelayElapsedCallback)
+    i.HAL_TIM_PWM_PulseFinishedCallback      0x08001634   Section        0  stm32f4xx_hal_tim.o(i.HAL_TIM_PWM_PulseFinishedCallback)
+    i.HAL_TIM_PeriodElapsedCallback          0x08001636   Section        0  stm32f4xx_hal_tim.o(i.HAL_TIM_PeriodElapsedCallback)
+    i.HAL_TIM_TriggerCallback                0x08001638   Section        0  stm32f4xx_hal_tim.o(i.HAL_TIM_TriggerCallback)
+    i.HardFault_Handler                      0x0800163a   Section        0  stm32f4xx_it.o(i.HardFault_Handler)
+    i.MemManage_Handler                      0x0800163e   Section        0  stm32f4xx_it.o(i.MemManage_Handler)
+    i.NMI_Handler                            0x08001642   Section        0  stm32f4xx_it.o(i.NMI_Handler)
+    i.RuntimeInit                            0x08001644   Section        0  contextswitching.o(i.RuntimeInit)
+    i.StackSwitch                            0x08001650   Section        0  contextswitching.o(i.StackSwitch)
+    i.StackSwitchPSV                         0x08001664   Section        0  contextswitching.o(i.StackSwitchPSV)
+    i.SystemInit                             0x08001668   Section        0  system_stm32f4xx.o(i.SystemInit)
+    i.TIM1_UP_TIM10_IRQHandler               0x080016cc   Section        0  stm32f4xx_it.o(i.TIM1_UP_TIM10_IRQHandler)
+    i.TIM2_IRQHandler                        0x080016dc   Section        0  stm32f4xx_it.o(i.TIM2_IRQHandler)
+    i.UsageFault_Handler                     0x080016ec   Section        0  stm32f4xx_it.o(i.UsageFault_Handler)
+    i._Z10CMSIS_Tickv                        0x080016f0   Section        0  device.o(i._Z10CMSIS_Tickv)
+    i._Z11ClockEnablev                       0x080016f8   Section        0  init.o(i._Z11ClockEnablev)
+    i._Z13DEV_Gpio_InitP12GPIO_TypeDefijj    0x080018a0   Section        0  gpio_ex.o(i._Z13DEV_Gpio_InitP12GPIO_TypeDefijj)
+    i._Z13Error_Handlerv                     0x080018cc   Section        0  init.o(i._Z13Error_Handlerv)
+    i._Z16DEV_AltGpio_InitP12GPIO_TypeDefijj 0x080018d0   Section        0  gpio_ex.o(i._Z16DEV_AltGpio_InitP12GPIO_TypeDefijj)
+    i._Z17SystemEventBurnerP8Runnable        0x08001900   Section        0  vm.o(i._Z17SystemEventBurnerP8Runnable)
+    i._Z18SystemClock_Configv                0x08001904   Section        0  init.o(i._Z18SystemClock_Configv)
+    i._Z18SystemEventBurner2P8Runnable       0x080019b4   Section        0  vm.o(i._Z18SystemEventBurner2P8Runnable)
+    i._Z5Allocj                              0x080019b8   Section        0  device.o(i._Z5Allocj)
+    i._Z6serverPvi                           0x080019cc   Section        0  vm.o(i._Z6serverPvi)
+    i._Z7DmaInitv                            0x080019e4   Section        0  init.o(i._Z7DmaInitv)
+    i._Z8GpioInitv                           0x08001a88   Section        0  init.o(i._Z8GpioInitv)
+    i._Z9HsramInitv                          0x08001b64   Section        0  init.o(i._Z9HsramInitv)
+    i._ZN14SpiSoftTypeDef14send_9bit_DataEbh 0x08001bdc   Section        0  gpio_ex.o(i._ZN14SpiSoftTypeDef14send_9bit_DataEbh)
+    i._ZN14SpiSoftTypeDef6selectEv           0x08001c68   Section        0  gpio_ex.o(i._ZN14SpiSoftTypeDef6selectEv)
+    i._ZN14SpiSoftTypeDef8deSelectEv         0x08001c7c   Section        0  gpio_ex.o(i._ZN14SpiSoftTypeDef8deSelectEv)
+    i._ZN15MemoryAllocator3NewEj             0x08001c8c   Section        0  memory_alloc.o(i._ZN15MemoryAllocator3NewEj)
+    i._ZN15MemoryAllocator8separateEP11MemoryChunkj 0x08001cfe   Section        0  memory_alloc.o(i._ZN15MemoryAllocator8separateEP11MemoryChunkj)
+    i._ZN15MemoryAllocatorC1Ev               0x08001d16   Section        0  device.o(i._ZN15MemoryAllocatorC1Ev)
+    i._ZN15MemoryAllocatorclEjj              0x08001d32   Section        0  memory_alloc.o(i._ZN15MemoryAllocatorclEjj)
+    i._ZN44_INTERNAL_22_stm32f4xx_hal_cortex_c_2992dbc016NVIC_SetPriorityE9IRQn_Typej 0x08001d4c   Section        0  stm32f4xx_hal_cortex.o(i._ZN44_INTERNAL_22_stm32f4xx_hal_cortex_c_2992dbc016NVIC_SetPriorityE9IRQn_Typej)
+    [local to stm32f4xx_hal_cortex_c]::NVIC_SetPriority(IRQn_Type, unsigned) 0x08001d4d   Thumb Code    32  stm32f4xx_hal_cortex.o(i._ZN44_INTERNAL_22_stm32f4xx_hal_cortex_c_2992dbc016NVIC_SetPriorityE9IRQn_Typej)
+    i._ZN44_INTERNAL_22_stm32f4xx_hal_cortex_c_2992dbc024NVIC_GetPriorityGroupingEv 0x08001d74   Section        0  stm32f4xx_hal_cortex.o(i._ZN44_INTERNAL_22_stm32f4xx_hal_cortex_c_2992dbc024NVIC_GetPriorityGroupingEv)
+    [local to stm32f4xx_hal_cortex_c]::NVIC_GetPriorityGrouping() 0x08001d75   Thumb Code    10  stm32f4xx_hal_cortex.o(i._ZN44_INTERNAL_22_stm32f4xx_hal_cortex_c_2992dbc024NVIC_GetPriorityGroupingEv)
+    i._ZN6String12stringifyIntEii            0x08001d84   Section        0  main.o(i._ZN6String12stringifyIntEii)
+    i._ZN6StringplEPS_                       0x08001e10   Section        0  main.o(i._ZN6StringplEPS_)
+    i._ZN6StringplERS_                       0x08001e20   Section        0  main.o(i._ZN6StringplERS_)
+    i._ZN7Runtime11addRunnableEPFiP8RunnableEj 0x08001e7c   Section        0  main.o(i._ZN7Runtime11addRunnableEPFiP8RunnableEj)
+    i._ZN7Runtime13manageThreadsEPvi         0x08001ed0   Section        0  vm.o(i._ZN7Runtime13manageThreadsEPvi)
+    i._ZN7RuntimeC1Ev                        0x08001fc0   Section        0  device.o(i._ZN7RuntimeC1Ev)
+    i._ZN7RuntimeclEjj                       0x08002020   Section        0  main.o(i._ZN7RuntimeclEjj)
+    i._ZN9AllocatorIcEC1Ev                   0x080020b4   Section        0  main.o(i._ZN9AllocatorIcEC1Ev)
+    i._ZN9TestClassC1Ec                      0x080020c0   Section        0  main.o(i._ZN9TestClassC1Ec)
+    i._ZdlPv                                 0x080020c4   Section        0  delete.o(i._ZdlPv)
+    i._Znwj                                  0x080020cc   Section        0  new.o(i._Znwj)
+    i.__cxa_guard_acquire                    0x080020f4   Section        0  cxa_guard_acquire.o(i.__cxa_guard_acquire)
+    i.__sti___10_device_cpp_runtime          0x08002104   Section        0  device.o(i.__sti___10_device_cpp_runtime)
+    __sti___10_device_cpp_runtime            0x08002105   Thumb Code    52  device.o(i.__sti___10_device_cpp_runtime)
+    i.__sti___8_main_cpp_ca4700dd            0x0800214c   Section        0  main.o(i.__sti___8_main_cpp_ca4700dd)
+    __sti___8_main_cpp_ca4700dd              0x0800214d   Thumb Code    34  main.o(i.__sti___8_main_cpp_ca4700dd)
+    i.main                                   0x08002180   Section        0  main.o(i.main)
+    t._ZN12SynchronizerI7RuntimeE11syncReleaseEPS0_ 0x08002324   Section        0  device.o(t._ZN12SynchronizerI7RuntimeE11syncReleaseEPS0_)
+    t._ZN12SynchronizerI7RuntimeE9syncFetchEPS0_ 0x0800232a   Section        0  device.o(t._ZN12SynchronizerI7RuntimeE9syncFetchEPS0_)
+    t._ZN13ArrayListBaseI11MemoryChunkE3addEPS0_ 0x0800233e   Section        0  memory_alloc.o(t._ZN13ArrayListBaseI11MemoryChunkE3addEPS0_)
+    t._ZN13ArrayListBaseI11MemoryChunkE3addERS0_ 0x08002350   Section        0  memory_alloc.o(t._ZN13ArrayListBaseI11MemoryChunkE3addERS0_)
+    t._ZN13ArrayListBaseI11MemoryChunkE6removeEPS0_ 0x080023d4   Section        0  memory_alloc.o(t._ZN13ArrayListBaseI11MemoryChunkE6removeEPS0_)
+    t._ZN13ArrayListBaseI11MemoryChunkE6removeERS0_ 0x080023e4   Section        0  memory_alloc.o(t._ZN13ArrayListBaseI11MemoryChunkE6removeERS0_)
+    t._ZN13ArrayListBaseI11MemoryChunkEC1Ev  0x08002426   Section        0  device.o(t._ZN13ArrayListBaseI11MemoryChunkEC1Ev)
+    t._ZN6StringC1IKcEEPT_                   0x08002430   Section        0  main.o(t._ZN6StringC1IKcEEPT_)
+    t._ZN6StringC1IcEEPT_                    0x08002470   Section        0  main.o(t._ZN6StringC1IcEEPT_)
+    t._ZN7ILI9488I12GPIO_TypeDef14SpiSoftTypeDefE10driverFillEttt 0x080024b0   Section        0  main.o(t._ZN7ILI9488I12GPIO_TypeDef14SpiSoftTypeDefE10driverFillEttt)
+    t._ZN7ILI9488I12GPIO_TypeDef14SpiSoftTypeDefE10resetForceEb 0x08002510   Section        0  main.o(t._ZN7ILI9488I12GPIO_TypeDef14SpiSoftTypeDefE10resetForceEb)
+    t._ZN7ILI9488I12GPIO_TypeDef14SpiSoftTypeDefE4initEv 0x08002530   Section        0  main.o(t._ZN7ILI9488I12GPIO_TypeDef14SpiSoftTypeDefE4initEv)
+    t._ZN7ILI9488I12GPIO_TypeDef14SpiSoftTypeDefE5delayEj 0x0800267c   Section        0  main.o(t._ZN7ILI9488I12GPIO_TypeDef14SpiSoftTypeDefE5delayEj)
+    t._ZN7ILI9488I12GPIO_TypeDef14SpiSoftTypeDefE5hsClkEv 0x0800268a   Section        0  main.o(t._ZN7ILI9488I12GPIO_TypeDef14SpiSoftTypeDefE5hsClkEv)
+    t._ZN7ILI9488I12GPIO_TypeDef14SpiSoftTypeDefE5setHsEb 0x080026d0   Section        0  main.o(t._ZN7ILI9488I12GPIO_TypeDef14SpiSoftTypeDefE5setHsEb)
+    t._ZN7ILI9488I12GPIO_TypeDef14SpiSoftTypeDefE5setVsEb 0x080026f0   Section        0  main.o(t._ZN7ILI9488I12GPIO_TypeDef14SpiSoftTypeDefE5setVsEb)
+    t._ZN7ILI9488I12GPIO_TypeDef14SpiSoftTypeDefE5vsClkEv 0x08002710   Section        0  main.o(t._ZN7ILI9488I12GPIO_TypeDef14SpiSoftTypeDefE5vsClkEv)
+    t._ZN7ILI9488I12GPIO_TypeDef14SpiSoftTypeDefE6rgbOutItEEvT_ 0x0800272c   Section        0  main.o(t._ZN7ILI9488I12GPIO_TypeDef14SpiSoftTypeDefE6rgbOutItEEvT_)
+    t._ZN7ILI9488I12GPIO_TypeDef14SpiSoftTypeDefE6setDenEb 0x08002738   Section        0  main.o(t._ZN7ILI9488I12GPIO_TypeDef14SpiSoftTypeDefE6setDenEb)
+    t._ZN7ILI9488I12GPIO_TypeDef14SpiSoftTypeDefE6setDotEb 0x08002758   Section        0  main.o(t._ZN7ILI9488I12GPIO_TypeDef14SpiSoftTypeDefE6setDotEb)
+    t._ZN7ILI9488I12GPIO_TypeDef14SpiSoftTypeDefE6wrCmd8Eh 0x08002778   Section        0  main.o(t._ZN7ILI9488I12GPIO_TypeDef14SpiSoftTypeDefE6wrCmd8Eh)
+    t._ZN7ILI9488I12GPIO_TypeDef14SpiSoftTypeDefE7wrData8Eh 0x0800278c   Section        0  main.o(t._ZN7ILI9488I12GPIO_TypeDef14SpiSoftTypeDefE7wrData8Eh)
+    t._ZN7ILI9488I12GPIO_TypeDef14SpiSoftTypeDefE9backLightEh 0x080027a0   Section        0  main.o(t._ZN7ILI9488I12GPIO_TypeDef14SpiSoftTypeDefE9backLightEh)
+    t._ZN8IteratorI9ArrayListI8RunnableES1_E3getEv 0x080027b4   Section        0  vm.o(t._ZN8IteratorI9ArrayListI8RunnableES1_E3getEv)
+    t._ZN8IteratorI9ArrayListI8RunnableES1_E4nextEv 0x080027be   Section        0  vm.o(t._ZN8IteratorI9ArrayListI8RunnableES1_E4nextEv)
+    t._ZN8IteratorI9ArrayListI8RunnableES1_E7hasThisEv 0x080027c8   Section        0  vm.o(t._ZN8IteratorI9ArrayListI8RunnableES1_E7hasThisEv)
+    t._ZN8IteratorI9ArrayListI8RunnableES1_EC1Ev 0x080027d6   Section        0  main.o(t._ZN8IteratorI9ArrayListI8RunnableES1_EC1Ev)
+    t._ZN8IteratorI9ArrayListI8RunnableES1_EclER20DefaultArrayListNodeIS2_S1_E 0x080027d8   Section        0  main.o(t._ZN8IteratorI9ArrayListI8RunnableES1_EclER20DefaultArrayListNodeIS2_S1_E)
+    t._ZN8IteratorI9ArrayListI9TestClassES1_E4nextEv 0x080027dc   Section        0  main.o(t._ZN8IteratorI9ArrayListI9TestClassES1_E4nextEv)
+    t._ZN8IteratorI9ArrayListI9TestClassES1_E7hasNextEv 0x080027e6   Section        0  main.o(t._ZN8IteratorI9ArrayListI9TestClassES1_E7hasNextEv)
+    t._ZN8IteratorI9ArrayListI9TestClassES1_EC1Ev 0x080027f6   Section        0  main.o(t._ZN8IteratorI9ArrayListI9TestClassES1_EC1Ev)
+    t._ZN8IteratorI9ArrayListI9TestClassES1_EclER20DefaultArrayListNodeIS2_S1_E 0x080027f8   Section        0  main.o(t._ZN8IteratorI9ArrayListI9TestClassES1_EclER20DefaultArrayListNodeIS2_S1_E)
+    t._ZN9AllocatorI20DefaultArrayListNodeI9ArrayListI8RunnableES2_EE3NewEv 0x080027fc   Section        0  main.o(t._ZN9AllocatorI20DefaultArrayListNodeI9ArrayListI8RunnableES2_EE3NewEv)
+    t._ZN9AllocatorI20DefaultArrayListNodeI9ArrayListI8RunnableES2_EE5allocEj 0x0800280c   Section        0  device.o(t._ZN9AllocatorI20DefaultArrayListNodeI9ArrayListI8RunnableES2_EE5allocEj)
+    t._ZN9AllocatorI20DefaultArrayListNodeI9ArrayListI9TestClassES2_EE3NewEv 0x0800281a   Section        0  main.o(t._ZN9AllocatorI20DefaultArrayListNodeI9ArrayListI9TestClassES2_EE3NewEv)
+    t._ZN9AllocatorI20DefaultArrayListNodeI9ArrayListI9TestClassES2_EE5allocEj 0x0800282a   Section        0  main.o(t._ZN9AllocatorI20DefaultArrayListNodeI9ArrayListI9TestClassES2_EE5allocEj)
+    t._ZN9AllocatorIcE3NewEj                 0x08002838   Section        0  main.o(t._ZN9AllocatorIcE3NewEj)
+    t._ZN9AllocatorIcE5allocEj               0x0800284a   Section        0  main.o(t._ZN9AllocatorIcE5allocEj)
+    t._ZN9AllocatorIcE8NewArrayEj            0x08002858   Section        0  main.o(t._ZN9AllocatorIcE8NewArrayEj)
+    t._ZN9ArrayListI8RunnableE8addFirstERS0_ 0x0800286a   Section        0  main.o(t._ZN9ArrayListI8RunnableE8addFirstERS0_)
+    t._ZN9ArrayListI9TestClassE8addFirstEPS0_ 0x080028a8   Section        0  main.o(t._ZN9ArrayListI9TestClassE8addFirstEPS0_)
+    t._ZN9ArrayListI9TestClassE8addFirstERS0_ 0x080028b8   Section        0  main.o(t._ZN9ArrayListI9TestClassE8addFirstERS0_)
+    t._ZN9ArrayListI9TestClassE8iteratorEv   0x080028f8   Section        0  main.o(t._ZN9ArrayListI9TestClassE8iteratorEv)
+    x$fpl$fpinit                             0x08002930   Section       10  fpinit.o(x$fpl$fpinit)
+    $v0                                      0x08002930   Number         0  fpinit.o(x$fpl$fpinit)
+    .constdata                               0x0800293a   Section       16  stm32f4xx_hal_rcc.o(.constdata)
+    APBAHBPrescTable                         0x0800293a   Data          16  stm32f4xx_hal_rcc.o(.constdata)
+    .constdata__ZTV11MemoryChunk             0x0800294c   Section       12  memory_alloc.o(.constdata__ZTV11MemoryChunk)
+    .constdata__ZTV12SynchronizerI7RuntimeE  0x08002958   Section       24  device.o(.constdata__ZTV12SynchronizerI7RuntimeE)
+    .constdata__ZTV12SynchronizerI9ArrayListI8RunnableEE 0x08002970   Section       24  device.o(.constdata__ZTV12SynchronizerI9ArrayListI8RunnableEE)
+    .constdata__ZTV12SynchronizerI9ArrayListI9TestClassEE 0x08002988   Section       24  main.o(.constdata__ZTV12SynchronizerI9ArrayListI9TestClassEE)
+    .constdata__ZTV19GraphicFrameFactoryIttE 0x080029a0   Section       16  device.o(.constdata__ZTV19GraphicFrameFactoryIttE)
+    .constdata__ZTV24DefaultArrayListBaseNodeI11MemoryChunkE 0x080029b0   Section       12  memory_alloc.o(.constdata__ZTV24DefaultArrayListBaseNodeI11MemoryChunkE)
+    .constdata__ZTV6String                   0x080029bc   Section       16  main.o(.constdata__ZTV6String)
+    .constdata__ZTV7Runtime                  0x080029cc   Section       24  device.o(.constdata__ZTV7Runtime)
+    .constdata__ZTV9AllocatorI12GraphicFrameI19GraphicFrameFactoryIttEttEE 0x080029e4   Section       16  device.o(.constdata__ZTV9AllocatorI12GraphicFrameI19GraphicFrameFactoryIttEttEE)
+    .constdata__ZTV9AllocatorI20DefaultArrayListNodeI9ArrayListI8RunnableES2_EE 0x080029f4   Section       16  device.o(.constdata__ZTV9AllocatorI20DefaultArrayListNodeI9ArrayListI8RunnableES2_EE)
+    .constdata__ZTV9AllocatorI20DefaultArrayListNodeI9ArrayListI9TestClassES2_EE 0x08002a04   Section       16  main.o(.constdata__ZTV9AllocatorI20DefaultArrayListNodeI9ArrayListI9TestClassES2_EE)
+    .constdata__ZTV9AllocatorIcE             0x08002a14   Section       16  main.o(.constdata__ZTV9AllocatorIcE)
+    .constdata__ZTV9ArrayListI8RunnableE     0x08002a24   Section       40  device.o(.constdata__ZTV9ArrayListI8RunnableE)
+    .constdata__ZTV9ArrayListI9TestClassE    0x08002a4c   Section       40  main.o(.constdata__ZTV9ArrayListI9TestClassE)
+    .constdata__ZZN6Device4initEvEs          0x08002a74   Section        8  main.o(.constdata__ZZN6Device4initEvEs)
+    .constdata__ZZN6Device8toStringEvEs      0x08002a7c   Section        7  main.o(.constdata__ZZN6Device8toStringEvEs)
+    .init_array                              0x08002ab4   Section        4  main.o(.init_array)
+    .init_array                              0x08002ab8   Section        4  device.o(.init_array)
+    .init_array                              0x08002abc   Section        0  init_aeabi.o(.init_array)
+>>>>>>> remotes/master/master
     .data                                    0x10000000   Section        1  device.o(.data)
     .data                                    0x10000004   Section        4  stm32f4xx_hal.o(.data)
     uwTick                                   0x10000004   Data           4  stm32f4xx_hal.o(.data)
@@ -3799,10 +4032,18 @@ Memory Map of the image
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
+<<<<<<< HEAD
     0x08000000   0x00000188   Data   RO         4653    RESET               startup_stm32f417xx.o
     0x08000188   0x00000008   Code   RO         5004  * !!!main             c_w.l(__main.o)
     0x08000190   0x00000034   Code   RO         5483    !!!scatter          c_w.l(__scatter.o)
     0x080001c4   0x0000001a   Code   RO         5485    !!handler_copy      c_w.l(__scatter_copy.o)
+=======
+    0x08000000   0x00000188   Data   RO         4622    RESET               startup_stm32f417xx.o
+<<<<<<< HEAD
+    0x08000188   0x00000008   Code   RO         4977  * !!!main             c_w.l(__main.o)
+    0x08000190   0x00000034   Code   RO         5453    !!!scatter          c_w.l(__scatter.o)
+    0x080001c4   0x0000001a   Code   RO         5455    !!handler_copy      c_w.l(__scatter_copy.o)
+>>>>>>> remotes/master/master
     0x080001de   0x00000002   PAD
     0x080001e0   0x0000001c   Code   RO         5487    !!handler_zi        c_w.l(__scatter_zi.o)
     0x080001fc   0x00000002   Code   RO         5394    .ARM.Collect$$libinit$$00000000  c_w.l(libinit.o)
@@ -3848,6 +4089,7 @@ Memory Map of the image
     0x08000228   0x00000004   Code   RO         5430    .ARM.Collect$$rtexit$$00000003  c_w.l(rtexit2.o)
     0x0800022c   0x00000006   Code   RO         5431    .ARM.Collect$$rtexit$$00000004  c_w.l(rtexit2.o)
     0x08000232   0x00000002   PAD
+<<<<<<< HEAD
     0x08000234   0x00000000   Code   RO         5368    .emb_text           c_w.l(maybetermalloc1.o)
     0x08000234   0x0000008c   Code   RO         4647    .text               stackswitching.o
     0x080002c0   0x00000040   Code   RO         4654    .text               startup_stm32f417xx.o
@@ -4052,6 +4294,310 @@ Memory Map of the image
     0x08002ce8   0x00000004   Data   RO           15    .init_array         main.o
     0x08002cec   0x00000004   Data   RO          672    .init_array         device.o
     0x08002cf0   0x00000000   Data   RO         5007    .init_array         c_w.l(init_aeabi.o)
+=======
+    0x08000234   0x00000000   Code   RO         5338    .emb_text           c_w.l(maybetermalloc1.o)
+    0x08000234   0x000000be   Code   RO         4616    .text               stackswitching.o
+    0x080002f2   0x00000002   PAD
+    0x080002f4   0x00000040   Code   RO         4623    .text               startup_stm32f417xx.o
+    0x08000334   0x00000008   Code   RO         4967    .text               c_w.l(rt_errno_addr_intlibspace.o)
+    0x0800033c   0x0000003e   Code   RO         4969    .text               c_w.l(strlen.o)
+    0x0800037a   0x00000064   Code   RO         4971    .text               c_w.l(rt_memcpy_w.o)
+    0x080003de   0x00000006   Code   RO         4975    .text               c_w.l(heapauxi.o)
+    0x080003e4   0x00000024   Code   RO         4982    .text               c_w.l(init_aeabi.o)
+    0x08000408   0x00000008   Code   RO         5104    .text               c_w.l(libspace.o)
+    0x08000410   0x00000008   Code   RO         5111    .text               c_w.l(rt_new_handler_addr_intlibspace.o)
+    0x08000418   0x0000005e   Code   RO         5117    .text               c_w.l(h1_alloc.o)
+    0x08000476   0x0000004e   Code   RO         5119    .text               c_w.l(h1_free.o)
+    0x080004c4   0x00000004   Code   RO         5225    .text               cpprt_w.l(arm_newhandler_noexceptions.o)
+    0x080004c8   0x00000008   Code   RO         5271    .text               c_w.l(rt_heap_descriptor_intlibspace.o)
+    0x080004d0   0x00000004   Code   RO         5273    .text               c_w.l(hguard.o)
+    0x080004d4   0x0000008a   Code   RO         5275    .text               c_w.l(init_alloc.o)
+    0x0800055e   0x0000000e   Code   RO         5279    .text               c_w.l(h1_init.o)
+    0x0800056c   0x0000001a   Code   RO         5319    .text               cpprt_w.l(arm_exceptions_terminate.o)
+    0x08000586   0x00000002   PAD
+    0x08000588   0x00000050   Code   RO         5322    .text               cpprt_w.l(arm_exceptions_globs.o)
+    0x080005d8   0x0000004a   Code   RO         5329    .text               c_w.l(sys_stackheap_outer.o)
+    0x08000622   0x00000002   PAD
+    0x08000624   0x00000008   Code   RO         5334    .text               c_w.l(rt_eh_globals_addr_intlibspace.o)
+    0x0800062c   0x00000034   Code   RO         5340    .text               c_w.l(h1_extend.o)
+    0x08000660   0x0000000c   Code   RO         5344    .text               c_w.l(exit.o)
+    0x0800066c   0x00000010   Code   RO         5346    .text               c_w.l(abort.o)
+    0x0800067c   0x0000000e   Code   RO         5348    .text               c_w.l(defsig_rtmem_outer.o)
+    0x0800068a   0x0000003c   Code   RO         5374    .text               cpprt_w.l(arm_exceptions_mem.o)
+    0x080006c6   0x00000002   PAD
+    0x080006c8   0x0000000c   Code   RO         5377    .text               c_w.l(sys_exit.o)
+    0x080006d4   0x00000002   Code   RO         5379    .text               c_w.l(use_no_semi.o)
+    0x080006d6   0x00000000   Code   RO         5381    .text               c_w.l(indicate_semi.o)
+    0x080006d6   0x0000000a   Code   RO         5390    .text               c_w.l(defsig_exit.o)
+    0x080006e0   0x0000000e   Code   RO         5392    .text               c_w.l(defsig_abrt_outer.o)
+    0x080006ee   0x00000002   PAD
+    0x080006f0   0x00000050   Code   RO         5396    .text               c_w.l(defsig_rtmem_inner.o)
+    0x08000740   0x00000032   Code   RO         5411    .text               c_w.l(defsig_general.o)
+    0x08000772   0x00000002   PAD
+    0x08000774   0x00000030   Code   RO         5413    .text               c_w.l(defsig_abrt_inner.o)
+    0x080007a4   0x0000000e   Code   RO         5430    .text               c_w.l(sys_wrch.o)
+=======
+    0x08000188   0x00000008   Code   RO         4803  * !!!main             c_w.l(__main.o)
+    0x08000190   0x00000034   Code   RO         5279    !!!scatter          c_w.l(__scatter.o)
+    0x080001c4   0x0000001a   Code   RO         5281    !!handler_copy      c_w.l(__scatter_copy.o)
+    0x080001de   0x00000002   PAD
+    0x080001e0   0x0000001c   Code   RO         5283    !!handler_zi        c_w.l(__scatter_zi.o)
+    0x080001fc   0x00000002   Code   RO         5190    .ARM.Collect$$libinit$$00000000  c_w.l(libinit.o)
+    0x080001fe   0x00000004   Code   RO         5001    .ARM.Collect$$libinit$$00000001  c_w.l(libinit2.o)
+    0x08000202   0x00000000   Code   RO         5004    .ARM.Collect$$libinit$$00000004  c_w.l(libinit2.o)
+    0x08000202   0x00000008   Code   RO         5005    .ARM.Collect$$libinit$$00000005  c_w.l(libinit2.o)
+    0x0800020a   0x00000000   Code   RO         5007    .ARM.Collect$$libinit$$0000000A  c_w.l(libinit2.o)
+    0x0800020a   0x00000000   Code   RO         5009    .ARM.Collect$$libinit$$0000000C  c_w.l(libinit2.o)
+    0x0800020a   0x00000000   Code   RO         5011    .ARM.Collect$$libinit$$0000000E  c_w.l(libinit2.o)
+    0x0800020a   0x00000000   Code   RO         5014    .ARM.Collect$$libinit$$00000011  c_w.l(libinit2.o)
+    0x0800020a   0x00000000   Code   RO         5016    .ARM.Collect$$libinit$$00000013  c_w.l(libinit2.o)
+    0x0800020a   0x00000000   Code   RO         5018    .ARM.Collect$$libinit$$00000015  c_w.l(libinit2.o)
+    0x0800020a   0x00000000   Code   RO         5020    .ARM.Collect$$libinit$$00000017  c_w.l(libinit2.o)
+    0x0800020a   0x00000000   Code   RO         5022    .ARM.Collect$$libinit$$00000019  c_w.l(libinit2.o)
+    0x0800020a   0x00000000   Code   RO         5024    .ARM.Collect$$libinit$$0000001B  c_w.l(libinit2.o)
+    0x0800020a   0x00000000   Code   RO         5026    .ARM.Collect$$libinit$$0000001D  c_w.l(libinit2.o)
+    0x0800020a   0x00000000   Code   RO         5028    .ARM.Collect$$libinit$$0000001F  c_w.l(libinit2.o)
+    0x0800020a   0x00000000   Code   RO         5030    .ARM.Collect$$libinit$$00000021  c_w.l(libinit2.o)
+    0x0800020a   0x00000000   Code   RO         5032    .ARM.Collect$$libinit$$00000023  c_w.l(libinit2.o)
+    0x0800020a   0x00000000   Code   RO         5034    .ARM.Collect$$libinit$$00000025  c_w.l(libinit2.o)
+    0x0800020a   0x00000000   Code   RO         5038    .ARM.Collect$$libinit$$0000002C  c_w.l(libinit2.o)
+    0x0800020a   0x00000000   Code   RO         5040    .ARM.Collect$$libinit$$0000002E  c_w.l(libinit2.o)
+    0x0800020a   0x00000000   Code   RO         5042    .ARM.Collect$$libinit$$00000030  c_w.l(libinit2.o)
+    0x0800020a   0x00000004   Code   RO         5043    .ARM.Collect$$libinit$$00000031  c_w.l(libinit2.o)
+    0x0800020e   0x00000000   Code   RO         5044    .ARM.Collect$$libinit$$00000032  c_w.l(libinit2.o)
+    0x0800020e   0x00000002   Code   RO         5045    .ARM.Collect$$libinit$$00000033  c_w.l(libinit2.o)
+    0x08000210   0x00000002   Code   RO         5262    .ARM.Collect$$libshutdown$$00000000  c_w.l(libshutdown.o)
+    0x08000212   0x00000000   Code   RO         5243    .ARM.Collect$$libshutdown$$00000003  c_w.l(libshutdown2.o)
+    0x08000212   0x00000000   Code   RO         5246    .ARM.Collect$$libshutdown$$00000006  c_w.l(libshutdown2.o)
+    0x08000212   0x00000000   Code   RO         5249    .ARM.Collect$$libshutdown$$00000009  c_w.l(libshutdown2.o)
+    0x08000212   0x00000000   Code   RO         5251    .ARM.Collect$$libshutdown$$0000000B  c_w.l(libshutdown2.o)
+    0x08000212   0x00000000   Code   RO         5254    .ARM.Collect$$libshutdown$$0000000E  c_w.l(libshutdown2.o)
+    0x08000212   0x00000002   Code   RO         5255    .ARM.Collect$$libshutdown$$0000000F  c_w.l(libshutdown2.o)
+    0x08000214   0x00000000   Code   RO         4933    .ARM.Collect$$rtentry$$00000000  c_w.l(__rtentry.o)
+    0x08000214   0x00000000   Code   RO         5080    .ARM.Collect$$rtentry$$00000002  c_w.l(__rtentry2.o)
+    0x08000214   0x00000006   Code   RO         5092    .ARM.Collect$$rtentry$$00000004  c_w.l(__rtentry4.o)
+    0x0800021a   0x00000000   Code   RO         5082    .ARM.Collect$$rtentry$$00000009  c_w.l(__rtentry2.o)
+    0x0800021a   0x00000004   Code   RO         5083    .ARM.Collect$$rtentry$$0000000A  c_w.l(__rtentry2.o)
+    0x0800021e   0x00000000   Code   RO         5085    .ARM.Collect$$rtentry$$0000000C  c_w.l(__rtentry2.o)
+    0x0800021e   0x00000008   Code   RO         5086    .ARM.Collect$$rtentry$$0000000D  c_w.l(__rtentry2.o)
+    0x08000226   0x00000002   Code   RO         5208    .ARM.Collect$$rtexit$$00000000  c_w.l(rtexit.o)
+    0x08000228   0x00000000   Code   RO         5225    .ARM.Collect$$rtexit$$00000002  c_w.l(rtexit2.o)
+    0x08000228   0x00000004   Code   RO         5226    .ARM.Collect$$rtexit$$00000003  c_w.l(rtexit2.o)
+    0x0800022c   0x00000006   Code   RO         5227    .ARM.Collect$$rtexit$$00000004  c_w.l(rtexit2.o)
+    0x08000232   0x00000002   PAD
+    0x08000234   0x00000000   Code   RO         5164    .emb_text           c_w.l(maybetermalloc1.o)
+    0x08000234   0x000000be   Code   RO         4616    .text               stackswitching.o
+    0x080002f2   0x00000002   PAD
+    0x080002f4   0x00000040   Code   RO         4623    .text               startup_stm32f417xx.o
+    0x08000334   0x00000008   Code   RO         4795    .text               c_w.l(rt_errno_addr_intlibspace.o)
+    0x0800033c   0x0000003e   Code   RO         4797    .text               c_w.l(strlen.o)
+    0x0800037a   0x00000064   Code   RO         4799    .text               c_w.l(rt_memcpy_w.o)
+    0x080003de   0x00000006   Code   RO         4801    .text               c_w.l(heapauxi.o)
+    0x080003e4   0x00000024   Code   RO         4808    .text               c_w.l(init_aeabi.o)
+    0x08000408   0x00000008   Code   RO         4930    .text               c_w.l(libspace.o)
+    0x08000410   0x00000008   Code   RO         4937    .text               c_w.l(rt_new_handler_addr_intlibspace.o)
+    0x08000418   0x0000005e   Code   RO         4943    .text               c_w.l(h1_alloc.o)
+    0x08000476   0x0000004e   Code   RO         4945    .text               c_w.l(h1_free.o)
+    0x080004c4   0x00000004   Code   RO         5051    .text               cpprt_w.l(arm_newhandler_noexceptions.o)
+    0x080004c8   0x00000008   Code   RO         5097    .text               c_w.l(rt_heap_descriptor_intlibspace.o)
+    0x080004d0   0x00000004   Code   RO         5099    .text               c_w.l(hguard.o)
+    0x080004d4   0x0000008a   Code   RO         5101    .text               c_w.l(init_alloc.o)
+    0x0800055e   0x0000000e   Code   RO         5105    .text               c_w.l(h1_init.o)
+    0x0800056c   0x0000001a   Code   RO         5145    .text               cpprt_w.l(arm_exceptions_terminate.o)
+    0x08000586   0x00000002   PAD
+    0x08000588   0x00000050   Code   RO         5148    .text               cpprt_w.l(arm_exceptions_globs.o)
+    0x080005d8   0x0000004a   Code   RO         5155    .text               c_w.l(sys_stackheap_outer.o)
+    0x08000622   0x00000002   PAD
+    0x08000624   0x00000008   Code   RO         5160    .text               c_w.l(rt_eh_globals_addr_intlibspace.o)
+    0x0800062c   0x00000034   Code   RO         5166    .text               c_w.l(h1_extend.o)
+    0x08000660   0x0000000c   Code   RO         5170    .text               c_w.l(exit.o)
+    0x0800066c   0x00000010   Code   RO         5172    .text               c_w.l(abort.o)
+    0x0800067c   0x0000000e   Code   RO         5174    .text               c_w.l(defsig_rtmem_outer.o)
+    0x0800068a   0x0000003c   Code   RO         5200    .text               cpprt_w.l(arm_exceptions_mem.o)
+    0x080006c6   0x00000002   PAD
+    0x080006c8   0x0000000c   Code   RO         5203    .text               c_w.l(sys_exit.o)
+    0x080006d4   0x00000002   Code   RO         5205    .text               c_w.l(use_no_semi.o)
+    0x080006d6   0x00000000   Code   RO         5207    .text               c_w.l(indicate_semi.o)
+    0x080006d6   0x0000000a   Code   RO         5216    .text               c_w.l(defsig_exit.o)
+    0x080006e0   0x0000000e   Code   RO         5218    .text               c_w.l(defsig_abrt_outer.o)
+    0x080006ee   0x00000002   PAD
+    0x080006f0   0x00000050   Code   RO         5222    .text               c_w.l(defsig_rtmem_inner.o)
+    0x08000740   0x00000032   Code   RO         5237    .text               c_w.l(defsig_general.o)
+    0x08000772   0x00000002   PAD
+    0x08000774   0x00000030   Code   RO         5239    .text               c_w.l(defsig_abrt_inner.o)
+    0x080007a4   0x0000000e   Code   RO         5256    .text               c_w.l(sys_wrch.o)
+>>>>>>> remotes/master/master
+    0x080007b2   0x00000004   Code   RO         4374    i.BusFault_Handler  stm32f4xx_it.o
+    0x080007b6   0x00000002   Code   RO         4375    i.DebugMon_Handler  stm32f4xx_it.o
+    0x080007b8   0x00000002   Code   RO         4376    i.EXTI0_IRQHandler  stm32f4xx_it.o
+    0x080007ba   0x00000052   Code   RO         4238    i.FSMC_NORSRAM_Extended_Timing_Init  stm32f4xx_ll_fsmc.o
+    0x0800080c   0x00000058   Code   RO         4239    i.FSMC_NORSRAM_Init  stm32f4xx_ll_fsmc.o
+    0x08000864   0x00000044   Code   RO         4240    i.FSMC_NORSRAM_Timing_Init  stm32f4xx_ll_fsmc.o
+    0x080008a8   0x0000007c   Code   RO         1952    i.HAL_DMA_Init      stm32f4xx_hal_dma.o
+    0x08000924   0x0000001a   Code   RO         1075    i.HAL_Delay         stm32f4xx_hal.o
+    0x0800093e   0x00000002   PAD
+    0x08000940   0x00000208   Code   RO         2332    i.HAL_GPIO_Init     stm32f4xx_hal_gpio.o
+    0x08000b48   0x0000000c   Code   RO         1080    i.HAL_GetREVID      stm32f4xx_hal.o
+    0x08000b54   0x0000000c   Code   RO         1081    i.HAL_GetTick       stm32f4xx_hal.o
+    0x08000b60   0x00000010   Code   RO         1082    i.HAL_IncTick       stm32f4xx_hal.o
+    0x08000b70   0x00000030   Code   RO         1083    i.HAL_Init          stm32f4xx_hal.o
+    0x08000ba0   0x00000024   Code   RO         1084    i.HAL_InitTick      stm32f4xx_hal.o
+    0x08000bc4   0x00000002   Code   RO         1086    i.HAL_MspInit       stm32f4xx_hal.o
+    0x08000bc6   0x0000007c   Code   RO         1559    i.HAL_NVIC_SetPriority  stm32f4xx_hal_cortex.o
+    0x08000c42   0x00000002   PAD
+    0x08000c44   0x00000028   Code   RO         1560    i.HAL_NVIC_SetPriorityGrouping  stm32f4xx_hal_cortex.o
+    0x08000c6c   0x000002b0   Code   RO         2619    i.HAL_RCC_ClockConfig  stm32f4xx_hal_rcc.o
+    0x08000f1c   0x00000038   Code   RO         2624    i.HAL_RCC_GetHCLKFreq  stm32f4xx_hal_rcc.o
+    0x08000f54   0x000000b4   Code   RO         2628    i.HAL_RCC_GetSysClockFreq  stm32f4xx_hal_rcc.o
+    0x08001008   0x00000400   Code   RO         2631    i.HAL_RCC_OscConfig  stm32f4xx_hal_rcc.o
+    0x08001408   0x00000058   Code   RO         3056    i.HAL_SRAM_Init     stm32f4xx_hal_sram.o
+    0x08001460   0x00000002   Code   RO         3058    i.HAL_SRAM_MspInit  stm32f4xx_hal_sram.o
+    0x08001462   0x00000034   Code   RO         1564    i.HAL_SYSTICK_Config  stm32f4xx_hal_cortex.o
+    0x08001496   0x00000002   Code   RO         3936    i.HAL_TIMEx_BreakCallback  stm32f4xx_hal_tim_ex.o
+    0x08001498   0x00000002   Code   RO         3937    i.HAL_TIMEx_CommutationCallback  stm32f4xx_hal_tim_ex.o
+    0x0800149a   0x00000002   Code   RO         3220    i.HAL_TIM_IC_CaptureCallback  stm32f4xx_hal_tim.o
+    0x0800149c   0x00000196   Code   RO         3233    i.HAL_TIM_IRQHandler  stm32f4xx_hal_tim.o
+    0x08001632   0x00000002   Code   RO         3236    i.HAL_TIM_OC_DelayElapsedCallback  stm32f4xx_hal_tim.o
+    0x08001634   0x00000002   Code   RO         3263    i.HAL_TIM_PWM_PulseFinishedCallback  stm32f4xx_hal_tim.o
+    0x08001636   0x00000002   Code   RO         3270    i.HAL_TIM_PeriodElapsedCallback  stm32f4xx_hal_tim.o
+    0x08001638   0x00000002   Code   RO         3274    i.HAL_TIM_TriggerCallback  stm32f4xx_hal_tim.o
+    0x0800163a   0x00000004   Code   RO         4377    i.HardFault_Handler  stm32f4xx_it.o
+    0x0800163e   0x00000004   Code   RO         4378    i.MemManage_Handler  stm32f4xx_it.o
+    0x08001642   0x00000002   Code   RO         4379    i.NMI_Handler       stm32f4xx_it.o
+    0x08001644   0x0000000c   Code   RO         4586    i.RuntimeInit       contextswitching.o
+    0x08001650   0x00000014   Code   RO         4587    i.StackSwitch       contextswitching.o
+    0x08001664   0x00000002   Code   RO         4588    i.StackSwitchPSV    contextswitching.o
+    0x08001666   0x00000002   PAD
+    0x08001668   0x00000064   Code   RO         4631    i.SystemInit        system_stm32f4xx.o
+    0x080016cc   0x00000010   Code   RO         4380    i.TIM1_UP_TIM10_IRQHandler  stm32f4xx_it.o
+    0x080016dc   0x00000010   Code   RO         4381    i.TIM2_IRQHandler   stm32f4xx_it.o
+    0x080016ec   0x00000004   Code   RO         4382    i.UsageFault_Handler  stm32f4xx_it.o
+    0x080016f0   0x00000008   Code   RO          627    i._Z10CMSIS_Tickv   device.o
+    0x080016f8   0x000001a8   Code   RO          970    i._Z11ClockEnablev  init.o
+    0x080018a0   0x0000002c   Code   RO          894    i._Z13DEV_Gpio_InitP12GPIO_TypeDefijj  gpio_ex.o
+    0x080018cc   0x00000004   Code   RO          971    i._Z13Error_Handlerv  init.o
+    0x080018d0   0x00000030   Code   RO          895    i._Z16DEV_AltGpio_InitP12GPIO_TypeDefijj  gpio_ex.o
+    0x08001900   0x00000004   Code   RO         4668    i._Z17SystemEventBurnerP8Runnable  vm.o
+    0x08001904   0x000000b0   Code   RO          972    i._Z18SystemClock_Configv  init.o
+    0x080019b4   0x00000004   Code   RO         4669    i._Z18SystemEventBurner2P8Runnable  vm.o
+    0x080019b8   0x00000014   Code   RO          629    i._Z5Allocj         device.o
+    0x080019cc   0x00000018   Code   RO         4670    i._Z6serverPvi      vm.o
+    0x080019e4   0x000000a4   Code   RO          975    i._Z7DmaInitv       init.o
+    0x08001a88   0x000000dc   Code   RO          978    i._Z8GpioInitv      init.o
+    0x08001b64   0x00000078   Code   RO          980    i._Z9HsramInitv     init.o
+    0x08001bdc   0x0000008c   Code   RO          898    i._ZN14SpiSoftTypeDef14send_9bit_DataEbh  gpio_ex.o
+    0x08001c68   0x00000014   Code   RO          900    i._ZN14SpiSoftTypeDef6selectEv  gpio_ex.o
+    0x08001c7c   0x00000010   Code   RO          901    i._ZN14SpiSoftTypeDef8deSelectEv  gpio_ex.o
+    0x08001c8c   0x00000072   Code   RO         4470    i._ZN15MemoryAllocator3NewEj  memory_alloc.o
+    0x08001cfe   0x00000018   Code   RO         4474    i._ZN15MemoryAllocator8separateEP11MemoryChunkj  memory_alloc.o
+    0x08001d16   0x0000001c   Code   RO          696    i._ZN15MemoryAllocatorC1Ev  device.o
+    0x08001d32   0x0000001a   Code   RO         4476    i._ZN15MemoryAllocatorclEjj  memory_alloc.o
+    0x08001d4c   0x00000028   Code   RO         1566    i._ZN44_INTERNAL_22_stm32f4xx_hal_cortex_c_2992dbc016NVIC_SetPriorityE9IRQn_Typej  stm32f4xx_hal_cortex.o
+    0x08001d74   0x00000010   Code   RO         1567    i._ZN44_INTERNAL_22_stm32f4xx_hal_cortex_c_2992dbc024NVIC_GetPriorityGroupingEv  stm32f4xx_hal_cortex.o
+    0x08001d84   0x0000008c   Code   RO          215    i._ZN6String12stringifyIntEii  main.o
+    0x08001e10   0x00000010   Code   RO          209    i._ZN6StringplEPS_  main.o
+    0x08001e20   0x0000005c   Code   RO          132    i._ZN6StringplERS_  main.o
+    0x08001e7c   0x00000054   Code   RO          157    i._ZN7Runtime11addRunnableEPFiP8RunnableEj  main.o
+    0x08001ed0   0x000000f0   Code   RO         4721    i._ZN7Runtime13manageThreadsEPvi  vm.o
+    0x08001fc0   0x00000060   Code   RO          702    i._ZN7RuntimeC1Ev   device.o
+    0x08002020   0x00000094   Code   RO          227    i._ZN7RuntimeclEjj  main.o
+    0x080020b4   0x0000000c   Code   RO          206    i._ZN9AllocatorIcEC1Ev  main.o
+    0x080020c0   0x00000004   Code   RO          194    i._ZN9TestClassC1Ec  main.o
+<<<<<<< HEAD
+    0x080020c4   0x00000008   Code   RO         4985    i._ZdlPv            cpprt_w.l(delete.o)
+    0x080020cc   0x00000028   Code   RO         4988    i._Znwj             cpprt_w.l(new.o)
+    0x080020f4   0x00000010   Code   RO         4992    i.__cxa_guard_acquire  cpprt_w.l(cxa_guard_acquire.o)
+=======
+    0x080020c4   0x00000008   Code   RO         4811    i._ZdlPv            cpprt_w.l(delete.o)
+    0x080020cc   0x00000028   Code   RO         4814    i._Znwj             cpprt_w.l(new.o)
+    0x080020f4   0x00000010   Code   RO         4818    i.__cxa_guard_acquire  cpprt_w.l(cxa_guard_acquire.o)
+>>>>>>> remotes/master/master
+    0x08002104   0x00000048   Code   RO          634    i.__sti___10_device_cpp_runtime  device.o
+    0x0800214c   0x00000034   Code   RO            4    i.__sti___8_main_cpp_ca4700dd  main.o
+    0x08002180   0x000001a4   Code   RO            5    i.main              main.o
+    0x08002324   0x00000006   Code   RO          760    t._ZN12SynchronizerI7RuntimeE11syncReleaseEPS0_  device.o
+    0x0800232a   0x00000014   Code   RO          748    t._ZN12SynchronizerI7RuntimeE9syncFetchEPS0_  device.o
+    0x0800233e   0x00000010   Code   RO         4521    t._ZN13ArrayListBaseI11MemoryChunkE3addEPS0_  memory_alloc.o
+    0x0800234e   0x00000002   PAD
+    0x08002350   0x00000084   Code   RO         4515    t._ZN13ArrayListBaseI11MemoryChunkE3addERS0_  memory_alloc.o
+    0x080023d4   0x00000010   Code   RO         4527    t._ZN13ArrayListBaseI11MemoryChunkE6removeEPS0_  memory_alloc.o
+    0x080023e4   0x00000042   Code   RO         4533    t._ZN13ArrayListBaseI11MemoryChunkE6removeERS0_  memory_alloc.o
+    0x08002426   0x00000008   Code   RO          708    t._ZN13ArrayListBaseI11MemoryChunkEC1Ev  device.o
+    0x0800242e   0x00000002   PAD
+    0x08002430   0x00000040   Code   RO          119    t._ZN6StringC1IKcEEPT_  main.o
+    0x08002470   0x00000040   Code   RO          257    t._ZN6StringC1IcEEPT_  main.o
+    0x080024b0   0x00000060   Code   RO          188    t._ZN7ILI9488I12GPIO_TypeDef14SpiSoftTypeDefE10driverFillEttt  main.o
+    0x08002510   0x00000020   Code   RO          176    t._ZN7ILI9488I12GPIO_TypeDef14SpiSoftTypeDefE10resetForceEb  main.o
+    0x08002530   0x0000014c   Code   RO          182    t._ZN7ILI9488I12GPIO_TypeDef14SpiSoftTypeDefE4initEv  main.o
+    0x0800267c   0x0000000e   Code   RO          170    t._ZN7ILI9488I12GPIO_TypeDef14SpiSoftTypeDefE5delayEj  main.o
+    0x0800268a   0x00000046   Code   RO           63    t._ZN7ILI9488I12GPIO_TypeDef14SpiSoftTypeDefE5hsClkEv  main.o
+    0x080026d0   0x00000020   Code   RO           51    t._ZN7ILI9488I12GPIO_TypeDef14SpiSoftTypeDefE5setHsEb  main.o
+    0x080026f0   0x00000020   Code   RO           39    t._ZN7ILI9488I12GPIO_TypeDef14SpiSoftTypeDefE5setVsEb  main.o
+    0x08002710   0x0000001c   Code   RO          245    t._ZN7ILI9488I12GPIO_TypeDef14SpiSoftTypeDefE5vsClkEv  main.o
+    0x0800272c   0x0000000a   Code   RO           69    t._ZN7ILI9488I12GPIO_TypeDef14SpiSoftTypeDefE6rgbOutItEEvT_  main.o
+    0x08002736   0x00000002   PAD
+    0x08002738   0x00000020   Code   RO           45    t._ZN7ILI9488I12GPIO_TypeDef14SpiSoftTypeDefE6setDenEb  main.o
+    0x08002758   0x00000020   Code   RO           57    t._ZN7ILI9488I12GPIO_TypeDef14SpiSoftTypeDefE6setDotEb  main.o
+    0x08002778   0x00000014   Code   RO          233    t._ZN7ILI9488I12GPIO_TypeDef14SpiSoftTypeDefE6wrCmd8Eh  main.o
+    0x0800278c   0x00000014   Code   RO          239    t._ZN7ILI9488I12GPIO_TypeDef14SpiSoftTypeDefE7wrData8Eh  main.o
+    0x080027a0   0x00000014   Code   RO          164    t._ZN7ILI9488I12GPIO_TypeDef14SpiSoftTypeDefE9backLightEh  main.o
+    0x080027b4   0x0000000a   Code   RO         4709    t._ZN8IteratorI9ArrayListI8RunnableES1_E3getEv  vm.o
+    0x080027be   0x0000000a   Code   RO         4703    t._ZN8IteratorI9ArrayListI8RunnableES1_E4nextEv  vm.o
+    0x080027c8   0x0000000e   Code   RO         4715    t._ZN8IteratorI9ArrayListI8RunnableES1_E7hasThisEv  vm.o
+    0x080027d6   0x00000002   Code   RO          144    t._ZN8IteratorI9ArrayListI8RunnableES1_EC1Ev  main.o
+    0x080027d8   0x00000004   Code   RO          138    t._ZN8IteratorI9ArrayListI8RunnableES1_EclER20DefaultArrayListNodeIS2_S1_E  main.o
+    0x080027dc   0x0000000a   Code   RO           75    t._ZN8IteratorI9ArrayListI9TestClassES1_E4nextEv  main.o
+    0x080027e6   0x00000010   Code   RO           99    t._ZN8IteratorI9ArrayListI9TestClassES1_E7hasNextEv  main.o
+    0x080027f6   0x00000002   Code   RO           87    t._ZN8IteratorI9ArrayListI9TestClassES1_EC1Ev  main.o
+    0x080027f8   0x00000004   Code   RO           81    t._ZN8IteratorI9ArrayListI9TestClassES1_EclER20DefaultArrayListNodeIS2_S1_E  main.o
+    0x080027fc   0x00000010   Code   RO          150    t._ZN9AllocatorI20DefaultArrayListNodeI9ArrayListI8RunnableES2_EE3NewEv  main.o
+    0x0800280c   0x0000000e   Code   RO          766    t._ZN9AllocatorI20DefaultArrayListNodeI9ArrayListI8RunnableES2_EE5allocEj  device.o
+    0x0800281a   0x00000010   Code   RO          105    t._ZN9AllocatorI20DefaultArrayListNodeI9ArrayListI9TestClassES2_EE3NewEv  main.o
+    0x0800282a   0x0000000e   Code   RO          297    t._ZN9AllocatorI20DefaultArrayListNodeI9ArrayListI9TestClassES2_EE5allocEj  main.o
+    0x08002838   0x00000012   Code   RO          125    t._ZN9AllocatorIcE3NewEj  main.o
+    0x0800284a   0x0000000e   Code   RO          285    t._ZN9AllocatorIcE5allocEj  main.o
+    0x08002858   0x00000012   Code   RO          112    t._ZN9AllocatorIcE8NewArrayEj  main.o
+    0x0800286a   0x0000003e   Code   RO          221    t._ZN9ArrayListI8RunnableE8addFirstERS0_  main.o
+    0x080028a8   0x00000010   Code   RO          200    t._ZN9ArrayListI9TestClassE8addFirstEPS0_  main.o
+    0x080028b8   0x0000003e   Code   RO          251    t._ZN9ArrayListI9TestClassE8addFirstERS0_  main.o
+    0x080028f6   0x00000002   PAD
+    0x080028f8   0x00000038   Code   RO           93    t._ZN9ArrayListI9TestClassE8iteratorEv  main.o
+<<<<<<< HEAD
+    0x08002930   0x0000000a   Code   RO         5325    x$fpl$fpinit        fz_wm.l(fpinit.o)
+=======
+    0x08002930   0x0000000a   Code   RO         5151    x$fpl$fpinit        fz_wm.l(fpinit.o)
+>>>>>>> remotes/master/master
+    0x0800293a   0x00000010   Data   RO         2646    .constdata          stm32f4xx_hal_rcc.o
+    0x0800294a   0x00000002   PAD
+    0x0800294c   0x0000000c   Data   RO         4542    .constdata__ZTV11MemoryChunk  memory_alloc.o
+    0x08002958   0x00000018   Data   RO          721    .constdata__ZTV12SynchronizerI7RuntimeE  device.o
+    0x08002970   0x00000018   Data   RO          717    .constdata__ZTV12SynchronizerI9ArrayListI8RunnableEE  device.o
+    0x08002988   0x00000018   Data   RO          270    .constdata__ZTV12SynchronizerI9ArrayListI9TestClassEE  main.o
+    0x080029a0   0x00000010   Data   RO          727    .constdata__ZTV19GraphicFrameFactoryIttE  device.o
+    0x080029b0   0x0000000c   Data   RO         4540    .constdata__ZTV24DefaultArrayListBaseNodeI11MemoryChunkE  memory_alloc.o
+    0x080029bc   0x00000010   Data   RO          266    .constdata__ZTV6String  main.o
+    0x080029cc   0x00000018   Data   RO          723    .constdata__ZTV7Runtime  device.o
+    0x080029e4   0x00000010   Data   RO          725    .constdata__ZTV9AllocatorI12GraphicFrameI19GraphicFrameFactoryIttEttEE  device.o
+    0x080029f4   0x00000010   Data   RO          715    .constdata__ZTV9AllocatorI20DefaultArrayListNodeI9ArrayListI8RunnableES2_EE  device.o
+    0x08002a04   0x00000010   Data   RO          268    .constdata__ZTV9AllocatorI20DefaultArrayListNodeI9ArrayListI9TestClassES2_EE  main.o
+    0x08002a14   0x00000010   Data   RO          264    .constdata__ZTV9AllocatorIcE  main.o
+    0x08002a24   0x00000028   Data   RO          719    .constdata__ZTV9ArrayListI8RunnableE  device.o
+    0x08002a4c   0x00000028   Data   RO          272    .constdata__ZTV9ArrayListI9TestClassE  main.o
+    0x08002a74   0x00000008   Data   RO           31    .constdata__ZZN6Device4initEvEs  main.o
+    0x08002a7c   0x00000007   Data   RO           32    .constdata__ZZN6Device8toStringEvEs  main.o
+    0x08002a83   0x00000001   PAD
+<<<<<<< HEAD
+    0x08002a84   0x00000030   Data   RO         5451    Region$$Table       anon$$obj.o
+    0x08002ab4   0x00000004   Data   RO            9    .init_array         main.o
+    0x08002ab8   0x00000004   Data   RO          645    .init_array         device.o
+    0x08002abc   0x00000000   Data   RO         4980    .init_array         c_w.l(init_aeabi.o)
+=======
+    0x08002a84   0x00000030   Data   RO         5277    Region$$Table       anon$$obj.o
+    0x08002ab4   0x00000004   Data   RO            9    .init_array         main.o
+    0x08002ab8   0x00000004   Data   RO          645    .init_array         device.o
+    0x08002abc   0x00000000   Data   RO         4806    .init_array         c_w.l(init_aeabi.o)
+>>>>>>> remotes/master/master
+>>>>>>> remotes/master/master
 
 
     Execution Region RW_IRAM2 (Base: 0x10000000, Size: 0x000009d0, Max: 0x00010000, ABSOLUTE)
@@ -4060,6 +4606,7 @@ Memory Map of the image
 
     0x10000000   0x00000001   Data   RW          671    .data               device.o
     0x10000001   0x00000003   PAD
+<<<<<<< HEAD
     0x10000004   0x00000004   Data   RW         1135    .data               stm32f4xx_hal.o
     0x10000008   0x00000014   Data   RW         4665    .data               system_stm32f4xx.o
     0x1000001c   0x0000004c   Data   RW         4870    .data               cpucontrolblock.o
@@ -4072,6 +4619,22 @@ Memory Map of the image
     0x100003cc   0x00000004   PAD
     0x100003d0   0x00000200   Zero   RW         4652    HEAP                startup_stm32f417xx.o
     0x100005d0   0x00000400   Zero   RW         4651    STACK               startup_stm32f417xx.o
+=======
+    0x10000004   0x00000004   Data   RW         1110    .data               stm32f4xx_hal.o
+    0x10000008   0x00000014   Data   RW         4634    .data               system_stm32f4xx.o
+    0x1000001c   0x00000008   Data   RW          273    .data__ZZN9ArrayListI8RunnableE8iteratorEvE1i  main.o
+    0x10000024   0x00000008   Data   RW          274    .data__ZZN9ArrayListI9TestClassE8iteratorEvE1i  main.o
+    0x1000002c   0x0000009c   Zero   RW          643    .bss                device.o
+    0x100000c8   0x00000014   Zero   RW          912    .bss                gpio_ex.o
+    0x100000dc   0x000001e4   Zero   RW          992    .bss                init.o
+<<<<<<< HEAD
+    0x100002c0   0x00000060   Zero   RW         5105    .bss                c_w.l(libspace.o)
+=======
+    0x100002c0   0x00000060   Zero   RW         4931    .bss                c_w.l(libspace.o)
+>>>>>>> remotes/master/master
+    0x10000320   0x00000200   Zero   RW         4621    HEAP                startup_stm32f417xx.o
+    0x10000520   0x00000400   Zero   RW         4620    STACK               startup_stm32f417xx.o
+>>>>>>> remotes/master/master
 
 
     Execution Region RW_IRAM1 (Base: 0x20000000, Size: 0x000138ac, Max: 0x00020000, ABSOLUTE)
