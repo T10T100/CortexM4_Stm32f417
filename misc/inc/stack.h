@@ -40,6 +40,7 @@ template <typename Object>
                     return nullptr;
                 }
                 array[pushIndex++] = &o;
+                return &o;
             }
             Object *push (Object *o)
             {
@@ -61,10 +62,11 @@ template <typename Object>
             
             ArrayList<Object> *clone ()
             {
-                ArrayList<Object> *list = this->New();
+                ArrayList<Object> *listT = this->New();
                 for (int i = 0; i < length; i++) {
-                    list->addFirst(array[i]);
+                    listT->addFirst(array[i]);
                 }
+                return listT;
             }
             
             bool isEmpty ()

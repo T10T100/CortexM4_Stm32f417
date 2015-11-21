@@ -4,10 +4,10 @@
 #include <stdint.h>
 
 extern "C"
-void *StackSwitch (void *, void *);
+void *StackSwitch (void *frame, int32_t);
 
 extern "C"
-void *StackSwitchPSV (void *frame, void *);
+void *StackSwitchPSV (void *frame, int32_t);
   
 class RuntimeFrame {
     private :
@@ -41,11 +41,11 @@ class RuntimeFrame {
         this->R11 = runtime->R11;
         this->R12 = runtime->R12;
         this->LR = runtime->LR;
-        this->RL = runtime->RL;
+        //this->RL = runtime->RL;
         this->PC = runtime->PC;
         this->XPSR = runtime->XPSR;
+        //this->CONTROL = runtime->CONTROL;
     }
-    uint32_t RL;
     uint32_t R11;
     uint32_t R10;
     uint32_t R9;
@@ -62,6 +62,7 @@ class RuntimeFrame {
     uint32_t LR;
     uint32_t PC;
     uint32_t XPSR;
+    //uint32_t CONTROL;
 };    
   
     

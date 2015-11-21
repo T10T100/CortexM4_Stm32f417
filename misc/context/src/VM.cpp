@@ -2,7 +2,7 @@
 
 extern Runtime runtime;
 
-extern void *server(void *frame, void *link)
+extern void *server(void *frame, int32_t link)
 {
    return runtime.manageThreads(frame, link); 
 }
@@ -20,3 +20,4 @@ int SystemEventBurner2 (Runnable *r)
         
     }
 }
+

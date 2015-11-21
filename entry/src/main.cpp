@@ -4,12 +4,8 @@
 #include "main.h"
 #include "device.h"
 #include "extern.h"
-#include "stackSwitching.h"
 extern Device device;
 extern Runtime runtime;
-
-
-const char myName[] = "My name is";
 
 class TestClass {
     private :
@@ -27,7 +23,7 @@ class TestClass {
 
 ArrayList<TestClass> arrayList;
 
-uint32_t systemHeap[10000];
+uint32_t systemHeap[20000];
 
 
 
@@ -42,11 +38,11 @@ int main ()
   //SpiInit();
   GpioInit();
     Heap(0x60000000, 0x7FFFF);
-    runtime((uint32_t)systemHeap, 10000);
+    
     device(Lcd_Rgb_Port, spiLcd);
     device.init();
     device.enableBackLight(true);
-    
+    runtime((uint32_t)systemHeap, 20000);
     String str0("need");
     String str1("java");
     str0 + str1;
@@ -62,7 +58,7 @@ int main ()
         if (iterator->hasNext() == false) {
             iterator = arrayList.iterator();
         } else {
-            iterator->getNext();
+            iterator->next();
         }
 		device.fill(0xffff);
 	}

@@ -22,78 +22,50 @@ Dialog DLL:      TCM.DLL V1.14.4.0
  
 <h2>Project:</h2>
 E:\KeilProj\platform\platform.uvprojx
-Project File Date:  11/18/2015
+Project File Date:  11/21/2015
 
 <h2>Output:</h2>
 Build target 'Target 1'
-compiling main.cpp...
-.\misc\inc\syncClass.h(47): warning:  #1-D: last line of file ends without a newline
-  /*End of file*/
-.\misc\inc\ArrayList.h(34): warning:  #794-D: template parameter "List" may not be used in an elaborated type specifier
-          friend class List;
-.\misc\inc\ArrayList.h(50): warning:  #794-D: template parameter "Vector" may not be used in an elaborated type specifier
-          friend class Vector;
-.\misc\inc\String.h(173): warning:  #1-D: last line of file ends without a newline
-  /*End od file*/
-.\misc\inc\eventObject.h(23): warning:  #1-D: last line of file ends without a newline
-  /*End of file*/
-.\hardware\inc\TFTili9486.h(538): warning:  #177-D: variable "nClk" was declared but never referenced
-          uint32_t nClk = LCD_Clk_Pin << 16;
-.\gui\inc\graphicFrameClass.h(32): warning:  #794-D: template parameter "Factory" may not be used in an elaborated type specifier
-          friend class Factory;
-.\misc\context\inc\Thread.h(74): warning:  #120-D: return value type does not match the function type
-          return this->runnable;
-.\misc\context\inc\Thread.h(94): warning:  #940-D: missing return statement at end of non-void function "Runnable::assert(A) [with A=RunnableStatus]"
-          }
-          detected during instantiation of "bool Runnable::assert(A) [with A=RunnableStatus]" at line 82
-.\misc\context\inc\Thread.h(94): warning:  #940-D: missing return statement at end of non-void function "Runnable::assert(A)"
-          }
-.\misc\inc\stack.h(43): warning:  #940-D: missing return statement at end of non-void function "Stack<Object>::push(Object &)"
-              }
-.\misc\inc\stack.h(68): warning:  #940-D: missing return statement at end of non-void function "Stack<Object>::clone"
-              }
-.\misc\context\inc\VM.h(21): warning:  #177-D: variable "a" was declared but never referenced
-               RuntimeFrame *a = (RuntimeFrame *)frame;
-entry\src\main.cpp(70): warning:  #111-D: statement is unreachable
-        return 0;
-entry\src\main.cpp(12): warning:  #177-D: variable "myName" was declared but never referenced
-  const char myName[] = "My name is";
-entry\src\main.cpp: 15 warnings, 0 errors
-compiling VM.cpp...
-.\misc\inc\syncClass.h(47): warning:  #1-D: last line of file ends without a newline
-  /*End of file*/
-.\misc\inc\ArrayList.h(34): warning:  #794-D: template parameter "List" may not be used in an elaborated type specifier
-          friend class List;
-.\misc\inc\ArrayList.h(50): warning:  #794-D: template parameter "Vector" may not be used in an elaborated type specifier
-          friend class Vector;
-.\misc\inc\String.h(173): warning:  #1-D: last line of file ends without a newline
-  /*End od file*/
-.\misc\inc\eventObject.h(23): warning:  #1-D: last line of file ends without a newline
-  /*End of file*/
-.\hardware\inc\TFTili9486.h(538): warning:  #177-D: variable "nClk" was declared but never referenced
-          uint32_t nClk = LCD_Clk_Pin << 16;
-.\gui\inc\graphicFrameClass.h(32): warning:  #794-D: template parameter "Factory" may not be used in an elaborated type specifier
-          friend class Factory;
-.\misc\context\inc\Thread.h(74): warning:  #120-D: return value type does not match the function type
-          return this->runnable;
-.\misc\context\inc\Thread.h(94): warning:  #940-D: missing return statement at end of non-void function "Runnable::assert(A) [with A=RunnableStatus]"
-          }
-          detected during instantiation of "bool Runnable::assert(A) [with A=RunnableStatus]" at line 82
-.\misc\context\inc\Thread.h(94): warning:  #940-D: missing return statement at end of non-void function "Runnable::assert(A)"
-          }
-.\misc\inc\stack.h(43): warning:  #940-D: missing return statement at end of non-void function "Stack<Object>::push(Object &)"
-              }
-.\misc\inc\stack.h(68): warning:  #940-D: missing return statement at end of non-void function "Stack<Object>::clone"
-              }
-.\misc\context\inc\VM.h(21): warning:  #177-D: variable "a" was declared but never referenced
-               RuntimeFrame *a = (RuntimeFrame *)frame;
-misc\context\src\VM.cpp(22): warning:  #1-D: last line of file ends without a newline
-  }
-misc\context\src\VM.cpp: 14 warnings, 0 errors
+compiling cpuControlBlock.c...
+.\misc\context\inc\cpuControlBlock.h(256): warning:  #61-D: integer operation result is out of range
+      DEBUGEVT       = (1 << 31),
+.\misc\context\inc\cpuControlBlock.h(273): warning:  #61-D: integer operation result is out of range
+      NMIPENDSET  = (1 << 31),
+misc\depend\Arm\CortexM4\src\cpuControlBlock.c(225): warning:  #3630-D: invalid narrowing conversion from "unsigned int" to "signed int"
+          off & USGFAULTENA,
+misc\depend\Arm\CortexM4\src\cpuControlBlock.c(226): warning:  #3630-D: invalid narrowing conversion from "unsigned int" to "signed int"
+          off & BUSFAULTENA,
+misc\depend\Arm\CortexM4\src\cpuControlBlock.c(227): warning:  #3630-D: invalid narrowing conversion from "unsigned int" to "signed int"
+          off & MEMFAULTENA,
+misc\depend\Arm\CortexM4\src\cpuControlBlock.c(228): warning:  #3630-D: invalid narrowing conversion from "unsigned int" to "signed int"
+          off & BUSFAULTPENDED,
+misc\depend\Arm\CortexM4\src\cpuControlBlock.c(229): warning:  #3630-D: invalid narrowing conversion from "unsigned int" to "signed int"
+          off & MEMFAULTPENDED,
+misc\depend\Arm\CortexM4\src\cpuControlBlock.c(230): warning:  #3630-D: invalid narrowing conversion from "unsigned int" to "signed int"
+          off & USGFAULTPENDED,
+misc\depend\Arm\CortexM4\src\cpuControlBlock.c(231): warning:  #3630-D: invalid narrowing conversion from "unsigned int" to "signed int"
+          off & SYSTICKACT,
+misc\depend\Arm\CortexM4\src\cpuControlBlock.c(232): warning:  #3630-D: invalid narrowing conversion from "unsigned int" to "signed int"
+          off & PENDSVACT,
+misc\depend\Arm\CortexM4\src\cpuControlBlock.c(233): warning:  #3630-D: invalid narrowing conversion from "unsigned int" to "signed int"
+          off & Reserved,
+misc\depend\Arm\CortexM4\src\cpuControlBlock.c(234): warning:  #3630-D: invalid narrowing conversion from "unsigned int" to "signed int"
+          off & MONITORACT,
+misc\depend\Arm\CortexM4\src\cpuControlBlock.c(235): warning:  #3630-D: invalid narrowing conversion from "unsigned int" to "signed int"
+          off & SVCALLACT,
+misc\depend\Arm\CortexM4\src\cpuControlBlock.c(236): warning:  #3630-D: invalid narrowing conversion from "unsigned int" to "signed int"
+          off & BUSFAULTACT,
+misc\depend\Arm\CortexM4\src\cpuControlBlock.c(237): warning:  #3630-D: invalid narrowing conversion from "unsigned int" to "signed int"
+          off & MEMFAULTACT,
+misc\depend\Arm\CortexM4\src\cpuControlBlock.c(298): warning:  #68-D: integer conversion resulted in a change of sign
+          off & DEBUGEVT,
+misc\depend\Arm\CortexM4\src\cpuControlBlock.c(307): warning:  #68-D: integer conversion resulted in a change of sign
+                          ((v.DEBUGEVT        & DEBUGEVT)          << DEBUGEVTgp) | \
+misc\depend\Arm\CortexM4\src\cpuControlBlock.c: 17 warnings, 0 errors
 linking...
-Program Size: Code=10046 RO-data=762 RW-data=44 ZI-data=42340  
+Program Size: Code=10162 RO-data=778 RW-data=44 ZI-data=82336  
 FromELF: creating hex file...
-".\Objects\platform.axf" - 0 Error(s), 29 Warning(s).
+".\Objects\platform.axf" - 0 Error(s), 17 Warning(s).
 
 <h2>Software Packages used:</h2>
 

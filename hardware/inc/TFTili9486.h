@@ -535,7 +535,7 @@ class ILI9488 {
     {
         uint32_t W = d.w, H = d.h;
         uint32_t D = W * (uint32_t)H;
-        uint32_t nClk = LCD_Clk_Pin << 16;
+        //uint32_t nClk = LCD_Clk_Pin << 16;
         this->window(d.x, d.y, W, H);
         for (int32_t __x = D; __x > 0 ; __x -= (uint32_t)H) { 
             for (uint32_t __y = 0; __y < H; __y++) {

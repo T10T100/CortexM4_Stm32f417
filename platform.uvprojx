@@ -365,7 +365,7 @@
               <MiscControls>--cpp11</MiscControls>
               <Define>tftili9486,</Define>
               <Undefine></Undefine>
-              <IncludePath>.\entry\inc;.\gui\inc;.\hardware\inc;.\misc\inc;..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\STM32F4xx_HAL_Driver\Inc;..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include;..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\CMSIS\Include;.\hardware\Drivers\inc;.\misc\context\inc</IncludePath>
+              <IncludePath>.\entry\inc;.\gui\inc;.\hardware\inc;.\misc\inc;..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\STM32F4xx_HAL_Driver\Inc;..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include;..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\CMSIS\Include;.\hardware\Drivers\inc;.\misc\context\inc;.\misc\depend\Arm\CortexM4\inc;.\misc\inc</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -577,22 +577,39 @@
           <GroupName>context</GroupName>
           <Files>
             <File>
-              <FileName>stackSwitching.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\misc\context\src\stackSwitching.s</FilePath>
-            </File>
-            <File>
               <FileName>contextSwitching.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\misc\context\src\contextSwitching.cpp</FilePath>
+              <FilePath>.\misc\depend\Arm\CortexM4\src\contextSwitching.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>stackSwitching.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\misc\depend\Arm\CortexM4\src\stackSwitching.s</FilePath>
+            </File>
+            <File>
+              <FileName>startup_stm32f417xx.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\misc\depend\Arm\CortexM4\src\startup_stm32f417xx.s</FilePath>
+            </File>
+            <File>
+              <FileName>system_stm32f4xx.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\entry\src\system_stm32f4xx.c</FilePath>
+            </File>
+            <File>
+              <FileName>VM.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\misc\context\src\VM.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>cpuControlBlock.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\misc\depend\Arm\CortexM4\src\cpuControlBlock.c</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
           <GroupName>::CMSIS</GroupName>
-        </Group>
-        <Group>
-          <GroupName>::Device</GroupName>
         </Group>
       </Groups>
     </Target>
@@ -613,12 +630,6 @@
           <targetInfo name="Target 1"/>
         </targetInfos>
       </component>
-      <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="2.1.0" condition="STM32F4 CMSIS">
-        <package name="STM32F4xx_DFP" schemaVersion="1.3" url="http://www.keil.com/pack" vendor="Keil" version="2.4.0"/>
-        <targetInfos>
-          <targetInfo name="Target 1"/>
-        </targetInfos>
-      </component>
     </components>
     <files>
       <file attr="config" category="source" name="CMSIS\RTOS\RTX\Templates\RTX_Conf_CM.c" version="4.70.1">
@@ -628,20 +639,16 @@
         <targetInfos/>
       </file>
       <file attr="config" category="source" condition="STM32F417xx_ARMCC" name="Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm\startup_stm32f417xx.s" version="2.1.0">
-        <instance index="0">RTE\Device\STM32F417IETx\startup_stm32f417xx.s</instance>
+        <instance index="0" removed="1">RTE\Device\STM32F417IETx\startup_stm32f417xx.s</instance>
         <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="2.1.0" condition="STM32F4 CMSIS"/>
         <package name="STM32F4xx_DFP" schemaVersion="1.3" url="http://www.keil.com/pack" vendor="Keil" version="2.4.0"/>
-        <targetInfos>
-          <targetInfo name="Target 1"/>
-        </targetInfos>
+        <targetInfos/>
       </file>
       <file attr="config" category="source" name="MDK\Device\Source\ARM\system_stm32f4xx.c" version="2.1.0">
-        <instance index="0">RTE\Device\STM32F417IETx\system_stm32f4xx.c</instance>
+        <instance index="0" removed="1">RTE\Device\STM32F417IETx\system_stm32f4xx.c</instance>
         <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="2.1.0" condition="STM32F4 CMSIS"/>
         <package name="STM32F4xx_DFP" schemaVersion="1.3" url="http://www.keil.com/pack" vendor="Keil" version="2.4.0"/>
-        <targetInfos>
-          <targetInfo name="Target 1"/>
-        </targetInfos>
+        <targetInfos/>
       </file>
     </files>
   </RTE>

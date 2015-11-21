@@ -3,11 +3,13 @@
 void MemoryAllocator::operator () (uint32_t __heap, uint32_t __size) 
 {
 	MemoryChunk *chunk = (MemoryChunk *)__heap;
+    /*
 	for (memory_size_t i = 0; i < __size; i++) {
 	    *((uint8_t *)__heap + i) = 0;
 	}
+    */
 	chunk->size = __size;
-	this->poolFree .add(chunk);
+	this->poolFree.add(chunk);
 }
 
     MemoryAllocator::MemoryAllocator (uint32_t __heap, uint32_t __size) 
