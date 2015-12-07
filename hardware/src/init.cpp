@@ -24,14 +24,14 @@ void ClockEnable (void)
   __GPIOC_CLK_ENABLE();
   __GPIOD_CLK_ENABLE();
   __GPIOE_CLK_ENABLE();
-	__GPIOF_CLK_ENABLE();
-	__GPIOG_CLK_ENABLE();
-	__GPIOH_CLK_ENABLE();
+  __GPIOF_CLK_ENABLE();
+  __GPIOG_CLK_ENABLE();
+  __GPIOH_CLK_ENABLE();
   __ADC1_CLK_ENABLE();
   __ADC2_CLK_ENABLE();
   __DAC_CLK_ENABLE();
   __FSMC_CLK_ENABLE();
-  __SPI2_CLK_ENABLE();
+  __SPI3_CLK_ENABLE();
   __DMA2_CLK_ENABLE();
   __TIM1_CLK_ENABLE();
   __TIM2_CLK_ENABLE();
@@ -68,8 +68,8 @@ void SystemClock_Config(void)
   RCC_ClkInitStruct.ClockType = (RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2);
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;//RCC_SYSCLKSOURCE_HSE;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;  
-  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;  
+  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;  
+  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV4;  
   if(HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_5) != HAL_OK)
   {
     Error_Handler();
@@ -134,8 +134,8 @@ void AdcReinit (ADC_HandleTypeDef &AdcHandle, uint32_t arg0, uint32_t arg1)
 
 void SpiInit (void)
 {
-  SpiHandle.Instance               = SPI2;
-  SpiHandle.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_128;
+  SpiHandle.Instance               = SPI3;
+  SpiHandle.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_32;
   SpiHandle.Init.Direction         = SPI_DIRECTION_2LINES;
   SpiHandle.Init.CLKPhase          = SPI_PHASE_1EDGE;
   SpiHandle.Init.CLKPolarity       = SPI_POLARITY_HIGH;
@@ -248,7 +248,7 @@ void GpioInit (void)
   DEV_Gpio_Init(Lcd_Mosi_Port, LCD_MOSI_Pin, GPIO_MODE_OUTPUT_PP, GPIO_PULLUP);
   DEV_Gpio_Init(Lcd_Sck_Port, LCD_SCK_Pin, GPIO_MODE_OUTPUT_PP, GPIO_PULLUP);
   DEV_Gpio_Init(Lcd_Cs_Port, LCD_CS_Pin, GPIO_MODE_OUTPUT_PP, GPIO_PULLUP);
-	DEV_Gpio_Init(Lcd_Reset_Port, LCD_Reset_Pin, GPIO_MODE_OUTPUT_PP, GPIO_PULLUP);
+  DEV_Gpio_Init(Lcd_Reset_Port, LCD_Reset_Pin, GPIO_MODE_OUTPUT_PP, GPIO_PULLUP);
     
   DEV_Gpio_Init(Lcd_Clk_Port, LCD_Clk_Pin, GPIO_MODE_OUTPUT_PP, GPIO_PULLDOWN);
   DEV_Gpio_Init(Lcd_Vsync_Port, LCD_Vsync_Pin, GPIO_MODE_OUTPUT_PP, GPIO_PULLDOWN);
@@ -306,17 +306,20 @@ void GpioInit (void)
 	                              FSMC_A15 ,  
 		                                       GPIO_MODE_AF_PP, GPIO_AF12_FSMC);		
 
+  DEV_AltGpio_Init(GPIOC,  SCK_Pin, GPIO_MODE_AF_PP,  GPIO_AF6_SPI3);
+  DEV_AltGpio_Init(GPIOC, MOSI_Pin, GPIO_MODE_AF_PP, GPIO_AF6_SPI3);
+  DEV_AltGpio_Init(GPIOC, MISO_Pin, GPIO_MODE_AF_PP, GPIO_AF6_SPI3);
+  DEV_Gpio_Init(GPIOA, CS_Pin, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL);
+
   /*
   DEV_Gpio_Init(GPIOA, Dac_0, GPIO_MODE_ANALOG, GPIO_NOPULL);
   DEV_Gpio_Init(GPIOA, Dac_1, GPIO_MODE_ANALOG, GPIO_NOPULL);
   DEV_Gpio_Init(GPIOA, Adc_0, GPIO_MODE_ANALOG, GPIO_NOPULL);
   DEV_Gpio_Init(GPIOA, Adc_1, GPIO_MODE_ANALOG, GPIO_NOPULL);
   
-  DEV_AltGpio_Init(GPIOB,  SCK_Pin, GPIO_MODE_AF_PP,  GPIO_AF5_SPI2);
-  DEV_AltGpio_Init(GPIOB, MOSI_Pin, GPIO_MODE_AF_PP, GPIO_AF5_SPI2);
-  DEV_AltGpio_Init(GPIOB, MISO_Pin, GPIO_MODE_AF_PP, GPIO_AF5_SPI2);
+ 
    
-	DEV_Gpio_Init(Buzzer_Port, Buzz, GPIO_MODE_OUTPUT_PP, GPIO_PULLDOWN);
+  DEV_Gpio_Init(Buzzer_Port, Buzz, GPIO_MODE_OUTPUT_PP, GPIO_PULLDOWN);
   DEV_Gpio_Init(GPIOD, FSMC_CLK, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL);
 		
 

@@ -1,0 +1,9 @@
+.\objects\driverrequest.o: misc\context\src\DriverRequest.cpp
+.\objects\driverrequest.o: .\misc\context\inc\driverRequest.h
+.\objects\driverrequest.o: .\misc\context\inc\vmapi.h
+.\objects\driverrequest.o: .\misc\depend\Arm\CortexM4\inc\contextSwitching.h
+.\objects\driverrequest.o: E:\ghost\Keil\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\driverrequest.o: .\misc\context\inc\Thread.h
+.\objects\driverrequest.o: .\misc\inc\memory_template.h
+.\objects\driverrequest.o: .\misc\inc\arrayListStatic.h
+.\objects\driverrequest.o: .\misc\inc\syncClass.h

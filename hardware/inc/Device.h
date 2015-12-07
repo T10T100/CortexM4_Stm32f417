@@ -7,24 +7,30 @@
 
 #include "stdint.h"
 #include "init.h"
+#include "gpio_ex.h"
 #include "memory_alloc.h"
 #include "memory_template.h"
 #include "ArrayListStatic.h"
 #include "ArrayList.h"
+#include "Queue.h"
 #include "String.h"
 #include "deviceEventObject.h"
-#include "gpio_ex.h"
-#include "init.h"
+
 #include "screen_driver.h"
 #include "graphicFrameClass.h"
-#include "extern.h"
 #include "VM.h"
+#include "vmapi.h"
+#include "graphic.h"
+#include "contentPane.h"
+#include "extern.h"
+#include "touchScreenAdapter.h"
+
 
 class Device : public ILI9488<GPIO_TypeDef, SpiSoftTypeDef>,
-               public ScreenDriver<ILI9488<GPIO_TypeDef, SpiSoftTypeDef>, GraphicFrame<GraphicFrameFactory<uint16_t, uint16_t>, uint16_t, uint16_t> > {
+               public ScreenDriver<ILI9488<GPIO_TypeDef, SpiSoftTypeDef>, GraphicFrame<uint16_t,  uint16_t> > {
 private:
         
-
+    GraphicFrameFactory<uint16_t, uint16_t> frameFactory;
 /*
     ArrayList<DeviceListener<Device> > listenerList;
     void fireEvents ()
@@ -38,15 +44,18 @@ private:
 */
     
 public:
+    GContentPane<ColorDepth> *contentPane;
     Device () : ILI9488<GPIO_TypeDef, SpiSoftTypeDef>()
     {
        // this->addListener(((DeviceListener<Device> *) new DeviceListener<Device>()));
+        
+        
     }
     void enableBackLight (bool value)
     {
         this->backLight((int)value);
     }
-    void operator () (GPIO_TypeDef *port, SpiSoftTypeDef spiPort) 
+    void operator () (GPIO_TypeDef *port, SpiSoftTypeDef &spiPort) 
     {
         this->ILI9488::operator()(port, spiPort, 0x0000);
         this->ScreenDriver::operator()(*this);
@@ -54,13 +63,18 @@ public:
     void init ()
     {
         this->ScreenDriver::init((char *)"ili9486");
+        Dimension<MaxGuiRange> d(0, 0, 480, 320);
+        GraphicFrame<uint16_t, uint16_t> *f = frameFactory.newFrame(d);
+        contentPane = (GContentPane<ColorDepth> *) new GContentPane<ColorDepth>(f);
+        contentPane->getGraphic()->setFont(Font);
+        contentPane->fill(0xaaaa);
+        this->fill(contentPane->getFrame());
     }
     
     String *toString ()
     {
         return (String *) new String("device");
     }
-    GraphicFrameFactory<uint16_t, uint16_t> frameFactory;  
 };
 
 
@@ -106,6 +120,12 @@ void Device::ILI9488<GPIO_TypeDef, SpiSoftTypeDef>::setDot (bool value)
         } else {
             DEV_Pin_Clr(Lcd_Clk_Port, LCD_Clk_Pin);
         }        
+    }
+template <typename GPIO_TypeDef, typename SpiSoftTypeDef>
+void Device::ILI9488<GPIO_TypeDef, SpiSoftTypeDef>::toggleDot ()
+    {       
+        DEV_Pin_Set(Lcd_Clk_Port, LCD_Clk_Pin);
+        DEV_Pin_Clr(Lcd_Clk_Port, LCD_Clk_Pin);
     }
 template <typename GPIO_TypeDef, typename SpiSoftTypeDef>
 void Device::ILI9488<GPIO_TypeDef, SpiSoftTypeDef>::setDen (bool value)

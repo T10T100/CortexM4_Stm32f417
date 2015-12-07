@@ -21,7 +21,8 @@ template <typename List, typename Object>
 		/*Default interface to compare objects*/
 		bool equals (DefaultArrayListNode<List, Object> &node)
 		{
-			return this->object->equals(node->getUserObject());
+			//return this->object->equals(node->getUserObject());
+            return true;
 		}
         Object *getUserObject ()
         {
@@ -30,8 +31,10 @@ template <typename List, typename Object>
 		Object *object;
 		DefaultArrayListNode<List, Object> *prevLink;
 	    DefaultArrayListNode<List, Object> *nextLink;
+        
+        
 		/*Object defined interface*/
-        friend class List;
+        //friend class List;
         
 		private:
 	};
@@ -44,10 +47,9 @@ template <typename Vector, typename Object>
         public :
             bool hasNext ();  
             bool hasThis ();        
-            Object *next ();
-            Object *get ();
+            void next ();
+            Object *get  ();
 
-        friend class Vector;
     };
 
 	template <typename Object>
@@ -203,7 +205,7 @@ template <typename Vector, typename Object>
                     i = this->firstNode;
                     j = nullptr;
                     while (i != nullptr) {
-                        if (i->getUserObject()->equals(node.getUserObject()) == true) {
+                        if (i->equals(node) == true) {
                             j = i;
                             i = i->nextLink;
                             continue;
@@ -327,7 +329,7 @@ template <typename Vector, typename Object>
             }
         }
         template <typename V, typename o>
-        o *Iterator<V, o>::next()
+        void Iterator<V, o>::next()
         {
             node = node->nextLink;
         }

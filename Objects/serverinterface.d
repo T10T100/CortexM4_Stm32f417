@@ -1,0 +1,9 @@
+.\objects\serverinterface.o: misc\context\src\serverInterface.cpp
+.\objects\serverinterface.o: .\misc\context\inc\serverInterface.h
+.\objects\serverinterface.o: .\misc\inc\memory_template.h
+.\objects\serverinterface.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\serverinterface.o: .\misc\context\inc\vmapi.h
+.\objects\serverinterface.o: .\misc\depend\Arm\CortexM4\inc\contextSwitching.h
+.\objects\serverinterface.o: .\misc\context\inc\Thread.h
+.\objects\serverinterface.o: .\misc\inc\arrayListStatic.h
+.\objects\serverinterface.o: .\misc\inc\syncClass.h

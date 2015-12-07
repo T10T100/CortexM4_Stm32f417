@@ -4,6 +4,11 @@
 
 #include <stdint.h>
 
+typedef uint16_t ColorDepth; 
+typedef uint16_t MaxGuiRange;
+
+#define ColorWhite 0xffff
+#define ColorBlack 0x0000
 
 template <typename Color>
 struct  tImage{
@@ -26,6 +31,7 @@ struct tFont {
 };
 
 
-
+#define GUI_min(a, b)  (a < b ? a : b)   
+#define GUI_max (a, b)  (a >= b ? a : b)   
 
 #endif /*GUI_DEFS_H*/

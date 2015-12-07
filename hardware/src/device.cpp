@@ -12,15 +12,6 @@ Device device;
 SpiSoftTypeDef spiLcd;
 MemoryAllocator Heap;
 
-void *psalloc (uint32_t size)
-{
-    return runtime.psalloc(size);
-}
-void pfree (void *p)
-{
-    runtime.free(p);
-}
-
 void *Alloc (uint32_t size)
 {
     return Heap.New(size);
@@ -43,6 +34,21 @@ void operator delete[] (void *p)
 extern void CMSIS_Tick()
 {
      HAL_IncTick();
+}
+
+int16_t SensorMcu::SerialRead (uint8_t *__dest, uint16_t __size)
+{
+    DEV_Pin_Clr(GPIOA, CS_Pin);
+    HAL_SPI_Receive(&SpiHandle, __dest, 2, 10);
+    DEV_Pin_Set(GPIOA, CS_Pin);
+    return 0;	
+}
+int16_t SensorMcu::SerialWrite (uint8_t *__src, uint16_t __size)
+{
+    DEV_Pin_Clr(GPIOA, CS_Pin);
+	HAL_SPI_Transmit(&SpiHandle, __src, 1, 10);
+    DEV_Pin_Set(GPIOA, CS_Pin);
+	return 0;
 }
 
 

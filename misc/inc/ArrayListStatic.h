@@ -26,6 +26,7 @@ template <typename Object>
         {
             return false;
         }
+        
 		private:
 	};
 
@@ -92,43 +93,39 @@ template <typename Object>
 						this->lastNode = &item;
 						item.nextLink = nullptr;
 						item.prevLink = nullptr;
-						return *item;
+						return &item;
 					}
 					i = this->firstNode;
 					item.nextLink = i;
 					item.prevLink = nullptr;
 					i->prevLink = &item;
 					this->firstNode = &item;
-					return *item;
+					return &item;
 			}
 			
 			Object *addFirst (Object *item)
 			{
-				return this->add(item);
+				return this->addFirst(*item);
 			}
 			
-			Object *addLast (Object &item)
+			Object *addLast (Object *item)
 			{
 				this->elementCount++;
 				Object *i;
 				if (this->firstNode == nullptr) {
-					this->firstNode = &item;
-					this->lastNode = &item;
-					item->nextLink = nullptr;
-					item->prevLink = nullptr;
-					return &item;
+					this->firstNode = item;
+					this->lastNode = item;
+					lastNode->nextLink = nullptr;
+					firstNode->prevLink = nullptr;
+					return item;
 				}
 				i = this->lastNode;
 				item->prevLink = i;
 				item->nextLink = nullptr;
-				i->netLink = item;
+				i->nextLink = item;
 				this->lastNode = item;			
-				return &item;
+				return item;
 			}		
-			Object *addLast (Object *item)
-			{
-				return this->add(*item);
-			}
             
             Object *getFirst ()
             {
@@ -190,12 +187,40 @@ template <typename Object>
 			
 			Object *removeFirst ()
 			{
-				return this->remove(this->firstNode);
+				if (this->elementCount <= 0){
+                    return nullptr;
+                }
+				this->elementCount--;
+                Object *o = firstNode;
+                
+				if (!o->nextLink) {
+                    this->firstNode = nullptr;
+                    this->lastNode = nullptr;
+                    return o;
+                }
+                firstNode = o->nextLink;
+                firstNode->prevLink = nullptr;
+	
+				return o;
 			}
 			
-			Object *removeLast (Object &object)
+			Object *removeLast ()
 			{
-				return this->remove(this->lastNode);
+				if (this->elementCount <= 0){
+                    return nullptr;
+                }
+				this->elementCount--;
+                Object *o = lastNode;
+                
+				if (!o->prevLink) {
+                    this->firstNode = nullptr;
+                    this->lastNode = nullptr;
+                    return o;
+                }
+                lastNode = o->prevLink;
+                lastNode->nextLink = nullptr;
+	
+				return lastNode;
 			}
 			
 			void removeAll ()

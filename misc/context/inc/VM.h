@@ -5,158 +5,223 @@
 #include "syncClass.h"
 #include "stack.h"
 #include "contextSwitching.h"
+#include "RuntimeEventListener.h"
+#include "Event.h"
+#include "driverRequest.h"
+#include "TouchScreenAdapter.h"
+#include "serverInterface.h"
+#include "timerServer.h"
+#include "vmapi.h"
 
-extern "C"
-void *RuntimeStartup (void *, void *);
+#define MAX_RUNNABLE_PRIORITY 8
 
-int SystemEventBurner (Runnable *);
-int SystemEventBurner2 (Runnable *);  
+int SystemEventBurner (void *);
+extern int eventServer (void *);
+extern int timerServer (void *);
+extern int sensorInputServer (void *);
 
-enum /*class*/ {
-    VReady = 0, /*Ready to start, may only once*/
-    VPending = 1, /*Have preserved frame*/
-    VWaiting = 2, /*Wait for somekind signal*/
-    VEvent = 3,   /*Can be an event burner routine*/
-    EndOfThreadTypesEnum
-};
+extern uint32_t touchSensorDriverID;
 
-    class Runtime : public Synchronizer<Runtime> {
+
+class Runtime : public EventFactory,
+                public TimerInterface,
+                public ServerFactory<DefaultServerListener> ,
+                public Allocator<void *>,
+				public virtual ThreadFactory {
     private :
         MemoryAllocator allocator;
-        ArrayList<Runnable> listOfRunnables;
+        SensorAdapter sensorAdapter;
         Runnable *running;
-        ArrayListBase<Runnable> arrayOfRunnables[EndOfThreadTypesEnum];
-        
-        void *manageThreads (void *frame, int32_t param)
+        Runnable *iddle;
+        ArrayListBase<Runnable> arrayOfRunnables[MAX_RUNNABLE_PRIORITY];
+        ArrayListBase<Runnable> waitList;
+        int32_t serverRequestId;
+    
+    
+        ArrayListBase<RuntimeEventListener> arrayOfListeners;
+    
+        uint32_t mills;
+    
+        void *alloc (uint32_t size)
         {
-            if (syncFetch(this) == false) { 
-                return frame;
+            return allocator.New(size);
+        }
+        
+        void free (void *p)
+        {
+            allocator.Delete(p);
+        }
+        
+        
+        void fireSystemEvents ()
+        {
+            RuntimeEventListener *l = arrayOfListeners.getFirst();
+            while (l != nullptr) {
+                l->run();
+                l = l->nextLink;
             }
-            if (param == 2) {
-                RuntimeFrame *f = (RuntimeFrame *)frame;
-                addRunnable ((Runnable_t) f->R0, 0, 480);
-                param = 0;
-            }
-            if (running != nullptr) {
-                running->setFrame(frame);
-                arrayOfRunnables[running->getStatus()].addLast(running);
-            }
-            running = nullptr;
-            for (int i = 0; i < EndOfThreadTypesEnum; i++) {
+        }
+    
+        template <typename Link>
+        void runnablesTick (Link link)
+        {
+           Runnable *iterator = waitList.getFirst();
+           Runnable *r;
+               while (iterator != nullptr) {
+                   r = iterator;
+                   iterator = iterator->nextLink;
+                   if (r->testSelf(link) != false) {
+                       waitList.remove(r);
+                       push(r);
+                   } else {    
+                   }
+                   
+               }
+        }
+        
+        Runnable *getAvailable (int32_t priority)
+        {
+            Runnable *r = iddle;
+            for (int i = 0; i < MAX_RUNNABLE_PRIORITY; i++) {
                 if (arrayOfRunnables[i].isEmpty() == false) {
-                    running = arrayOfRunnables[i].removeFirst();
-                    break;
+                    return arrayOfRunnables[i].removeFirst();
                 }
             }
-            if (running == nullptr) {
-                syncRelease(this);
-                return frame; 
-            }
-            void *p = acceptRunnableStatus(frame, running, param);
-            syncRelease(this);
-            return p;
+            return r;
         }
-        
-        SVC_arg manageSVC (SVC_arg arg)
+    
+        __value_in_regs DwArg dispatch (void * frame)
         {
-            static uint32_t a0 = arg.a0;
-            static uint32_t a1 = arg.a1;
-            static uint32_t a2 = arg.a2;
-            return arg;
+            DwArg retArg = {(Word) frame, running->getAccessLvl()};
+            if (mills++ % 10 != 0 || mills == 0) {
+                return retArg;
+            }
+            push( TimerInterface::invoke() );
+            fireSystemEvents();
+            
+            running->setFrame((RuntimeFrame *)frame); 
+            runnablesTick(this);
+            
+            push(running);
+            running = pop();
+            
+            return running->getFrame((RuntimeFrame *)frame);
         }
         
+        __value_in_regs DwArg dispatchSVC (SVC_arg arg)
+        {
+            RuntimeFrame *frame = (RuntimeFrame *)arg.a3;
+            running->setFrame(frame);
+            return resolveAPICall(frame, arg);
+        }
+        
+        __value_in_regs DwArg run ()
+        {
+            running = arrayOfRunnables[0].removeFirst();
+            return running->getFrame(0);
+        }
+        
+        DwArg resolveAPICall (RuntimeFrame *frame, SVC_arg a)
+        {
+            uint32_t id     = running->getId();
+            DwArg ret = {(Word)frame, (Word)id};
+            
+            switch (a.a0) {
+                case vm::__create: addRunnable ((Runnable_t)a.a1, (uint32_t)a.a2);
 
-        void *acceptRunnableStatus (void *link, Runnable *r, int32_t param)
-        {
-            switch ((int)r->getStatus()) {
-                case 0 :
-                        RuntimeFrame *f = (RuntimeFrame *)(running->getStackRoof() - (sizeof(RuntimeFrame) * 4));
-                        return acceptLink((RuntimeFrame *)link, f, param);
-                    break;
+                case vm::__kill:
                         
-                case 1 : 
-                        return (void *)running->getFrame();
-                
                     break;
+                case vm::__sleep:
+                        if (id == IddleThreadID) { break; }
                         
+                        running->setWait(a.a1);
+                        waitList.addFirst(running);
+                        running = getAvailable (0);
+                    return running->getFrame(frame);
+
+                case vm::__runtimeDispatchEvent:
+                        RuntimeEventListener *l = (RuntimeEventListener *)allocator.New(sizeof(RuntimeEventListener));
+                        (*l)((RuntimeEventListener_t) a.a1);    
+                        arrayOfListeners.addFirst(l);
+                    break;
+                case vm::__pushEvent:
+                            //push( invokeServer((int32_t)param0) );
+                            //addEvent((Event_t) param0);
+                    break;
+                case vm::__addTimer:
+                        TimerInterface::addListener( newTimerListener( (ServerListener_t)a.a1, a.a2, 0), 0 );
+                    break;
+                case vm::__addSensorListener:
+                        addServerListener((ServerListener_t)a.a1, TouchSensorDriverID, (uint32_t)a.a2);
+                    break;
+                case vm::__close: 
+                            /*Delete(running);*/ /**/
+                           running = getAvailable(0); /**/
+                    return running->getFrame(frame);
+                case vm::__invokeServer:
+                           push( invokeServer((int32_t) a.a1) );
                 default :
-                        return (void *)r->getFrame(); 
+                    break;
             }
-            return (void *)r->getFrame();  
+            return ret;
         }
+           
         
-        void *acceptLink (RuntimeFrame *x, RuntimeFrame *link, int32_t param)
+        void push (Runnable *r)
         {
-                        if (param == 1) {
-                            link->R11 = (uint32_t)running->getRunnable();
-                            return (void *)link; 
-                        } else {
-                            *link = *x;
-                            link->PC = (uint32_t)running->getRunnable();
-                            running->setStatus(Running);
-                            return (void *)link;
-                        }            
+            if (r != nullptr) {
+                arrayOfRunnables[r->getPriority()].addLast(r);
+            }
+        }
+        Runnable *pop ()
+        {
+            return getAvailable(0);
         }
         
     public :
             
     
         /*Friends*/
-        friend void *server(void *frame, int32_t link);
-        friend SVC_arg serverSVC (SVC_arg);
+        friend __value_in_regs DwArg vmtick (void *arg);
+        friend __value_in_regs DwArg vmsvc (SVC_arg arg);
+        friend __value_in_regs DwArg vmstart();
+        friend int vminit (uint32_t heapStart, uint32_t heapSize);
+        friend int eventServer (Runnable *server);
+        friend int eventServerFinish ();
+        friend int driverSensorServer (Runnable *server);
         /*Friends*/
-    
-    
-        void *psalloc (uint32_t size)
-        {
-            return (void *)((uint32_t)allocator.New(size) + size - 4);
-        }
-        void free (void *p)
-        {
-            //allocator.Delete(p);
-        }
     
         
     
         Runtime ()
         {
             running = nullptr;
+            serverRequestId = -1;
         }
-        void operator () (uint32_t heapStart, uint32_t heapSize)
+        int init (uint32_t heapStart, uint32_t heapSize)
         {
-           void *error = nullptr;
            this->allocator(heapStart, heapSize);
-           addRunnable(SystemEventBurner, 0);
-           addRunnable(SystemEventBurner2, 0);
-           running->setStatus(Stopped);
-           error = RuntimeStartup (0, \
-                                    0 /*(void *)((uint32_t)allocator.New(4096 * 4) + 4040 * 4)*/);
+           
+           addIddle(SystemEventBurner, 0);
+           installServer(eventServer, EventServerID, 1, 0);
+           TimerInterface::operator () (timerServer, 1, TimerServerID, 0);
+            
+           sensorAdapter(); 
+           installServer(touchSensorServer, TouchSensorDriverID, 6, &sensorAdapter);
+           return 0;
         }
         
-        Runnable *addRunnable (Runnable_t runnable, uint32_t args)
+        void addRunnable (Runnable_t runnable, uint32_t priority = 0)
         {
-            while (syncFetch(this) == false) {
-                
-            }
-            Runnable *r = (Runnable *)((uint32_t)allocator.New(sizeof(Runnable) + (200 * 4)));
-            (*r)(runnable, (uint32_t)r + sizeof(Runnable) + 200 * 4, 0);
-            arrayOfRunnables[VReady].addFirst(r);
-            syncRelease(this);
-            return r;
+            arrayOfRunnables[0].addFirst( newThread(runnable, priority) );
         }
-        Runnable *addRunnable (Runnable_t runnable, uint32_t args,Word stackSize/*in words*/)
+        
+		void addIddle (Runnable_t runnable, uint32_t priority = 0)
         {
-            while (syncFetch(this) == false) {
-                
-            }
-            Runnable *r = (Runnable *)((uint32_t)allocator.New(sizeof(Runnable) + (stackSize * 4)));
-            (*r)(runnable, (uint32_t)r + sizeof(Runnable) + stackSize * 4, 0);
-            arrayOfRunnables[VReady].addFirst(r);
-            syncRelease(this);
-            return r;
+            arrayOfRunnables[0].addFirst( newServer(runnable, priority, IddleThreadID) );
         }
-        
-        
+     
 };
 
 

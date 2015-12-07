@@ -4,7 +4,7 @@
 #include "dimensions.h"
 #include "memory_template.h"
 
-template <typename Factory, typename Color, typename Range>
+template <typename Color, typename Range>
     class GraphicFrame  : public Dimension<Range>{
     private :
         Color *buffer;
@@ -12,6 +12,7 @@ template <typename Factory, typename Color, typename Range>
         {
             this->setDefaultSize();
         }
+    public :
         void operator () (Color *buffer, Dimension<Range> d)
         {
             this->buffer = buffer;
@@ -20,31 +21,41 @@ template <typename Factory, typename Color, typename Range>
         void operator () (Color *buffer, int w, int h)
         {
             this->buffer = buffer;
-            Dimension<Range> d = {0, 0, w, h};
-            this->setSize(d);
+            this->setSize(0, 0, w, h);
         }
-    public:
+    
+        void  fill (Color color)
+            {
+                    //if (this->Screen->Test()) return -1;
+                    //this->Screen->Trunc(&rect);
+                    
+                    int32_t D = this->w * this->h;
+                    for (int32_t  x = D ; x > 0;  x--)  {
+                            buffer[x] = color;
+                    }
+            }
         
         Color *getBuffer ()
         {
             return this->buffer;
         }
-        friend class Factory;
+        //friend class Factory;
 };
     
 template <typename  Color, typename Range>
-    class GraphicFrameFactory : public Allocator<GraphicFrame<GraphicFrameFactory<Color, Range>, Color, Range> >{
+    class GraphicFrameFactory : public Allocator<GraphicFrame <Color, Range> > {
         public:
             GraphicFrameFactory ()
             {
                 
             }
-            GraphicFrame<GraphicFrameFactory, Color, Range> *newFrame (Dimension<Range> d)
+            GraphicFrame<Color, Range> *newFrame (Dimension<Range> d)
             {
-                GraphicFrame<GraphicFrameFactory, Color, Range> *frame = this->New(d.w * d.h);
+                GraphicFrame<Color, Range> *frame = this->New(d.getWidth() * d.getHeight());
                 (*frame)((Color *)(frame + 1), d);
                 return frame;
             }
+            
     };
     
 

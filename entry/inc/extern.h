@@ -10,9 +10,11 @@ extern TIM_HandleTypeDef             Tim2_Handle;
 
 extern SpiSoftTypeDef spiLcd;
 extern ILI9488<GPIO_TypeDef, SpiSoftTypeDef> graphicController;
-extern ScreenDriver<ILI9488<GPIO_TypeDef, SpiSoftTypeDef>, GraphicFrame<GraphicFrameFactory<uint16_t, uint16_t>, uint16_t, uint16_t> > lcd;
+extern ScreenDriver<ILI9488<GPIO_TypeDef, SpiSoftTypeDef>, GraphicFrame<uint16_t, uint16_t> > lcd;
 
 extern MemoryAllocator Heap;
+
+extern const tFont<uint16_t> Font ;
 
 //extern SpiSoftTypeDef LcdSpi;
 //extern LcdDriverDef TFT;

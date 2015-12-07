@@ -5,13 +5,25 @@
 
 typedef uint32_t Word;
 typedef uint16_t HWord;
-typedef uint8_t byte;
+typedef uint8_t Byte;
 
-#pragma import StackSwitch   
+#pragma import VMTick   
 #pragma import StackSwitchPSV   
-#pragma import RuntimeInit
-#pragma import CallSVC
-  
+#pragma import VMSvc
+#pragma import VMInit
+#pragma import VMStart
+
+#define CPU_PRIV_ACCESS 0
+#define CPU_UNPRIV_ACCESS 1
+
+#define CPU_USE_MSP 0
+#define CPU_USE_PSP 2
+
+#define ThreadAccessLevel0 (CPU_USE_PSP | CPU_UNPRIV_ACCESS)
+#define ThreadAccessLevel1 (CPU_USE_PSP | CPU_PRIV_ACCESS)
+#define ThreadAccessLevel2 (CPU_USE_MSP | CPU_UNPRIV_ACCESS)
+#define ThreadAccessLevel3 (CPU_USE_MSP | CPU_PRIV_ACCESS)
+
 class RuntimeFrame {
     private :
     
@@ -28,7 +40,7 @@ class RuntimeFrame {
     {
         (*this) = (RuntimeFrame *)r;
     }
-    void operator = (RuntimeFrame *runtime)
+    void init (RuntimeFrame *runtime)
     {
         this->R0 = runtime->R0;
         this->R1 = runtime->R1;
@@ -44,10 +56,8 @@ class RuntimeFrame {
         this->R11 = runtime->R11;
         this->R12 = runtime->R12;
         this->LR = runtime->LR;
-        //this->RL = runtime->RL;
         this->PC = runtime->PC;
         this->XPSR = runtime->XPSR;
-        //this->CONTROL = runtime->CONTROL;
     }
     Word R11;
     Word R10;
@@ -65,7 +75,6 @@ class RuntimeFrame {
     Word LR;
     Word PC;
     Word XPSR;
-    //uint32_t CONTROL;
 };    
   
     
@@ -73,7 +82,7 @@ typedef struct {
    Word a0;
    Word a1;
    Word a2;
-   Word a3; /*Access to this parameter is denied !!! dont write in it representation address in any case !*/
+   Word a3; /*!*/
 } SVC_arg;
 
 

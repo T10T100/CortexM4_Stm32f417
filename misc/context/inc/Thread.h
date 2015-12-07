@@ -5,7 +5,10 @@
 #include "contextSwitching.h"
 #include "arrayListStatic.h"
 
-typedef uint32_t word;
+typedef int (* Runnable_t) (void *);
+
+#define StackPadSize 4
+#define DefaultthreadStackSize 128 * 4
 
 enum RunnableStatus{
   Stopped = 0,
@@ -13,10 +16,22 @@ enum RunnableStatus{
   Pending = 2,
 };
 
+enum RunnablesMagic {
+    IddleThreadID   = 0x0A00AAAA,
+    DefaultThreadID = 0x0A00A000,
+    DefaultServerID = 0x0B00B000,
+};    
+
+
+typedef  struct {
+   Word a0;
+   Word a1; 
+} DwArg;
+
 typedef /*bit-band*/ struct {
-    unsigned sleepTime:     16;
-    int8_t priority;
-    unsigned waitNotify:    1;
+    unsigned sleepTime  :   16;
+    signed   priority   :   5;
+    unsigned waitNotify :   1;
     unsigned waitThread:    1;
     unsigned waitEvent:     1;
     unsigned irreevant:     1;
@@ -29,100 +44,213 @@ typedef /*bit-band*/ struct {
     
 } TCB;
 
-class Runnable : public DefaultArrayListBaseNode<Runnable> {
-    private :
-        int(*runnable)(Runnable *);
-        int status;
+template <typename R>
+class RunnbleInterface {
+    protected :
+        Runnable_t runnable; 
+        int8_t status;
+        int8_t accessLevel;
+        int32_t id;
         Word stackRoof;
-        Word stackFloor;
-        TCB tcb;
-        void *frameSuspended;
-        ArrayListBase<Runnable> *links;
-    void initTcb (uint32_t priority)
-    {
-        tcb.irreevant = 0;
-        tcb.sleepTime = 0;
-        tcb.stackOverhead = 0;
-        tcb.tokeSignal = 0;
-        tcb.unrecognized = 0;
-        tcb.waitDriver = 0;
-        tcb.waitEvent = 0;
-        tcb.waitNotify = 0;
-        tcb.waitPipe = 0;
-        tcb.waitResource = 0;
-        tcb.waitThread = 0;
-        tcb.priority = priority;
-    }
+        Word stackSize;
+        void *inputValue;
+        void *returnValue;
+        RuntimeFrame *frameSuspended;
+    
+        void setInputValue (void *a)
+        {
+            inputValue = a;
+        }
+        void setReturnValue (void *a)
+        {
+            returnValue = a;
+        }
+    
     public :
-        Runnable (uint32_t priority) : DefaultArrayListBaseNode<Runnable> ()
-    {
-        status = Stopped;
-        runnable = nullptr;
-        stackRoof = 0;
-        stackFloor = 0;
-        initTcb (priority);
-        links = nullptr;
-    }
-    
-    
-    
-    void operator () (int(*r)(Runnable *), Word stack, uint32_t priority)
-    {
-        status = Stopped;
-        runnable = r;
-        stackRoof = stack;
-        stackFloor = stack;
-        initTcb (priority);
-    }
-    
-    
-    bool equals (Runnable &)
-    {
-        return true;
-    }
-    void *getFrame ()
-    {
-        return this->frameSuspended;
-    }
-    void setFrame (void *frame)
-    {
-        this->frameSuspended = frame;
-    }
-    
-    
-    void *getRunnable ()
-    {
-        return (void *)this->runnable;
-    }
-    uint32_t getStackRoof ()
-    {
-        return this->stackRoof;
-    }
-    void setStatus (RunnableStatus status)
-    {
-        this->assert(status);
-        this->status = status;
-    }
-    int getStatus ()
-    {
-        return this->status;
-    }
-    template <typename Resource, typename Other>
-    RunnableStatus setNextState ()
-    {
+        RunnbleInterface ()
+        {
+            
+        }
+        void operator () (Runnable_t r, Word stackRoof, Word stackSize, int32_t accessLevel, int32_t id)
+        {
+            status            = Stopped;
+            runnable          = r;
+            this->stackRoof   = stackRoof;
+            this->stackSize   = stackSize;
+            this->id          = id;
+            this->accessLevel = accessLevel;
+        }
         
-    }
+        DwArg getFrame (RuntimeFrame *link = nullptr)
+        {
+            if (link == nullptr) {
+                status = Running;
+                RuntimeFrame *f = (RuntimeFrame *)( stackRoof - (sizeof(RuntimeFrame)) );
+                f->R11 = (Word)runnable;
+                f->R0 = (Word)inputValue;
+                DwArg arg = {(Word)f, (Word)accessLevel};
+                return arg;
+            }
+            if (status == Stopped) {
+                RuntimeFrame *f = (RuntimeFrame *)( stackRoof - (sizeof(RuntimeFrame)) );
+                f->init(link);
+                f->PC = (Word)runnable;
+                f->R0 = (Word)inputValue;
+                status = Running;
+                DwArg arg = {(Word)f, (Word)accessLevel};
+                return arg;
+            } 
+            if (status  == Running) {
+                DwArg arg = {(Word)frameSuspended, (Word)accessLevel};
+                return arg;
+            } 
+            DwArg arg = {0, 0};
+            return arg;
+        }
+        
+        
+
+        void reset (void *a)
+        {
+            inputValue = a;
+            status = Stopped;
+        }
+};
+
+
+
+class Runnable : public DefaultArrayListBaseNode<Runnable>,
+                 public RunnbleInterface<Runnable>  {
+    private :
+        
+        TCB tcb;
+        ArrayListBase<Runnable> links;
+        void initTcb (uint32_t priority)
+        {
+            tcb.irreevant = 0;
+            tcb.sleepTime = 0;
+            tcb.stackOverhead = 0;
+            tcb.tokeSignal = 0;
+            tcb.unrecognized = 0;
+            tcb.waitDriver = 0;
+            tcb.waitEvent = 0;
+            tcb.waitNotify = 0;
+            tcb.waitPipe = 0;
+            tcb.waitResource = 0;
+            tcb.waitThread = 0;
+            tcb.priority = priority;
+        }
+        void init (Runnable_t r, uint32_t stackSize, int32_t priority, int32_t access, int32_t id)
+        {
+            stackSize -= StackPadSize;
+            Word floor = (Word)this + stackSize;
+            RunnbleInterface<Runnable>::operator () (r, floor, StackPadSize, id, access);
+            
+            initTcb(priority);
+        }
+        Runnable () {}
+    public :
+        
+    /**/
+    friend class Runtime;
+    friend class ThreadFactory;
     
+        
+
+        bool equals (Runnable &)
+        {
+            return true;
+        }
+        
+        
+        void setFrame (RuntimeFrame *frame)
+        {
+            this->frameSuspended = frame;
+        }
     
-    template <typename A>
+        
+        
+        
+        
+        
+        int32_t getPriority ()
+        {
+            if (status == Stopped) {
+                return 0;
+            }
+            return this->tcb.priority + 1;
+        }
+        uint32_t getAccessLvl ()
+        {
+            return accessLevel;
+        }
+  
+        int32_t getId ()
+        {
+            return this->id;
+        }
+    
+        
+        
+        template <typename Linked>
+        bool testSelf (Linked *l)
+        {
+            if (tcb.sleepTime > 0) {
+                tcb.sleepTime--;
+                return false;
+            }
+            return true;
+        }
+    
+        void setWait (int mills)
+        {
+            this->tcb.sleepTime = mills;
+        }
+            
+    
+        template <typename A>
         bool assert (A a)
         {
             return false;
         }
+        
+        void stop ()
+        {
+            this->status = Stopped;
+        }
     
 };
 
-typedef int (* Runnable_t) (Runnable *);
+
+
+class ThreadFactory : protected virtual Allocator<void *> {
+        private :
+            
+        
+        public :
+            ThreadFactory () {}
+                
+            Runnable *newThread (Runnable_t r, uint32_t priority, uint32_t id = DefaultThreadID)
+            {
+                Runnable *thread = New<Runnable>(DefaultthreadStackSize);
+                if (thread == nullptr) {
+                    return nullptr;
+                }
+                thread->init(r, DefaultthreadStackSize, priority, ThreadAccessLevel0, id);
+                return thread;
+            }
+            
+            Runnable *newServer (Runnable_t r, uint32_t priority, uint32_t id)
+            {
+                Runnable *thread = New<Runnable>(DefaultthreadStackSize);
+                if (thread == nullptr) {
+                    return nullptr;
+                }
+                thread->init(r, DefaultthreadStackSize, priority, ThreadAccessLevel1, id);
+                return thread;
+            }
+    
+};
 
 
 #endif

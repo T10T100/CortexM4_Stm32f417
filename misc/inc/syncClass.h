@@ -2,13 +2,55 @@
 #define SYNCHRONIZER
 
 template <typename Object>
+class Synchronize {
+    private :
+        Object *o;
+        bool syncl;
+    public :
+        
+        Synchronize (Object &o)
+        {
+           this->o = &o;
+            if (o.synchro == true) {
+                syncl = false;
+            }
+            o.synchro = true;
+            syncl = true; 
+        }
+        Synchronize (Object *o)
+        {
+           this->o = o;
+            if (o->synchro == true) {
+                syncl = false;
+            }
+            o->synchro = true;
+            syncl = true; 
+        }
+        bool test ()
+        {
+            return syncl;
+        }
+        ~Synchronize ()
+        {
+            if (syncl == true) {
+                this->o->synchro = false;
+            }
+        }
+    
+    
+};
+
+template <typename Object>
 /*public*/ class Synchronizer {
     public :
+    
+    friend class Synchronize<Object>;
+    
         Synchronizer ()
         {
             
         }
-    protected :
+    //protected :
         virtual bool syncFetch (Object &o)
         {
             if (synchro == true) {
@@ -35,11 +77,23 @@ template <typename Object>
         {
             synchro = false;
         }
-    private :
         bool synchro;
     
 };
 
+class CriticalObject {
+    private :
+        int isr;
+    public :
+       CriticalObject ()
+       {
+          __asm ("CPSID    I   \n\t");
+       }  
+       ~CriticalObject ()
+       {
+          __asm ("CPSIE    I   \n\t");
+       }         
+};
 
 
 #endif

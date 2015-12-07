@@ -1,0 +1,9 @@
+.\objects\driverinterface.o: misc\context\src\DriverInterface.cpp
+.\objects\driverinterface.o: .\misc\context\inc\driverInterface.h
+.\objects\driverinterface.o: .\misc\context\inc\Thread.h
+.\objects\driverinterface.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\driverinterface.o: .\misc\inc\memory_template.h
+.\objects\driverinterface.o: .\misc\depend\Arm\CortexM4\inc\contextSwitching.h
+.\objects\driverinterface.o: .\misc\inc\arrayListStatic.h
+.\objects\driverinterface.o: .\misc\inc\Queue.h
+.\objects\driverinterface.o: .\misc\context\inc\vmapi.h

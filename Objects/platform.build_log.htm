@@ -22,120 +22,76 @@ Dialog DLL:      TCM.DLL V1.14.4.0
  
 <h2>Project:</h2>
 E:\KeilProj\platform\platform.uvprojx
-Project File Date:  11/21/2015
+Project File Date:  12/09/2015
 
 <h2>Output:</h2>
 Build target 'Target 1'
 compiling main.cpp...
-.\misc\inc\ArrayList.h(34): warning:  #794-D: template parameter "List" may not be used in an elaborated type specifier
-          friend class List;
-.\misc\inc\ArrayList.h(50): warning:  #794-D: template parameter "Vector" may not be used in an elaborated type specifier
-          friend class Vector;
-.\misc\inc\ArrayList.h(333): warning:  #940-D: missing return statement at end of non-void function "Iterator<Vector, Object>::next"
-          }
-.\gui\inc\graphicFrameClass.h(32): warning:  #794-D: template parameter "Factory" may not be used in an elaborated type specifier
-          friend class Factory;
-.\misc\context\inc\Thread.h(114): warning:  #940-D: missing return statement at end of non-void function "Runnable::setNextState<Resource,Other>()"
-      }
-.\misc\context\inc\VM.h(62): warning:  #177-D: variable "a0" was declared but never referenced
-              static uint32_t a0 = arg.a0;
-.\misc\context\inc\VM.h(63): warning:  #177-D: variable "a1" was declared but never referenced
-              static uint32_t a1 = arg.a1;
-.\misc\context\inc\VM.h(64): warning:  #177-D: variable "a2" was declared but never referenced
-              static uint32_t a2 = arg.a2;
-.\misc\context\inc\VM.h(75): warning:  #111-D: statement is unreachable
-                      break;
-.\misc\context\inc\VM.h(80): warning:  #111-D: statement is unreachable
-                      break;
-.\misc\context\inc\VM.h(71): warning:  #546-D: transfer of control bypasses initialization of:
-            variable "f" (declared at line 73)
-              switch ((int)r->getStatus()) {
+.\misc\context\inc\VM.h(45): warning:  #1300-D: alloc inherits implicit virtual
+          void *alloc (uint32_t size)
+.\misc\context\inc\VM.h(50): warning:  #1300-D: free inherits implicit virtual
+          void free (void *p)
+.\misc\context\inc\VM.h(129): warning:  #546-D: transfer of control bypasses initialization of:
+            variable "l" (declared at line 144)
+              switch (a.a0) {
               ^
-.\misc\context\inc\VM.h(127): warning:  #550-D: variable "error" was set but never used
-             void *error = nullptr;
-entry\src\main.cpp(75): warning:  #111-D: statement is unreachable
-        return 0;
-entry\src\main.cpp(97): warning:  #1-D: last line of file ends without a newline
-  }
-entry\src\main.cpp: 14 warnings, 0 errors
+entry\src\main.cpp(48): warning:  #111-D: statement is unreachable
+      return 0;
+entry\src\main.cpp: 4 warnings, 0 errors
 compiling device.cpp...
-.\misc\inc\ArrayList.h(34): warning:  #794-D: template parameter "List" may not be used in an elaborated type specifier
-          friend class List;
-.\misc\inc\ArrayList.h(50): warning:  #794-D: template parameter "Vector" may not be used in an elaborated type specifier
-          friend class Vector;
-.\misc\inc\ArrayList.h(333): warning:  #940-D: missing return statement at end of non-void function "Iterator<Vector, Object>::next"
-          }
-.\gui\inc\graphicFrameClass.h(32): warning:  #794-D: template parameter "Factory" may not be used in an elaborated type specifier
-          friend class Factory;
-.\misc\context\inc\Thread.h(114): warning:  #940-D: missing return statement at end of non-void function "Runnable::setNextState<Resource,Other>()"
-      }
-.\misc\context\inc\VM.h(62): warning:  #177-D: variable "a0" was declared but never referenced
-              static uint32_t a0 = arg.a0;
-.\misc\context\inc\VM.h(63): warning:  #177-D: variable "a1" was declared but never referenced
-              static uint32_t a1 = arg.a1;
-.\misc\context\inc\VM.h(64): warning:  #177-D: variable "a2" was declared but never referenced
-              static uint32_t a2 = arg.a2;
-.\misc\context\inc\VM.h(75): warning:  #111-D: statement is unreachable
-                      break;
-.\misc\context\inc\VM.h(80): warning:  #111-D: statement is unreachable
-                      break;
-.\misc\context\inc\VM.h(71): warning:  #546-D: transfer of control bypasses initialization of:
-            variable "f" (declared at line 73)
-              switch ((int)r->getStatus()) {
+.\misc\context\inc\VM.h(45): warning:  #1300-D: alloc inherits implicit virtual
+          void *alloc (uint32_t size)
+.\misc\context\inc\VM.h(50): warning:  #1300-D: free inherits implicit virtual
+          void free (void *p)
+.\misc\context\inc\VM.h(129): warning:  #546-D: transfer of control bypasses initialization of:
+            variable "l" (declared at line 144)
+              switch (a.a0) {
               ^
-.\misc\context\inc\VM.h(127): warning:  #550-D: variable "error" was set but never used
-             void *error = nullptr;
-hardware\src\device.cpp: 12 warnings, 0 errors
-compiling contextSwitching.cpp...
-.\misc\context\inc\cpuControlBlock.h(33): warning:  #61-D: integer operation result is out of range
-      Implementer  = (0xFF    << 24),
-.\misc\context\inc\cpuControlBlock.h(56): warning:  #61-D: integer operation result is out of range
-      TBLOFF  = ((0xFFFFFF | (1 << 8)) << 8),
-.\misc\context\inc\cpuControlBlock.h(68): warning:  #61-D: integer operation result is out of range
-      VECTKEYSTAT   = (0xFFFF  << 16),
-.\misc\context\inc\cpuControlBlock.h(158): warning:  #61-D: integer operation result is out of range
-      PRI_11       = (0xFF << 24),
-.\misc\context\inc\cpuControlBlock.h(170): warning:  #61-D: integer operation result is out of range
-      PRI_15       = (0xFF << 24),
-.\misc\context\inc\cpuControlBlock.h(239): warning:  #61-D: integer operation result is out of range
-      UFSR       = (0xFFFF << 16),
-.\misc\context\inc\cpuControlBlock.h(256): warning:  #61-D: integer operation result is out of range
-      DEBUGEVT       = (1 << 31),
-.\misc\context\inc\cpuControlBlock.h(273): warning:  #61-D: integer operation result is out of range
-      NMIPENDSET  = (1 << 31),
-misc\depend\Arm\CortexM4\src\contextSwitching.cpp: 8 warnings, 0 errors
+hardware\src\device.cpp(41): warning:  #61-D: integer operation result is out of range
+      DEV_Pin_Clr(GPIOA, CS_Pin);
+hardware\src\device.cpp(41): warning:  #68-D: integer conversion resulted in a change of sign
+      DEV_Pin_Clr(GPIOA, CS_Pin);
+hardware\src\device.cpp(48): warning:  #61-D: integer operation result is out of range
+      DEV_Pin_Clr(GPIOA, CS_Pin);
+hardware\src\device.cpp(48): warning:  #68-D: integer conversion resulted in a change of sign
+      DEV_Pin_Clr(GPIOA, CS_Pin);
+hardware\src\device.cpp: 7 warnings, 0 errors
+compiling touchSensorApiInterface.cpp...
+.\misc\context\inc\vm.h(45): warning:  #1300-D: alloc inherits implicit virtual
+          void *alloc (uint32_t size)
+.\misc\context\inc\vm.h(50): warning:  #1300-D: free inherits implicit virtual
+          void free (void *p)
+.\misc\context\inc\vm.h(129): warning:  #546-D: transfer of control bypasses initialization of:
+            variable "l" (declared at line 144)
+              switch (a.a0) {
+              ^
+hardware\src\touchSensorApiInterface.cpp(40): warning:  #1-D: last line of file ends without a newline
+  }
+hardware\src\touchSensorApiInterface.cpp: 4 warnings, 0 errors
 compiling VM.cpp...
-.\misc\inc\ArrayList.h(34): warning:  #794-D: template parameter "List" may not be used in an elaborated type specifier
-          friend class List;
-.\misc\inc\ArrayList.h(50): warning:  #794-D: template parameter "Vector" may not be used in an elaborated type specifier
-          friend class Vector;
-.\misc\inc\ArrayList.h(333): warning:  #940-D: missing return statement at end of non-void function "Iterator<Vector, Object>::next"
-          }
-.\gui\inc\graphicFrameClass.h(32): warning:  #794-D: template parameter "Factory" may not be used in an elaborated type specifier
-          friend class Factory;
-.\misc\context\inc\Thread.h(114): warning:  #940-D: missing return statement at end of non-void function "Runnable::setNextState<Resource,Other>()"
-      }
-.\misc\context\inc\VM.h(62): warning:  #177-D: variable "a0" was declared but never referenced
-              static uint32_t a0 = arg.a0;
-.\misc\context\inc\VM.h(63): warning:  #177-D: variable "a1" was declared but never referenced
-              static uint32_t a1 = arg.a1;
-.\misc\context\inc\VM.h(64): warning:  #177-D: variable "a2" was declared but never referenced
-              static uint32_t a2 = arg.a2;
-.\misc\context\inc\VM.h(75): warning:  #111-D: statement is unreachable
-                      break;
-.\misc\context\inc\VM.h(80): warning:  #111-D: statement is unreachable
-                      break;
-.\misc\context\inc\VM.h(71): warning:  #546-D: transfer of control bypasses initialization of:
-            variable "f" (declared at line 73)
-              switch ((int)r->getStatus()) {
+.\misc\context\inc\VM.h(45): warning:  #1300-D: alloc inherits implicit virtual
+          void *alloc (uint32_t size)
+.\misc\context\inc\VM.h(50): warning:  #1300-D: free inherits implicit virtual
+          void free (void *p)
+.\misc\context\inc\VM.h(129): warning:  #546-D: transfer of control bypasses initialization of:
+            variable "l" (declared at line 144)
+              switch (a.a0) {
               ^
-.\misc\context\inc\VM.h(127): warning:  #550-D: variable "error" was set but never used
-             void *error = nullptr;
-misc\context\src\VM.cpp: 12 warnings, 0 errors
+misc\context\src\VM.cpp: 3 warnings, 0 errors
+compiling Event.cpp...
+.\misc\context\inc\vm.h(45): warning:  #1300-D: alloc inherits implicit virtual
+          void *alloc (uint32_t size)
+.\misc\context\inc\vm.h(50): warning:  #1300-D: free inherits implicit virtual
+          void free (void *p)
+.\misc\context\inc\vm.h(129): warning:  #546-D: transfer of control bypasses initialization of:
+            variable "l" (declared at line 144)
+              switch (a.a0) {
+              ^
+misc\context\src\Event.cpp: 3 warnings, 0 errors
 linking...
-Program Size: Code=11012 RO-data=792 RW-data=80136 ZI-data=2384  
+Program Size: Code=17724 RO-data=57832 RW-data=48 ZI-data=45872  
 FromELF: creating hex file...
-".\Objects\platform.axf" - 0 Error(s), 46 Warning(s).
+".\Objects\platform.axf" - 0 Error(s), 21 Warning(s).
 
 <h2>Software Packages used:</h2>
 

@@ -348,7 +348,7 @@
           <Cads>
             <interw>1</interw>
             <Optim>1</Optim>
-            <oTime>0</oTime>
+            <oTime>1</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
             <Strict>0</Strict>
@@ -365,7 +365,7 @@
               <MiscControls>--cpp11</MiscControls>
               <Define>tftili9486,</Define>
               <Undefine></Undefine>
-              <IncludePath>.\entry\inc;.\gui\inc;.\hardware\inc;.\misc\inc;..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\STM32F4xx_HAL_Driver\Inc;..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include;..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\CMSIS\Include;.\hardware\Drivers\inc;.\misc\context\inc;.\misc\depend\Arm\CortexM4\inc;.\misc\inc</IncludePath>
+              <IncludePath>.\entry\inc;.\gui\inc;.\hardware\inc;.\misc\inc;..\STM32F4xx_HAL_Driver\Inc;.\hardware\Drivers\inc;.\misc\context\inc;.\misc\depend\Arm\CortexM4\inc;.\misc\inc</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -433,6 +433,16 @@
               <FileType>8</FileType>
               <FilePath>.\hardware\src\init.cpp</FilePath>
             </File>
+            <File>
+              <FileName>tsc2046.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\hardware\src\tsc2046.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>touchSensorApiInterface.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\hardware\src\touchSensorApiInterface.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -441,112 +451,107 @@
             <File>
               <FileName>stm32f4xx_hal.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal.c</FilePath>
+              <FilePath>..\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_hal_adc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_adc.c</FilePath>
+              <FilePath>..\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_adc.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_hal_adc_ex.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_adc_ex.c</FilePath>
+              <FilePath>..\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_adc_ex.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_hal_cortex.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_cortex.c</FilePath>
+              <FilePath>..\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_cortex.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_hal_dac.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dac.c</FilePath>
+              <FilePath>..\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dac.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_hal_dac_ex.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dac_ex.c</FilePath>
+              <FilePath>..\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dac_ex.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_hal_dma.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dma.c</FilePath>
+              <FilePath>..\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dma.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_hal_dma_ex.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dma_ex.c</FilePath>
+              <FilePath>..\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dma_ex.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_hal_flash.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_flash.c</FilePath>
+              <FilePath>..\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_flash.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_hal_flash_ex.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_flash_ex.c</FilePath>
+              <FilePath>..\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_flash_ex.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_hal_gpio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_gpio.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f4xx_hal_nor.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_nor.c</FilePath>
+              <FilePath>..\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_gpio.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_hal_pwr.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_pwr.c</FilePath>
+              <FilePath>..\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_pwr.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_hal_pwr_ex.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_pwr_ex.c</FilePath>
+              <FilePath>..\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_pwr_ex.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_hal_rcc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc.c</FilePath>
+              <FilePath>..\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_hal_rcc_ex.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc_ex.c</FilePath>
+              <FilePath>..\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc_ex.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_hal_spi.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_spi.c</FilePath>
+              <FilePath>..\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_spi.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_hal_sram.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_sram.c</FilePath>
+              <FilePath>..\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_sram.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_hal_tim.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim.c</FilePath>
+              <FilePath>..\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_hal_tim_ex.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim_ex.c</FilePath>
+              <FilePath>..\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim_ex.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_ll_fmc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_ll_fmc.c</FilePath>
+              <FilePath>..\STM32F4xx_HAL_Driver\Src\stm32f4xx_ll_fmc.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_ll_fsmc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\stm32cubef4\STM32Cube_FW_F4_V1.6.0\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_ll_fsmc.c</FilePath>
+              <FilePath>..\STM32F4xx_HAL_Driver\Src\stm32f4xx_ll_fsmc.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -556,7 +561,7 @@
             <File>
               <FileName>stm32f4xx_it.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\entry\src\stm32f4xx_it.c</FilePath>
+              <FilePath>.\misc\depend\Arm\CortexM4\src\stm32f4xx_it.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -577,11 +582,6 @@
           <GroupName>context</GroupName>
           <Files>
             <File>
-              <FileName>contextSwitching.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\misc\depend\Arm\CortexM4\src\contextSwitching.cpp</FilePath>
-            </File>
-            <File>
               <FileName>stackSwitching.s</FileName>
               <FileType>2</FileType>
               <FilePath>.\misc\depend\Arm\CortexM4\src\stackSwitching.s</FilePath>
@@ -592,19 +592,39 @@
               <FilePath>.\misc\depend\Arm\CortexM4\src\startup_stm32f417xx.s</FilePath>
             </File>
             <File>
-              <FileName>system_stm32f4xx.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\entry\src\system_stm32f4xx.c</FilePath>
-            </File>
-            <File>
               <FileName>VM.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\misc\context\src\VM.cpp</FilePath>
             </File>
             <File>
-              <FileName>cpuControlBlock.c</FileName>
+              <FileName>vmapi.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\misc\context\src\vmapi.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Event.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\misc\context\src\Event.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>system_stm32f4xx.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\misc\depend\Arm\CortexM4\src\cpuControlBlock.c</FilePath>
+              <FilePath>.\misc\depend\Arm\CortexM4\src\system_stm32f4xx.c</FilePath>
+            </File>
+            <File>
+              <FileName>serverInterface.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\misc\context\src\serverInterface.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>TimerServer.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\misc\context\src\TimerServer.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>DriverInterface.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\misc\context\src\DriverInterface.cpp</FilePath>
             </File>
           </Files>
         </Group>

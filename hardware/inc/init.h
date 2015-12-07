@@ -22,10 +22,11 @@ enum PinBmEnumDef {
   LCD_Clk_Pin   =      GPIO_PIN_2,         
   LCD_Hsync_Pin =      GPIO_PIN_3,         
     
-  SCK_Pin       =      GPIO_PIN_13,        
-  MISO_Pin      =      GPIO_PIN_14,        
-  MOSI_Pin      =      GPIO_PIN_15,        
-
+  SCK_Pin       =      GPIO_PIN_10,        
+  MISO_Pin      =      GPIO_PIN_11,        
+  MOSI_Pin      =      GPIO_PIN_12,        
+  CS_Pin        =      GPIO_PIN_15,
+  
   lcd_led_pin   =      GPIO_PIN_2,         
        
   PEN           =      GPIO_PIN_9,         
@@ -108,9 +109,9 @@ enum PinBmEnumDef {
 #define Lcd_light_Port     GPIOE
 #define Lcd_Rgb_Port       GPIOB
 
-#define Spi2_Sck_Port      GPIOB
-#define Spi2_Mosi_Port     GPIOB
-#define Spi2_Miso_Port     GPIOB
+#define Spi3_Sck_Port      GPIOC
+#define Spi3_Mosi_Port     GPIOC
+#define Spi3_Miso_Port     GPIOC
 
 #define Ad_Stdby_Port      GPIOB
 #define Ad_Clk_Port        GPIOD

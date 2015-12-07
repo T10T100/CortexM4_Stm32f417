@@ -471,7 +471,18 @@ class ILI9488 {
         RgbPort *rgbPort;
         SpiPort *spiPort;
         int colorMask;
+        static const uint16_t width = 480;
+        static const uint16_t height = 320;
   public:
+       uint16_t getW ()
+      {
+          return width;
+      }
+       uint16_t getH ()
+      {
+          return height;
+      }
+  
     ILI9488 ()
     {
         
@@ -500,9 +511,36 @@ class ILI9488 {
     {
         this->vsClk();
         this->putColor(__color);
-        for (int i = __x; i > 0; i--) {
+        for (int i = __x; i >= 0; i--) {
             for (int t = __y; t > 0; t--) {
-                this->dotClk();								
+                this->toggleDot();								
+            }
+            this->hsClk();
+        }
+        this->vsClk();
+        return 0;
+    }
+    uint32_t driverFill (uint16_t __color, Box<uint16_t> d)
+    {
+        this->window(d.x, d.y, d.w, d.h);
+        this->vsClk();
+        this->putColor(__color);
+        for (int i = d.w; i >= 0; i--) {
+            for (int t = d.h; t > 0; t--) {
+                this->toggleDot();								
+            }
+            this->hsClk();
+        }
+        this->vsClk();
+        return 0;
+    }
+    uint32_t driverFill (uint16_t __color, uint16_t x, uint16_t y, uint16_t w = 480, uint16_t h = 320)
+    {
+        this->window(x, y, w, h);
+        this->putColor(__color);
+        for (int i = w; i >= 0; i--) {
+            for (int t = h; t > 0; t--) {
+                toggleDot();								
             }
             this->hsClk();
         }
@@ -510,17 +548,17 @@ class ILI9488 {
         return 0;
     }
     template <typename Color>
-    uint32_t driverFill (Color *colorBuffer, uint32_t w, uint32_t h, uint32_t __scaleX, uint32_t __scaleY)
-    {
+    uint32_t driverFill (Color *colorBuffer, int32_t x, int32_t y, int32_t h, int32_t w, int32_t __scaleX, uint32_t __scaleY)
+    { 
         uint32_t Hcnt = 0;
         uint32_t Hscaled = h * __scaleX;
         uint32_t Dcnt = __scaleY; 
+        this->window(x, y, w, h);
         for (int i = 0; i < Hscaled; i++) {
             for (int t = 0; t < w; t++) {
                 this->rgbOut(colorBuffer[Hcnt +  t]);
                  while (Dcnt--) {
-                    this->setDot(true);
-                    this->setDot(false);  
+                    this->toggleDot(); 
                  }	  
                 Dcnt = __scaleY;
             }
@@ -531,15 +569,15 @@ class ILI9488 {
         return 0;
     }
     template <typename Color>
-    uint32_t driverFill (Color *colorBuffer, Dimension<uint16_t> d)
+    uint32_t driverFill (Color *colorBuffer, Box<uint16_t> d)
     {
-        uint32_t W = d.w, H = d.h;
-        uint32_t D = W * (uint32_t)H;
+        int32_t W = d.w, H = d.h;
+        int32_t S = W * H;
         //uint32_t nClk = LCD_Clk_Pin << 16;
         this->window(d.x, d.y, W, H);
-        for (int32_t __x = D; __x > 0 ; __x -= (uint32_t)H) { 
-            for (uint32_t __y = 0; __y < H; __y++) {
-                this->rgbOut(*(colorBuffer + (uint32_t)__y + (uint32_t)__x));
+        for (int32_t x = S; x > 0 ; x -= H) { 
+            for (uint32_t y = x, H0 = H + x; y < H0; y++) {
+                this->rgbOut( colorBuffer[y] );
                 this->setDot(true);
                 this->setDot(false);
             }
@@ -547,6 +585,61 @@ class ILI9488 {
         }
         this->vsClk();
         return 0;
+    }
+    template <typename Color>
+    int32_t driverFill (Color *colorBuffer, Box<uint16_t> frame, Box<uint16_t> window)
+    {
+
+        int32_t x = window.x - frame.x;
+        if (x > frame.w) {
+            return -1;
+        }
+        
+        int32_t y = window.y - frame.y;
+        if (y > frame.h) {
+            return -1;
+        }
+        
+        int32_t w = window.w;
+        int32_t w0 = x + w; 
+        if (w0 < 0) {
+            return -1;
+        }
+        if (w0 > frame.w) {
+            w = frame.w - x;
+        }
+        
+        int32_t h = window.h;
+        int32_t h0 = y + h;
+        if (h0 < 0) {
+            return -1;
+        }
+        if (h0 > frame.h) {
+            h = frame.h - y;
+        }
+        
+        if (x > 0) {
+            this->driverFill(0, 0, 0, x, height);
+        }
+        if (y > 0) {
+            this->driverFill(0, x, 0, w, y);
+        }
+        
+        this->window(x, y, w, h);    
+        x = x * height;
+        int32_t S = w * height + x;
+        
+        
+        for (; S >= x ; S -= height) { 
+            for (int32_t yi = S, H = h + S; yi < H; yi++) {
+                this->rgbOut( colorBuffer[yi] );
+                toggleDot();
+            }
+            this->hsClk();
+        }
+        
+        return 0;
+        
     }
     uint16_t init ()
     {
@@ -621,7 +714,7 @@ class ILI9488 {
 		this->wrData8(__TransferB.Byte[1]);
 		this->wrData8(__TransferB.Byte[0]);
         
-    this->dotClk(1);this->vsClk();
+        this->dotClk(1);this->vsClk();
 		return 0;
 	}
   protected:
@@ -656,16 +749,10 @@ class ILI9488 {
         this->delay(150);
         return 0; 
     }   
-    void dotClk (void)
-    {
-        this->setDot(true);
-        this->setDot(false); 
-    }
     void dotClk (uint32_t cnt)
     {
         while (cnt--) {
-            this->setDot(true);
-            this->setDot(false);
+            this->toggleDot();
         }		
     }
     void hsClk (void)
@@ -690,10 +777,11 @@ class ILI9488 {
     protected:
         inline void backLight (uint8_t);
         template <typename Color>
-            inline void rgbOut (Color color);
+        inline void rgbOut (Color color);
         inline void setVs (bool value);
         inline void setHs(bool value);
         inline void setDot(bool value);
+        inline void toggleDot ();
         inline void setDen(bool value);
         inline void resetForce(bool value);
         inline void delay (uint32_t msec);

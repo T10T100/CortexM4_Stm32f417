@@ -12,9 +12,12 @@ typedef uint32_t alloc_addr_t;
 class MemoryChunk : public DefaultArrayListBaseNode <MemoryChunk> {
   public:
 	  MemoryChunk () : DefaultArrayListBaseNode() {}
-      bool equals (MemoryChunk)   
+      bool equals (MemoryChunk &c)   
       {
-          return true;
+          if ((alloc_addr_t)&c >= (alloc_addr_t)this) {
+            return true;
+          }
+          return false;
       }
     private:
 	  memory_size_t size;
@@ -28,7 +31,7 @@ class MemoryAllocator {
 	  MemoryAllocator () {}
       MemoryAllocator (uint32_t, uint32_t);
 	  void operator () (uint32_t, uint32_t);
-	  void *New (memory_size_t);
+	  void *New (memory_size_t) __attribute__((__malloc__));
 	  int32_t Delete (void *);	
 	  int32_t check ();	
       

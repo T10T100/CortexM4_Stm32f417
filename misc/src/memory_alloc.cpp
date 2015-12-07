@@ -8,7 +8,7 @@ void MemoryAllocator::operator () (uint32_t __heap, uint32_t __size)
 	    *((uint8_t *)__heap + i) = 0;
 	}
     */
-	chunk->size = __size;
+	chunk->size = __size - sizeof(MemoryChunk) - 4;
 	this->poolFree.add(chunk);
 }
 
