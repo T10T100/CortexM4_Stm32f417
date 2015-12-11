@@ -65,42 +65,13 @@ int32_t SensorMcu::ReadZ ()
 }
 
 
-int32_t SensorMcu::Settling (int16_t x0, int16_t y0, int16_t x1, int16_t y1)
-{
-  volatile uint32_t set = 0;//200000;
-  if (set) {
-			/*this->Kx = abs ((tx[0] - tx[1]) / (x0 - x1));
-			this->Ky = abs ((ty[1] - ty[2]) / (y1 - y2));
-			
-			this->xOff = abs(tx[0] / Kx - x0);
-			this->yOff = abs(ty[0] / Ky - y0);
-			
-			this->Kxy = abs(((tx[2] - tx[1]) / Kx) / (y2 - y1)) / Ky;
-			
-			this->Kyx = abs(((ty[1] - ty[0]) / Ky) / (x1 - x0)) / Kx;*/
-	}
-	else {
-		xOff = 70;
-		yOff = 50;
-		
-		Kx = 1;
-		Ky = 1;
-	}
-	return 0;
-}
 
 Point<int32_t> SensorMcu::ReadPos ()
 {
-	int32_t __x = 0, __y = 0;
 	Point<int32_t> __pos;
-	__pos.x += (int32_t)this->ReadX();
-	__pos.y += (int32_t)this->ReadY();
+	__pos.x = (int32_t)this->ReadX();
+	__pos.y = (int32_t)this->ReadY();
 	
-	__x    =  __pos.x / Kx - xOff;
-	__y    = __pos.y / Ky - yOff;
-	
-	__pos.y = __y;// +  __x *  Kyx * __y;
-	__pos.x = __x;// +  __x *  Kxy * __y;
 	return __pos;
 }
 

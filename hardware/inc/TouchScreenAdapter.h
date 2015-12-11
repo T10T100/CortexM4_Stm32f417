@@ -11,7 +11,8 @@
 
 
 
-
+#define SensorInertionConstant 0.3F /*So much - so faster - more missmatches*/
+#define SensorAccelerationInertConstant 0.3F 
 
 
 #ifndef DefaultTouchDriver
@@ -33,6 +34,7 @@
 
 typedef struct SensorDataStruct {
     Point<int32_t> coordinates;
+    Point<int32_t> move;
     int32_t clickCount;
     bool click;
     bool release;
@@ -41,59 +43,119 @@ typedef struct SensorDataStruct {
 
 class SensorAdapter {
     private :
-          Point<int32_t> lastDetectedPosition;
+          Point<int32_t> position;
+          Point<int32_t> acceleration;
+          Point<int32_t> lastPosition;
+          Point<int32_t> lastMove;
+    
 		  int32_t measuredPressure;
     
           SensorMcu Mcu;
-          int32_t lastAction;
+          uint32_t lastAction;
     
+          bool touchAction;
+          bool releaseAction;
+          bool stdby;
+    
+          float Kx, Ky;
+          float offX, offY;
+    
+          Point<int32_t> normalize (Point<int32_t> p)
+          {
+              int32_t x = p.x << 4;
+              int32_t y = p.y << 4;
+              
+              x = (x / 17) >> 3;
+              y = (y / 25) >> 3;
+              
+              p.x = (int32_t)x + 0;
+              p.y = (int32_t)y + 0;
+              p.x = 480 - p.x;
+              return p;
+          }
     
     public :
         SensorAdapter () {}
         void operator () ()
         {
             this->Mcu.Init();
-            lastAction = -1;
+            lastAction = 0;
+            Kx = 0.138F;
+            Ky = 0.1F;
+            offX = 70.0F;
+            offY = 50.0F;
+            lastMove.x = 0;
+            lastMove.y = 0;
+            lastPosition.x = 0;
+            lastPosition.y = 0;
+            position.x = 0;
+            position.y = 0;
         }
         
-        bool SetUp (float x0, float y0, float x1, float y1)
-        {
-            return true;
-        }
 
         
-        Box<int16_t> Read ()
-        {
-          Box<int16_t> rect = {0, 0, 0, 0};
-            
-          rect.x = this->lastDetectedPosition.x;
-          rect.y = this->lastDetectedPosition.y;
-          return rect;    
-        }
 
-        void TouchSensorIT ()
+        uint32_t TouchSensorIT ()
         {  
-            CriticalObject critical;
-           
-            this->measuredPressure += (Mcu.ReadZ() - this->measuredPressure) / 3;
+            //CriticalObject critical;
+            
+            lastAction = 0;
+            measuredPressure = Mcu.ReadZ();
             if (this->measuredPressure > (int32_t)TOUCH_REF) {
-              this->lastDetectedPosition = Mcu.ReadPos(); 
-              lastAction = onAnyActionHandler;
+                lastPosition = position;
+                position = normalize( Mcu.ReadPos() ); 
+                
+                lastMove.x = position.x - lastPosition.x;
+                lastMove.y = position.y - lastPosition.y;
+                
+                acceleration.x += (lastMove.x - acceleration.x) / 2;
+                acceleration.y += (lastMove.y - acceleration.y) / 2;
+                
+                lastAction |= onAnyActionHandler;
+                
+                if (stdby == true) {
+                    touchAction = true;
+                    releaseAction = false;
+                    stdby = false;
+                    
+                    lastAction |= onClickHandler;
+                }
+                touchAction = true;
             }
             else {
-            }		     
+                if (touchAction == true) {
+                    releaseAction = true;
+                    touchAction = false;
+                    lastAction |= onReleaseHandler;
+                } else {
+                    stdby = true;
+                }
+                lastMove.x = 0;
+                lastMove.y = 0;
+                lastPosition.x = 0;
+                lastPosition.y = 0;
+                position.x = 0;
+                position.y = 0;
+            }	
+            return lastAction;           
         }
         
         SensorDataStruct getData ()
         {
             SensorDataStruct data = {
-                lastDetectedPosition,
+                lastPosition,
+                lastMove,
                 0,
                 false,
                 false,
                 false,
             };
             return data;
+        }
+        
+        uint32_t getAction ()
+        {
+            return lastAction;
         }
         
 };

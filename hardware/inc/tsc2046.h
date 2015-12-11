@@ -17,7 +17,7 @@ struct TouchMcuPreset {
 };
 
 #define SLIDE_REF 30.0F
-#define TOUCH_REF 80.0F
+#define TOUCH_REF 280.0F
 #define TOUCH_END_MOVE 5.0F
 
 enum {

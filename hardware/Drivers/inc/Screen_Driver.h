@@ -45,6 +45,7 @@ template <typename GraphicController, typename FrameBuffer>
             template <typename Color>
             void fill (Color color)
             {
+                //CriticalObject critical;
                 Synchronize<ScreenDriver <GraphicController, FrameBuffer> > sync(this);
                 if (sync.test() == false) {
                     return;
@@ -62,13 +63,13 @@ template <typename GraphicController, typename FrameBuffer>
             template <typename Color>
             void fill (FrameBuffer *buffer, ViewPort &viewPort, Color color = 0x0f80)
             {
-                CriticalObject critical;
+                //CriticalObject critical;
                 Synchronize<ScreenDriver <GraphicController, FrameBuffer> > sync(this);
                 if (sync.test() == false) {
                     return;
                 }
                 Box<uint16_t> b = {0, 0, 480, 320};
-                controller->driverFill(buffer->getBuffer(), b, viewPort.getBox());
+                controller->driverFill(buffer->getBuffer(), b, viewPort.getView());
             }
             
             

@@ -214,12 +214,12 @@ class Runtime : public EventFactory,
         
         void addRunnable (Runnable_t runnable, uint32_t priority = 0)
         {
-            arrayOfRunnables[0].addFirst( newThread(runnable, priority) );
+            arrayOfRunnables[0].addLast( newThread(runnable, priority) );
         }
         
 		void addIddle (Runnable_t runnable, uint32_t priority = 0)
         {
-            arrayOfRunnables[0].addFirst( newServer(runnable, priority, IddleThreadID) );
+            arrayOfRunnables[0].addFirst( newServer(runnable, 6, IddleThreadID) );
         }
      
 };

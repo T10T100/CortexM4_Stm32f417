@@ -83,13 +83,11 @@ int main ()
 int SystemEventBurner2 (void *r);
 int SystemEvent (void *v);
 Point<int16_t> glo;
+static ViewPort wp;
 int touchAnyListener (void *t)
 {
    auto adapter = (SensorAdapter *)t;
-   
-   glo.x = adapter->getData().coordinates.x;
-   glo.y = adapter->getData().coordinates.y;
-   return 0;
+   wp.move(1, 1);
 }
 
 int SystemEventBurner (void *r)
@@ -109,17 +107,14 @@ int SystemEventBurner (void *r)
     vm::runtimeDispatchEvent(event);
     vm::create(SystemEventBurner3, 0);
     vm::create(SystemEventBurner2, 0);
-    vm::addTimer(timer0, 10);
+    vm::addTimer(timer0, 2);
     vm::addSensorListener(touchAnyListener, onAnyActionHandler);
     Dimension<uint16_t> d(0, 0, 480, 320);
-    ViewPort wp(d);
+    wp(d);
+    wp.set(0, 0);
     //int i = 0;
     for (;;) {
-        device.contentPane->fill(0x1aee);
-        device.contentPane->getGraphic()->setText("\n\n\n This text is allow only on screen\nit has no presentation in ram yet\nThis text is allow only on screen\nit has no presentation in ram yet\n", colorIndex );
-        device.fill<ColorDepth>(device.contentPane->getFrame(), wp);
-        wp.set(glo.x % 300, glo.y % 300);  
-        //glo = Read();
+        
         HAL_Delay(5);
     }
     
@@ -133,7 +128,10 @@ int SystemEventBurner2 (void *r)
     for (;;) {
         //device.fill(0x4400);
         vm::pushEvent(SystemEvent);
-        vm::sleep(3);
+        device.contentPane->fill(0x1aee);
+        device.contentPane->getGraphic()->setText("\n\n\n This text is allow only on screen\nit has no presentation in ram yet\nThis text is allow only on screen\nit has no presentation in ram yet\n", colorIndex );
+        device.fill<ColorDepth>(device.contentPane->getFrame(), wp);
+        vm::sleep(0);
         //colorIndex += 0x8000;
     }
 }

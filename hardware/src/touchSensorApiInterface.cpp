@@ -8,33 +8,18 @@ uint32_t touchSensorDriverID = TouchSensorDriverID;
 
 int touchSensorServer (void *r)
 {
-    auto i = (ServerInterface<DefaultServerListener> *)r;
+    auto server = (ServerInterface<DefaultServerListener> *)r;
+    auto adapter = (SensorAdapter *)server->getUserObject();
     for (;;)
     {
-        auto adapter = (SensorAdapter *)i->getUserObject();
-        adapter->TouchSensorIT();
-        i->fireAll();
-        /*
-        switch () {
-            case onAnyActionHandler: onAnyActionHandler_t (server);
-                break;
-            case onClickHandler: onClickHandler_t (server);
-                break;
-            case onReleaseHandler: onReleaseHandler_t (server);
-                break;
-            case onSlideUpHandler: onSlideUpHandler_t (server);
-                break;
-            case onSlideDownHandler: onSlideDownHandler_t (server);
-                break;
-            case onSlideLeftHandler: onSlideLeftHandler_t (server);
-                break;
-            case onSlideRightHandler: onSlideRightHandler_t (server);
-                break;
-            default :
-                break;
+        auto action = adapter->TouchSensorIT();
+        uint32_t t = 0;
+        for (int32_t i = 0; action; i++, action >>= 1) {
+            if (action & 1) {
+                server->fireChannel(i + 1);
+            }
         }
-        */
-        i->close();
+        server->close();
         vm::close();
     }
 }

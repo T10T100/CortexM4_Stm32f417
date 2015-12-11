@@ -6,12 +6,20 @@
 
 class ViewPort  : public Dimension<MaxGuiRange>  {
     private :
-        
+        float Xm, Ym;
+        float Xk, Yk;
+    
 
     public :
+        ViewPort () {}
         ViewPort (Dimension<MaxGuiRange> d) : Dimension<MaxGuiRange> (d)
         {
-            
+            Xm = Ym = 0;
+        }
+        void operator () (Dimension<MaxGuiRange> d)
+        {
+            Dimension<MaxGuiRange>::operator=(d);
+            Xm = Ym = 0;
         }
     
         Dimension<MaxGuiRange> translate (Dimension<MaxGuiRange> d)
@@ -28,9 +36,14 @@ class ViewPort  : public Dimension<MaxGuiRange>  {
 		
 		void set (int x, int y)
 		{
+            Xm = Ym = 0;
 			this->x = x;
 			this->y = y;
 		}
+        Box<MaxGuiRange> getView ()
+        {
+            return getBox();
+        }
 };
 
 

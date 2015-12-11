@@ -135,7 +135,7 @@ void AdcReinit (ADC_HandleTypeDef &AdcHandle, uint32_t arg0, uint32_t arg1)
 void SpiInit (void)
 {
   SpiHandle.Instance               = SPI3;
-  SpiHandle.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_32;
+  SpiHandle.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_128;
   SpiHandle.Init.Direction         = SPI_DIRECTION_2LINES;
   SpiHandle.Init.CLKPhase          = SPI_PHASE_1EDGE;
   SpiHandle.Init.CLKPolarity       = SPI_POLARITY_HIGH;

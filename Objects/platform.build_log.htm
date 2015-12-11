@@ -22,7 +22,7 @@ Dialog DLL:      TCM.DLL V1.14.4.0
  
 <h2>Project:</h2>
 E:\KeilProj\platform\platform.uvprojx
-Project File Date:  12/09/2015
+Project File Date:  12/10/2015
 
 <h2>Output:</h2>
 Build target 'Target 1'
@@ -37,7 +37,11 @@ compiling main.cpp...
               ^
 entry\src\main.cpp(48): warning:  #111-D: statement is unreachable
       return 0;
-entry\src\main.cpp: 4 warnings, 0 errors
+entry\src\main.cpp(91): warning:  #940-D: missing return statement at end of non-void function "touchAnyListener"
+  }
+entry\src\main.cpp(89): warning:  #177-D: variable "adapter" was declared but never referenced
+     auto adapter = (SensorAdapter *)t;
+entry\src\main.cpp: 6 warnings, 0 errors
 compiling device.cpp...
 .\misc\context\inc\VM.h(45): warning:  #1300-D: alloc inherits implicit virtual
           void *alloc (uint32_t size)
@@ -65,9 +69,11 @@ compiling touchSensorApiInterface.cpp...
             variable "l" (declared at line 144)
               switch (a.a0) {
               ^
-hardware\src\touchSensorApiInterface.cpp(40): warning:  #1-D: last line of file ends without a newline
+hardware\src\touchSensorApiInterface.cpp(16): warning:  #177-D: variable "t" was declared but never referenced
+          uint32_t t = 0;
+hardware\src\touchSensorApiInterface.cpp(25): warning:  #1-D: last line of file ends without a newline
   }
-hardware\src\touchSensorApiInterface.cpp: 4 warnings, 0 errors
+hardware\src\touchSensorApiInterface.cpp: 5 warnings, 0 errors
 compiling VM.cpp...
 .\misc\context\inc\VM.h(45): warning:  #1300-D: alloc inherits implicit virtual
           void *alloc (uint32_t size)
@@ -89,9 +95,9 @@ compiling Event.cpp...
               ^
 misc\context\src\Event.cpp: 3 warnings, 0 errors
 linking...
-Program Size: Code=17724 RO-data=57832 RW-data=48 ZI-data=45872  
+Program Size: Code=17900 RO-data=57832 RW-data=48 ZI-data=45936  
 FromELF: creating hex file...
-".\Objects\platform.axf" - 0 Error(s), 21 Warning(s).
+".\Objects\platform.axf" - 0 Error(s), 24 Warning(s).
 
 <h2>Software Packages used:</h2>
 
