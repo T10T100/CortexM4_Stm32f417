@@ -18,31 +18,38 @@ __value_in_regs DwArg vmfault (SVC_arg arg)
     
     device.contentPane->fill(0xC000);
     auto frame = (RuntimeFrame *)arg.a3;
-    g->setText("Hard Fault Error at address :  \n", 0xffff);
+    device.clear();
+    device.println("Hard Fault Error at address :  \n");
     
-    g->apendText( "PC -> ", 0xffff);
-    g->apendText( g->toHexString(frame->PC), 0xffff);
-    g->apendText( ";\n", 0xffff);
+    device.println( "\nPC~~~~~~");
+    device.printHex( (uint32_t)frame->PC );
     
-    g->apendText( "(PC - 1) ->", 0xffff);
-    g->apendText( g->toHexString( *(uint32_t *)(frame->PC) ), 0xffff);
-    g->apendText( ";\n(PC) ->", 0xffff);
-    g->apendText( g->toHexString( *(uint32_t *)(frame->PC - 4) ), 0xffff);
-    g->apendText( ";\n", 0xffff);
+    device.println( "\n(PC - 1)~~~~~~");
+    device.printHex(*(uint32_t *)(frame->PC));
+    device.println( "\n(PC)~~~~~~");
+    device.printHex( *(uint32_t *)(frame->PC - 4) );
     
-    g->apendText( "XPSR -> ", 0xffff);
-    g->apendText( g->toHexString(frame->XPSR), 0xffff);
-    g->apendText( ";\n", 0xffff);
+    device.println( "\nXPSR~~~~~~");
+    device.printHex( (uint32_t)frame->XPSR);
     
-    g->apendText( "Thread -> ", 0xffff);
-    g->apendText( runtime.running->getName() , 0xffff);
-    g->apendText( ";\n", 0xffff);
+    device.println( "\nThread~~~~~~");
+    device.print( runtime.running->getName());
     
-    g->apendText( "Thread Stack address-> ", 0xffff);
-    g->apendText( g->toHexString(arg.a3), 0xffff);
-    g->apendText( ";\n", 0xffff);
+    device.println( "\nThread Stack address~~~~~~");
+    device.printHex( (uint32_t)arg.a3);
     
+    device.println( "\nStack Dump : \n\n");
+    Word * w = (Word *)runtime.running->getStackRoof();
+    for (int i = runtime.running->getStackSize() / 4; i >= 0; i--) {
+        device.printHex( w[i] );
+        device.print("  ");
+    }
+    g->setText(device.getStream(), ColorWhite);
     device.fill(device.contentPane->getFrame());
+    DwArg retArg = {0, 0};
+    while (runtime.sensorAdapter.TouchSensorIT() <= 0);
+    
+    return retArg;
 }
 
 

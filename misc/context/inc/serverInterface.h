@@ -7,7 +7,7 @@
 #include "ArrayListStatic.h"
 #include "syncClass.h" 
 
-#define DEFAULT_SERVER_STACK_SIZE 128 * 4
+#define DEFAULT_SERVER_STACK_SIZE 196 * 4
 
 typedef int (*ServerListener_t) (void *server);
 
@@ -126,10 +126,10 @@ int stubServerCaller (void *anyServer);
                 if (busy == true) {
                     return nullptr;
                 }
+                busy = true; 
                 Runnable *r;
                 r = getCaller();
-                r->reset((void *) this);
-                busy = true;   
+                r->reset((void *) this); 
                 return r;
             }
             void close ()

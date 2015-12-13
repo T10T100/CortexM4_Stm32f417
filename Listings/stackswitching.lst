@@ -21,104 +21,106 @@ ARM Macro Assembler    Page 1
    15 00000000                 IMPORT           VMInit
    16 00000000                 IMPORT           VMStart
    17 00000000                 IMPORT           VMHardFault
-   18 00000000         vmaccessLvl
+   18 00000000                 IMPORT           Reset_Handler
+   19 00000000         vmaccessLvl
                                FUNCTION
-   19 00000000 F380 8814       MSR              CONTROL, R0
-   20 00000004 4770            BX               LR
-   21 00000006                 ENDP
-   22 00000006         upcall  FUNCTION
-   23 00000006 DF02            SWI              0x02
-   24 00000008 4770            BX               LR
-   25 0000000A                 ENDP
-   26 0000000A         vmstart FUNCTION
-   27 0000000A B672            CPSID            I
-   28 0000000C         ;MSR     MSP, R1 
-   29 0000000C F3BF 8F4F       DSB
-   30 00000010 F7FF FFFE       BL               EnableFPU
-   31 00000014 F7FF FFFE       BL               VMStart
-   32 00000018 F3BF 8F5F       DMB
-   33 0000001C F380 8809       MSR              PSP, R0
-   34 00000020         ;MOV     R1, #6
-   35 00000020 F381 8814       MSR              CONTROL, R1
-   36 00000024 B662            CPSIE            I
-   37 00000026 BD00            POP              {PC}
-   38 00000028         
-   39 00000028                 ENDP
-   40 00000028         SysTick_Handler
+   20 00000000 F380 8814       MSR              CONTROL, R0
+   21 00000004 4770            BX               LR
+   22 00000006                 ENDP
+   23 00000006         upcall  FUNCTION
+   24 00000006 DF02            SWI              0x02
+   25 00000008 4770            BX               LR
+   26 0000000A                 ENDP
+   27 0000000A         vmstart FUNCTION
+   28 0000000A B672            CPSID            I
+   29 0000000C         ;MSR     MSP, R1 
+   30 0000000C F3BF 8F4F       DSB
+   31 00000010 F7FF FFFE       BL               EnableFPU
+   32 00000014 F7FF FFFE       BL               VMStart
+   33 00000018 F3BF 8F5F       DMB
+   34 0000001C F380 8809       MSR              PSP, R0
+   35 00000020         ;MOV     R1, #6
+   36 00000020 F381 8814       MSR              CONTROL, R1
+   37 00000024 B662            CPSIE            I
+   38 00000026 BD00            POP              {PC}
+   39 00000028         
+   40 00000028                 ENDP
+   41 00000028         SysTick_Handler
                                FUNCTION
-   41 00000028 B672            CPSID            I
-   42 0000002A F3BF 8F4F       DSB
-   43 0000002E F3EF 8009       MRS              R0, PSP
-   44 00000032 E920 0FF0       STMDB            R0!, {R4-R11}
-   45 00000036 B500            PUSH             {LR}
-   46 00000038 F7FF FFFE       BL               VMTick
-   47 0000003C F3BF 8F5F       DMB
-   48 00000040 E8B0 0FF0       LDMIA            R0!, {R4-R11}
-   49 00000044 F380 8809       MSR              PSP, R0
-   50 00000048 F381 8814       MSR              CONTROL, R1
-   51 0000004C B662            CPSIE            I
-   52 0000004E BD00            POP              {PC}
-   53 00000050                 ENDP
-   54 00000050         PendSV_Handler
+   42 00000028 B672            CPSID            I
+   43 0000002A F3BF 8F4F       DSB
+   44 0000002E F3EF 8009       MRS              R0, PSP
+   45 00000032 E920 0FF0       STMDB            R0!, {R4-R11}
+   46 00000036 B500            PUSH             {LR}
+   47 00000038 F7FF FFFE       BL               VMTick
+   48 0000003C F3BF 8F5F       DMB
+   49 00000040 E8B0 0FF0       LDMIA            R0!, {R4-R11}
+   50 00000044 F380 8809       MSR              PSP, R0
+   51 00000048 F381 8814       MSR              CONTROL, R1
+   52 0000004C B662            CPSIE            I
+   53 0000004E BD00            POP              {PC}
+   54 00000050                 ENDP
+   55 00000050         PendSV_Handler
                                FUNCTION
-   55 00000050         
-   56 00000050                 ENDP
+   56 00000050         
 
 
 
 ARM Macro Assembler    Page 2 
 
 
-   57 00000050         SVC_Handler
+   57 00000050                 ENDP
+   58 00000050         SVC_Handler
                                FUNCTION
-   58 00000050 B672            CPSID            I
-   59 00000052 F3BF 8F4F       DSB
-   60 00000056 B500            PUSH             {LR}
-   61 00000058 F3EF 8309       MRS              R3, PSP
-   62 0000005C E923 0FF0       STMDB            R3!, {R4-R11}
-   63 00000060 F7FF FFFE       BL               VMSvc
-   64 00000064 E8B0 0FF0       LDMIA            R0!, {R4-R11}
-   65 00000068 F380 8809       MSR              PSP, R0
-   66 0000006C F381 8814       MSR              CONTROL, R1
-   67 00000070 B662            CPSIE            I
-   68 00000072 BD00            POP              {PC}
-   69 00000074                 ENDP
-   70 00000074         
-   71 00000074         HardFault_Handler
+   59 00000050 B672            CPSID            I
+   60 00000052 F3BF 8F4F       DSB
+   61 00000056 B500            PUSH             {LR}
+   62 00000058 F3EF 8309       MRS              R3, PSP
+   63 0000005C E923 0FF0       STMDB            R3!, {R4-R11}
+   64 00000060 F7FF FFFE       BL               VMSvc
+   65 00000064 E8B0 0FF0       LDMIA            R0!, {R4-R11}
+   66 00000068 F380 8809       MSR              PSP, R0
+   67 0000006C F381 8814       MSR              CONTROL, R1
+   68 00000070 B662            CPSIE            I
+   69 00000072 BD00            POP              {PC}
+   70 00000074                 ENDP
+   71 00000074         
+   72 00000074         HardFault_Handler
                                FUNCTION
-   72 00000074 B672            CPSID            I
-   73 00000076 F3BF 8F4F       DSB
-   74 0000007A B500            PUSH             {LR}
-   75 0000007C F3EF 8309       MRS              R3, PSP
-   76 00000080 E923 0FF0       STMDB            R3!, {R4-R11}
-   77 00000084 F7FF FFFE       BL               VMHardFault
-   78 00000088 E7FE            B                .
-   79 0000008A         ;LDMIA   R0!, {R4-R11}
-   80 0000008A         ;MSR     PSP, R0
-   81 0000008A         ;MSR     CONTROL, R1
-   82 0000008A         ;CPSIE   I
-   83 0000008A         ;POP     {PC}
-   84 0000008A                 ENDP
-   85 0000008A         TableEnd
-   86 0000008A         
-   87 0000008A         EnableFPU
+   73 00000074 B672            CPSID            I
+   74 00000076 F3BF 8F4F       DSB
+   75 0000007A B500            PUSH             {LR}
+   76 0000007C F3EF 8309       MRS              R3, PSP
+   77 00000080 E923 0FF0       STMDB            R3!, {R4-R11}
+   78 00000084 F7FF FFFE       BL               VMHardFault
+   79 00000088 F7FF BFFE       B                Reset_Handler
+   80 0000008C         ;B       .
+   81 0000008C         ;LDMIA   R0!, {R4-R11}
+   82 0000008C         ;MSR     PSP, R0
+   83 0000008C         ;MSR     CONTROL, R1
+   84 0000008C         ;CPSIE   I
+   85 0000008C         ;POP     {PC}
+   86 0000008C                 ENDP
+   87 0000008C         TableEnd
+   88 0000008C         
+   89 0000008C         EnableFPU
                                FUNCTION
-   88 0000008A         ; CPACR is located at address 0xE000ED88
-   89 0000008A 4805            LDR              R0, =0xE000ED88
-   90 0000008C         ; Read CPACR
-   91 0000008C 6801            LDR              R1, [R0]
-   92 0000008E         ; Set bits 20-23 to enable CP10 and CP11 coprocessors
-   93 0000008E F441 0170       ORR              R1, R1, #(0xF << 20)
-   94 00000092         ; Write back the modified value to the CPACR
-   95 00000092 6001            STR              R1, [R0]    ; wait for store to
+   90 0000008C         ; CPACR is located at address 0xE000ED88
+   91 0000008C 4804            LDR              R0, =0xE000ED88
+   92 0000008E         ; Read CPACR
+   93 0000008E 6801            LDR              R1, [R0]
+   94 00000090         ; Set bits 20-23 to enable CP10 and CP11 coprocessors
+   95 00000090 F441 0170       ORR              R1, R1, #(0xF << 20)
+   96 00000094         ; Write back the modified value to the CPACR
+   97 00000094 6001            STR              R1, [R0]    ; wait for store to
                                                              complete
-   96 00000094 F3BF 8F4F       DSB
-   97 00000098         ;reset pipeline now the FPU is enabled
-   98 00000098 F3BF 8F6F       ISB
-   99 0000009C 4770            BX               LR
-  100 0000009E                 ENDP
-  101 0000009E                 END
-              00 00 E000ED88 
+   98 00000096 F3BF 8F4F       DSB
+   99 0000009A         ;reset pipeline now the FPU is enabled
+  100 0000009A F3BF 8F6F       ISB
+  101 0000009E 4770            BX               LR
+  102 000000A0                 ENDP
+  103 000000A0                 END
+              E000ED88 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --apcs=int
 erwork --depend=.\objects\stackswitching.d -o.\objects\stackswitching.o -I.\mis
 c\inc -I..\platform -IE:\KeilProj\platform\RTE -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\
@@ -140,20 +142,20 @@ Symbol: .text
    Uses
       None
 Comment: .text unused
-EnableFPU 0000008A
+EnableFPU 0000008C
 
 Symbol: EnableFPU
    Definitions
-      At line 87 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
+      At line 89 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
    Uses
       At line 6 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
-      At line 30 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
+      At line 31 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
 
 HardFault_Handler 00000074
 
 Symbol: HardFault_Handler
    Definitions
-      At line 71 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
+      At line 72 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
    Uses
       At line 5 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
 Comment: HardFault_Handler used once
@@ -161,7 +163,7 @@ PendSV_Handler 00000050
 
 Symbol: PendSV_Handler
    Definitions
-      At line 54 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
+      At line 55 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
    Uses
       At line 3 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
 Comment: PendSV_Handler used once
@@ -169,7 +171,7 @@ SVC_Handler 00000050
 
 Symbol: SVC_Handler
    Definitions
-      At line 57 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
+      At line 58 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
    Uses
       At line 4 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
 Comment: SVC_Handler used once
@@ -177,15 +179,15 @@ SysTick_Handler 00000028
 
 Symbol: SysTick_Handler
    Definitions
-      At line 40 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
+      At line 41 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
    Uses
       At line 2 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
 Comment: SysTick_Handler used once
-TableEnd 0000008A
+TableEnd 0000008C
 
 Symbol: TableEnd
    Definitions
-      At line 85 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
+      At line 87 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
    Uses
       None
 Comment: TableEnd unused
@@ -199,7 +201,7 @@ Relocatable symbols
 
 Symbol: upcall
    Definitions
-      At line 22 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
+      At line 23 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
    Uses
       At line 7 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
 Comment: upcall used once
@@ -207,7 +209,7 @@ vmaccessLvl 00000000
 
 Symbol: vmaccessLvl
    Definitions
-      At line 18 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
+      At line 19 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
    Uses
       At line 9 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
 Comment: vmaccessLvl used once
@@ -215,7 +217,7 @@ vmstart 0000000A
 
 Symbol: vmstart
    Definitions
-      At line 26 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
+      At line 27 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
    Uses
       At line 8 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
 Comment: vmstart used once
@@ -226,6 +228,14 @@ Comment: vmstart used once
 ARM Macro Assembler    Page 1 Alphabetic symbol ordering
 External symbols
 
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 18 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
+   Uses
+      At line 79 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
+Comment: Reset_Handler used once
 StackSwitchPSV 00000000
 
 Symbol: StackSwitchPSV
@@ -240,7 +250,7 @@ Symbol: VMHardFault
    Definitions
       At line 17 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
    Uses
-      At line 77 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
+      At line 78 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
 Comment: VMHardFault used once
 VMInit 00000000
 
@@ -256,7 +266,7 @@ Symbol: VMStart
    Definitions
       At line 16 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
    Uses
-      At line 31 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
+      At line 32 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
 Comment: VMStart used once
 VMSvc 00000000
 
@@ -264,7 +274,7 @@ Symbol: VMSvc
    Definitions
       At line 14 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
    Uses
-      At line 63 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
+      At line 64 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
 Comment: VMSvc used once
 VMTick 00000000
 
@@ -272,7 +282,7 @@ Symbol: VMTick
    Definitions
       At line 13 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
    Uses
-      At line 46 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
+      At line 47 in file misc\depend\Arm\CortexM4\src\stackSwitching.s
 Comment: VMTick used once
-6 symbols
-353 symbols in table
+7 symbols
+354 symbols in table

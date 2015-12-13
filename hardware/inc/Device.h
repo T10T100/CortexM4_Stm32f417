@@ -9,28 +9,23 @@
 #include "init.h"
 #include "gpio_ex.h"
 #include "memory_alloc.h"
-#include "memory_template.h"
-#include "ArrayListStatic.h"
-#include "ArrayList.h"
-#include "Queue.h"
-#include "String.h"
-#include "deviceEventObject.h"
 
 #include "screen_driver.h"
-#include "graphicFrameClass.h"
 #include "VM.h"
 #include "vmapi.h"
-#include "graphic.h"
 #include "contentPane.h"
 #include "extern.h"
 #include "touchScreenAdapter.h"
+#include "vmStdOut.h"
 
 
 class Device : public ILI9488<GPIO_TypeDef, SpiSoftTypeDef>,
-               public ScreenDriver<ILI9488<GPIO_TypeDef, SpiSoftTypeDef>, GraphicFrame<uint16_t,  uint16_t> > {
+               public ScreenDriver<ILI9488<GPIO_TypeDef, SpiSoftTypeDef>, GraphicFrame<uint16_t,  uint16_t> >,
+               public VmOut<char> {
 private:
-        
+    char outputCharBuffer[296];
     GraphicFrameFactory<uint16_t, uint16_t> frameFactory;
+    
 /*
     ArrayList<DeviceListener<Device> > listenerList;
     void fireEvents ()
@@ -44,6 +39,7 @@ private:
 */
     
 public:
+    GLabel<ColorDepth> *label1;
     GContentPane<ColorDepth> *contentPane;
     Device () : ILI9488<GPIO_TypeDef, SpiSoftTypeDef>()
     {
@@ -64,11 +60,16 @@ public:
     {
         this->ScreenDriver::init((char *)"ili9486");
         Dimension<MaxGuiRange> d(0, 0, 480, 320);
-        GraphicFrame<uint16_t, uint16_t> *f = frameFactory.newFrame(d);
+        GraphicFrame<ColorDepth, MaxGuiRange> *f = frameFactory.newFrame(d);
         contentPane = (GContentPane<ColorDepth> *) new GContentPane<ColorDepth>(f);
         contentPane->getGraphic()->setFont(Font);
+        contentPane->getGraphic()->setDrawFont(Font);
+        label1 = (GLabel<ColorDepth> *) new GLabel<ColorDepth>(contentPane->getGraphic());
+        label1->setSize(100, 100, 200, 40);
+        contentPane->add(label1);
         contentPane->fill(0xaaaa);
         this->fill(contentPane->getFrame());
+        VmOut::setStream(outputCharBuffer, 296);
     }
     
     String *toString ()

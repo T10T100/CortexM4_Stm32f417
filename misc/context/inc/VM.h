@@ -23,7 +23,8 @@ extern int sensorInputServer (void *);
 extern uint32_t touchSensorDriverID;
 
 
-class Runtime : public EventFactory,
+class Runtime : public virtual Synchronizer<Runtime>,
+                public EventFactory,
                 public TimerInterface,
                 public ServerFactory<DefaultServerListener> ,
                 public Allocator<void *>,
@@ -31,10 +32,8 @@ class Runtime : public EventFactory,
     private :
         MemoryAllocator allocator;
         Runnable *running;
-        Runnable *iddle;
         ArrayListBase<Runnable> arrayOfRunnables[MAX_RUNNABLE_PRIORITY];
         ArrayListBase<Runnable> waitList;
-        int32_t serverRequestId;
     
     
         ArrayListBase<RuntimeEventListener> arrayOfListeners;
@@ -80,7 +79,7 @@ class Runtime : public EventFactory,
         
         Runnable *getAvailable (int32_t priority)
         {
-            Runnable *r = iddle;
+            Runnable *r = nullptr;
             for (int i = 0; i < MAX_RUNNABLE_PRIORITY; i++) {
                 if (arrayOfRunnables[i].isEmpty() == false) {
                     return arrayOfRunnables[i].removeFirst();
@@ -92,10 +91,16 @@ class Runtime : public EventFactory,
         __value_in_regs DwArg dispatch (void * frame)
         {
             DwArg retArg = {(Word) frame, running->getAccessLvl()};
+            if (mills % 15 != 0 || mills == 0) {
+                push( TimerInterface::invoke() );
+            }
             if (mills++ % 10 != 0 || mills == 0) {
                 return retArg;
             }
-            push( TimerInterface::invoke() );
+            Synchronize<Runtime> sync(this);
+            if (sync.test() == false) {
+                return retArg;
+            }
             fireSystemEvents();
             
             running->setFrame((RuntimeFrame *)frame); 
@@ -109,6 +114,10 @@ class Runtime : public EventFactory,
         
         __value_in_regs DwArg dispatchSVC (SVC_arg arg)
         {
+            Synchronize<Runtime> sync(this);
+            if (sync.test() == false) {
+                return running->getFrame();
+            }
             RuntimeFrame *frame = (RuntimeFrame *)arg.a3;
             running->setFrame(frame);
             return resolveAPICall(frame, arg);
@@ -167,19 +176,23 @@ class Runtime : public EventFactory,
         }
            
         
-        void push (Runnable *r)
-        {
-            if (r != nullptr) {
-                arrayOfRunnables[r->getPriority()].addLast(r);
-            }
-        }
+        
         Runnable *pop ()
         {
             return getAvailable(0);
         }
         
     public :
-            
+        void push (Runnable *r)
+        {
+            Synchronize<Runtime> sync(this);
+            if (sync.test() == false) {
+                return;
+            }
+            if (r != nullptr) {
+                arrayOfRunnables[r->getPriority()].addLast(r);
+            }
+        }    
         SensorAdapter sensorAdapter;
     
         /*Friends*/
@@ -198,18 +211,17 @@ class Runtime : public EventFactory,
         Runtime ()
         {
             running = nullptr;
-            serverRequestId = -1;
         }
         int init (uint32_t heapStart, uint32_t heapSize)
         {
            this->allocator(heapStart, heapSize);
            
            addIddle(SystemEventBurner, 0);
-           installServer(eventServer, EventServerID, 1, (char *)"Event server", 0);
+           installServer(eventServer, EventServerID, 1, "Event server", 0);
            TimerInterface::operator () (timerServer, 1, TimerServerID, 0);
             
            sensorAdapter(); 
-           installServer(touchSensorServer, TouchSensorDriverID, 6, (char *)"Touch Screen Server", &sensorAdapter);
+           installServer(touchSensorServer, TouchSensorDriverID, 6, "Touch Screen Server", &sensorAdapter);
            return 0;
         }
         
@@ -220,7 +232,7 @@ class Runtime : public EventFactory,
         
 		void addIddle (Runnable_t runnable, uint32_t priority = 0)
         {
-            arrayOfRunnables[0].addFirst( newServer(runnable, 6, IddleThreadID, (char *)"Iddle") );
+            arrayOfRunnables[0].addFirst( newServer(runnable, 6, IddleThreadID, "Iddle") );
         }
      
 };

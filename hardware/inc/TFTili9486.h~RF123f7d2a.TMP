@@ -592,7 +592,7 @@ class ILI9488 {
         return 0;
     }
     template <typename Color>
-    int32_t driverFill (Color *colorBuffer, Box<uint16_t> frame, Box<int32_t> window, Color color)
+    int32_t driverFill (Color *colorBuffer, Box<uint16_t> frame, Box<uint16_t> window, Color color)
     {
 
         int32_t x = window.x - frame.x;

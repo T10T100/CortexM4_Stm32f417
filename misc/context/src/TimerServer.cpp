@@ -7,8 +7,8 @@ int timerServer (void *r)
     static TimerInterface *i = (TimerInterface *)r;
     for (;;) {
         i->fireAll();
-        i->close();
         HAL_Delay(1);
+        i->close();
         vm::close();
     }
 }

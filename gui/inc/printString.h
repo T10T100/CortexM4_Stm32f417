@@ -1,9 +1,7 @@
 #ifndef PRINTSTR_CLASS
 #define PRINTSTR_CLASS
 #include "String.h"
-#include "Dimensions.h"
-#include "graphicFrameClass.h"
-#include "gui_defs.h"
+#include "GcontentPaneInterface.h"
 
 #define ColorMaskReference ColorWhite
 
@@ -27,13 +25,12 @@ template <typename Color>
 extern bool putChar (char c, uint32_t x, uint32_t  y,  Color color, uint32_t scaleX, uint32_t scaleY);
 
 template <typename Color>
-    class Print  : public virtual Dimension<MaxGuiRange> {
+    class Print  : public virtual GPaneInterface<Color> {
     private :
-           Color *__buffer;
            uint16_t lineCount;
            uint16_t charCount;
            char  charSet[255];
-            const tFont <Color>*font;
+           const tFont <Color>*font;
     
         int GetCharCode (char symbol)
             {
@@ -72,7 +69,7 @@ template <typename Color>
                 int32_t wm = image->W;
                 int32_t hm = image->H;
 
-                Color *dest = this->__buffer;
+                Color *dest = this->frame;
                 const Color *src = image->Image;
                 
                
@@ -86,52 +83,16 @@ template <typename Color>
                   }
                   return 0;
             }
-            char *reverseChars (char *charSequence)
-            {
-                  char *j;
-                  int32_t c;
-                 
-                  j = charSequence + strlen(charSequence) - 1;
-                  while(charSequence < j) {
-                    c = *charSequence;
-                    *charSequence++ = *j;
-                    *j-- = c;
-                  }	
-                  return j;	
-            }    
-            char *stringifyInt (char *buffer, int32_t value, int32_t base)
-            {
-                  int32_t i, sign;
-                  if ((sign = value) < 0)              /* record sign */
-                      value = -value;                    /* make n positive */
-                  i = 0;
-                  do {                               /* generate digits in reverse order */
-                      buffer[i++] = value % base + '0';   /* get next digit */
-                  } while ((value /= base) > 0);       /* delete it */
-                  if (sign < 0)
-                      buffer[i++] = '-';
-                  buffer[i] = '\0';
-                  return reverseChars(buffer);
-            }
-            char *stringifyInt (char *buffer, uint32_t value, int32_t base)
-            {
-                  int32_t i;                   /* make n positive */
-                  i = 0;
-                  do {                               /* generate digits in reverse order */
-                      buffer[i++] = value % base + '0';   /* get next digit */
-                  } while ((value /= base) > 0);       /* delete it */
-                  buffer[i] = '\0';
-                  return reverseChars(buffer);
-            }
     
     public :
         Print (GraphicFrame<Color, MaxGuiRange> *frame)
         {
-            __buffer = frame->getBuffer();
+            
             lineCount = 0;
             charCount = 0;
-            this->setSize(frame->getBox());
+            GPaneInterface<Color>::operator () (frame);
         }
+        
         void  setFont (const tFont <Color> &font)
             {
                 this->font = &font;
@@ -163,20 +124,6 @@ template <typename Color>
         }
         
         
-        
-        char *toString (int32_t value)
-        {
-            static char buf[12];
-            stringifyInt(buf, value, 10);
-            return buf;
-        }
-        
-        char *toHexString (uint32_t value)
-        {
-            static char buf[15] = "0x";
-            stringifyInt(buf + 2, value, 16);
-            return buf;
-        }
         
 };
 

@@ -99,7 +99,8 @@ class Dimension {
             this->w = d.w;
             this->h = d.h;
         }
-        void setSize (Box<Range> d)
+        template <typename Plant>
+        void setSize (Plant d)
         {
             this->x = d.x;
             this->y = d.y;

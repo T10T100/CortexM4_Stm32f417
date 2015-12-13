@@ -14,7 +14,7 @@ int eventServer (void *server);
 
 extern int eventServerFinish ();
 
-class EventFactory : public Synchronizer<EventFactory> {
+class EventFactory {
     private :
         QueueBase<Event_t, (int)32> eventQueue;
         bool firedUp;
@@ -26,10 +26,6 @@ class EventFactory : public Synchronizer<EventFactory> {
         EventFactory () {}
         void fireEvents ()
         {
-            Synchronize<EventFactory> sync(this);
-            if (sync.test() == false) {
-                return;
-            }
             firedUp = true;
             while (eventQueue.isEmpty() == false) {
                 (*eventQueue.pop()) (this);
@@ -39,10 +35,6 @@ class EventFactory : public Synchronizer<EventFactory> {
         }    
         void addEvent (Event_t e)
         {
-           Synchronize<EventFactory> sync(this);
-            if (sync.test() == false) {
-                return;
-            } 
             if (eventQueue.isFull() == false) {
                 eventQueue.push(e);
             }

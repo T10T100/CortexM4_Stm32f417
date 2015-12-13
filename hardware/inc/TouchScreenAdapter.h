@@ -70,7 +70,7 @@ class SensorAdapter {
               
               p.x = (int32_t)x + 0;
               p.y = (int32_t)y + 0;
-              p.x = 480 - p.x;
+              p.x = p.x;
               return p;
           }
     
@@ -110,7 +110,7 @@ class SensorAdapter {
                 
                 lastAction |= onAnyActionHandler;
                 if (touchAction == true) {
-                    lastMove.x = position.x - lastPosition.x;
+                    lastMove.x = lastPosition.x - position.x;
                     lastMove.y = position.y - lastPosition.y;
                 }
                 if (stdby == true) {
@@ -130,12 +130,8 @@ class SensorAdapter {
                 } else {
                     stdby = true;
                 }
-                    lastMove.x = 0;
-                    lastMove.y = 0;
-                    lastPosition.x = 0;
-                    lastPosition.y = 0;
-                    position.x = 0;
-                    position.y = 0;
+                
+                    
             }	
             return lastAction;           
         }
@@ -143,7 +139,7 @@ class SensorAdapter {
         SensorDataStruct getData ()
         {
             SensorDataStruct data = {
-                lastPosition,
+                position,
                 lastMove,
                 0,
                 false,

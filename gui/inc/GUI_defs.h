@@ -27,11 +27,14 @@ template <typename Color>
 struct tFont {
     const uint8_t Quantity;
     const tChar<Color> *CharArray;   
-    const uint8_t W, H;    
+    const uint8_t W, H; 
 };
 
 
 #define GUI_min(a, b)  (a < b ? a : b)   
 #define GUI_max (a, b)  (a >= b ? a : b)   
+
+
+#define ColorMaskReference ColorWhite
 
 #endif /*GUI_DEFS_H*/

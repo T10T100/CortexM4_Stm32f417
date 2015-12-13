@@ -56,7 +56,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	
 	switch ((uint32_t)htim->Instance) {
 		case (uint32_t)TIM1:
-			         runtime.sensorAdapter.TouchSensorIT();
+			         if ( runtime.sensorAdapter.TouchSensorIT() > 0) {
+                         runtime.push( runtime.invokeServer(TouchSensorDriverID) );
+                     }  
 		break;
 		case (uint32_t)TIM2:
 			               

@@ -15,6 +15,7 @@
      IMPORT VMInit
      IMPORT VMStart
      IMPORT VMHardFault
+     IMPORT Reset_Handler
 vmaccessLvl      FUNCTION
                     MSR     CONTROL, R0
                     BX      LR
@@ -75,7 +76,8 @@ HardFault_Handler FUNCTION
                     MRS     R3, PSP
                     STMDB   R3!, {R4-R11}
                     BL      VMHardFault
-                    B       .
+                    B       Reset_Handler
+                    ;B       .
                     ;LDMIA   R0!, {R4-R11}
                     ;MSR     PSP, R0
                     ;MSR     CONTROL, R1

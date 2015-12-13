@@ -200,7 +200,7 @@ void DmaInit ()
 
 void TimInit (void)
 {
-  uint32_t __prescaler = (uint32_t) ((SystemCoreClock /2) / 1000) - 1;
+  uint32_t __prescaler = (uint32_t) ((SystemCoreClock /2) / 100) - 1;
   
   TimHandle.Instance = TIM1; 
   TimHandle.Init.Period = 50 - 1;
@@ -218,10 +218,10 @@ void TimInit (void)
     Error_Handler();
   }
 	
-	__prescaler = (uint32_t) ((SystemCoreClock /2) / 1000) - 1;
+	__prescaler = (uint32_t) ((SystemCoreClock /2) / 100) - 1;
   
   Tim2_Handle.Instance = TIM2;
-  Tim2_Handle.Init.Period = 1000 - 1;
+  Tim2_Handle.Init.Period = 100 - 1;
   Tim2_Handle.Init.Prescaler = __prescaler;
   Tim2_Handle.Init.ClockDivision = 10;
   Tim2_Handle.Init.CounterMode = TIM_COUNTERMODE_UP;
