@@ -61,7 +61,7 @@ class TimerInterface : public ServerInterface<TimerListener> ,
                 if (l == nullptr) {
                     return;
                 }
-                Runnable *r = newServer(caller, 0, id);
+                Runnable *r = newServer(caller, 0, id, (char *)"Timer Server");
                 if (r == nullptr) {
                     Delete(l);
                     return;
@@ -74,7 +74,7 @@ class TimerInterface : public ServerInterface<TimerListener> ,
                 if (l == nullptr) {
                     return;
                 }
-                Runnable *r = newServer(caller, 0, id);
+                Runnable *r = newServer(caller, 0, id, (char *)"Timer Server");
                 if (r == nullptr) {
                     Delete(l);
                     return;

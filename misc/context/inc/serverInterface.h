@@ -163,7 +163,7 @@ int stubServerCaller (void *anyServer);
                 serverRuntime = nullptr;
             }
                 
-            void installServer (Runnable_t caller, int32_t id, int32_t listenersCount, void *o = nullptr)
+            void installServer (Runnable_t caller, int32_t id, int32_t listenersCount, char *name, void *o = nullptr)
             {
                 ServerInterface<L> *s = New<ServerInterface<L> >();
                 if (s == nullptr) {
@@ -176,7 +176,7 @@ int stubServerCaller (void *anyServer);
                     Delete(s);
                     return;
                 }
-                Runnable *thread = newServer(caller, 0, id);
+                Runnable *thread = newServer(caller, 0, id, name);
                 if (thread == nullptr) {
                     Delete(s);
                     Delete(listeners);

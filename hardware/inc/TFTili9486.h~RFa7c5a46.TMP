@@ -464,7 +464,6 @@ typedef unsigned short resolution_t;
 #endif
 #include <stdint.h>
 #include "dimensions.h"
-#include "gpio_ex.h"
 
 template <typename RgbPort, typename SpiPort>
 class ILI9488 {
@@ -514,8 +513,7 @@ class ILI9488 {
         this->putColor(__color);
         for (int i = __x; i >= 0; i--) {
             for (int t = __y; t > 0; t--) {
-                DEV_Pin_Set(Lcd_Clk_Port, LCD_Clk_Pin);
-                DEV_Pin_Clr(Lcd_Clk_Port, LCD_Clk_Pin);								
+                this->toggleDot();								
             }
             this->hsClk();
         }
@@ -529,8 +527,7 @@ class ILI9488 {
         this->putColor(__color);
         for (int i = d.w; i >= 0; i--) {
             for (int t = d.h; t > 0; t--) {
-                DEV_Pin_Set(Lcd_Clk_Port, LCD_Clk_Pin);
-                DEV_Pin_Clr(Lcd_Clk_Port, LCD_Clk_Pin);								
+                this->toggleDot();								
             }
             this->hsClk();
         }
@@ -543,8 +540,7 @@ class ILI9488 {
         this->putColor(__color);
         for (int i = w; i >= 0; i--) {
             for (int t = h; t > 0; t--) {
-                DEV_Pin_Set(Lcd_Clk_Port, LCD_Clk_Pin);
-                DEV_Pin_Clr(Lcd_Clk_Port, LCD_Clk_Pin);								
+                toggleDot();								
             }
             this->hsClk();
         }
@@ -562,8 +558,7 @@ class ILI9488 {
             for (int t = 0; t < w; t++) {
                 this->rgbOut(colorBuffer[Hcnt +  t]);
                  while (Dcnt--) {
-                    DEV_Pin_Set(Lcd_Clk_Port, LCD_Clk_Pin);
-                    DEV_Pin_Clr(Lcd_Clk_Port, LCD_Clk_Pin); 
+                    this->toggleDot(); 
                  }	  
                 Dcnt = __scaleY;
             }
@@ -583,8 +578,8 @@ class ILI9488 {
         for (int32_t x = S; x > 0 ; x -= H) { 
             for (uint32_t y = x, H0 = H + x; y < H0; y++) {
                 this->rgbOut( colorBuffer[y] );
-                DEV_Pin_Set(Lcd_Clk_Port, LCD_Clk_Pin);
-                DEV_Pin_Clr(Lcd_Clk_Port, LCD_Clk_Pin);
+                this->setDot(true);
+                this->setDot(false);
             }
             this->hsClk();
         }
@@ -592,23 +587,15 @@ class ILI9488 {
         return 0;
     }
     template <typename Color>
-    int32_t driverFill (Color *colorBuffer, Box<uint16_t> frame, Box<uint16_t> window, Color color)
+    int32_t driverFill (Color *colorBuffer, Box<uint16_t> frame, Box<uint16_t> window)
     {
 
         int32_t x = window.x - frame.x;
-        if (x < 0) {
-            x = -x;
-            window.w -= x;
-        }
         if (x > frame.w) {
             return -1;
         }
         
         int32_t y = window.y - frame.y;
-        if (y< 0) {
-            y = -y;
-            window.h -= y;
-        }
         if (y > frame.h) {
             return -1;
         }
@@ -618,8 +605,8 @@ class ILI9488 {
         if (w0 < 0) {
             return -1;
         }
-        if (w0 > frame.w + frame.x) {
-            w = frame.w + frame.x - x;
+        if (w0 > frame.w) {
+            w = frame.w - x;
         }
         
         int32_t h = window.h;
@@ -627,15 +614,15 @@ class ILI9488 {
         if (h0 < 0) {
             return -1;
         }
-        if (h0 > frame.h + frame.y) {
-            h = frame.h + frame.y - y;
+        if (h0 > frame.h) {
+            h = frame.h - y;
         }
         
         if (x > 0) {
-            this->driverFill(color, 0, 0, x, height);
+            this->driverFill(0, 0, 0, x, height);
         }
         if (y > 0) {
-            this->driverFill(color, x, 0, w, y);
+            this->driverFill(0, x, 0, w, y);
         }
         
         this->window(x, y, w, h);    
@@ -645,11 +632,8 @@ class ILI9488 {
         
         for (; S >= x ; S -= height) { 
             for (int32_t yi = S, H = h + S; yi < H; yi++) {
-                DEV_fPort_Out (this->rgbPort, colorBuffer[yi]);
-                //this->rgbOut( colorBuffer[yi] );
-                //toggleDot();
-                DEV_Pin_Set(Lcd_Clk_Port, LCD_Clk_Pin);
-                DEV_Pin_Clr(Lcd_Clk_Port, LCD_Clk_Pin);
+                this->rgbOut( colorBuffer[yi] );
+                toggleDot();
             }
             this->hsClk();
         }
@@ -768,23 +752,22 @@ class ILI9488 {
     void dotClk (uint32_t cnt)
     {
         while (cnt--) {
-            DEV_Pin_Clr(Lcd_Clk_Port, LCD_Clk_Pin);
-            DEV_Pin_Set(Lcd_Clk_Port, LCD_Clk_Pin);
+            this->toggleDot();
         }		
     }
     void hsClk (void)
     {
-        DEV_Pin_Clr(Lcd_Den_Port, LCD_Den_Pin);
-        DEV_Pin_Clr(Lcd_Hsync_Port, LCD_Hsync_Pin);
+        this->setDen(false);
+        this->setHs(false);
         this->dotClk(3);
-        DEV_Pin_Set(Lcd_Hsync_Port, LCD_Hsync_Pin);
-        DEV_Pin_Set(Lcd_Den_Port, LCD_Den_Pin);
+        this->setHs(true);
+        this->setDen(true);
     }
     void vsClk (void)
     {
-        DEV_Pin_Clr(Lcd_Vsync_Port, LCD_Vsync_Pin); 
+        this->setVs(false);
         this->hsClk();
-        DEV_Pin_Set(Lcd_Vsync_Port, LCD_Vsync_Pin); 
+        this->setVs(true);
     }
     template <typename Color>
     void putColor (Color color)

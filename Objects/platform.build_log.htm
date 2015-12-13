@@ -22,33 +22,31 @@ Dialog DLL:      TCM.DLL V1.14.4.0
  
 <h2>Project:</h2>
 E:\KeilProj\platform\platform.uvprojx
-Project File Date:  12/10/2015
+Project File Date:  12/12/2015
 
 <h2>Output:</h2>
 Build target 'Target 1'
 compiling main.cpp...
-.\misc\context\inc\VM.h(45): warning:  #1300-D: alloc inherits implicit virtual
+.\misc\context\inc\VM.h(44): warning:  #1300-D: alloc inherits implicit virtual
           void *alloc (uint32_t size)
-.\misc\context\inc\VM.h(50): warning:  #1300-D: free inherits implicit virtual
+.\misc\context\inc\VM.h(49): warning:  #1300-D: free inherits implicit virtual
           void free (void *p)
-.\misc\context\inc\VM.h(129): warning:  #546-D: transfer of control bypasses initialization of:
-            variable "l" (declared at line 144)
+.\misc\context\inc\VM.h(128): warning:  #546-D: transfer of control bypasses initialization of:
+            variable "l" (declared at line 143)
               switch (a.a0) {
               ^
 entry\src\main.cpp(48): warning:  #111-D: statement is unreachable
       return 0;
-entry\src\main.cpp(91): warning:  #940-D: missing return statement at end of non-void function "touchAnyListener"
+entry\src\main.cpp(78): warning:  #940-D: missing return statement at end of non-void function "touchAnyListener"
   }
-entry\src\main.cpp(89): warning:  #177-D: variable "adapter" was declared but never referenced
-     auto adapter = (SensorAdapter *)t;
-entry\src\main.cpp: 6 warnings, 0 errors
+entry\src\main.cpp: 5 warnings, 0 errors
 compiling device.cpp...
-.\misc\context\inc\VM.h(45): warning:  #1300-D: alloc inherits implicit virtual
+.\misc\context\inc\VM.h(44): warning:  #1300-D: alloc inherits implicit virtual
           void *alloc (uint32_t size)
-.\misc\context\inc\VM.h(50): warning:  #1300-D: free inherits implicit virtual
+.\misc\context\inc\VM.h(49): warning:  #1300-D: free inherits implicit virtual
           void free (void *p)
-.\misc\context\inc\VM.h(129): warning:  #546-D: transfer of control bypasses initialization of:
-            variable "l" (declared at line 144)
+.\misc\context\inc\VM.h(128): warning:  #546-D: transfer of control bypasses initialization of:
+            variable "l" (declared at line 143)
               switch (a.a0) {
               ^
 hardware\src\device.cpp(41): warning:  #61-D: integer operation result is out of range
@@ -61,12 +59,12 @@ hardware\src\device.cpp(48): warning:  #68-D: integer conversion resulted in a c
       DEV_Pin_Clr(GPIOA, CS_Pin);
 hardware\src\device.cpp: 7 warnings, 0 errors
 compiling touchSensorApiInterface.cpp...
-.\misc\context\inc\vm.h(45): warning:  #1300-D: alloc inherits implicit virtual
+.\misc\context\inc\vm.h(44): warning:  #1300-D: alloc inherits implicit virtual
           void *alloc (uint32_t size)
-.\misc\context\inc\vm.h(50): warning:  #1300-D: free inherits implicit virtual
+.\misc\context\inc\vm.h(49): warning:  #1300-D: free inherits implicit virtual
           void free (void *p)
-.\misc\context\inc\vm.h(129): warning:  #546-D: transfer of control bypasses initialization of:
-            variable "l" (declared at line 144)
+.\misc\context\inc\vm.h(128): warning:  #546-D: transfer of control bypasses initialization of:
+            variable "l" (declared at line 143)
               switch (a.a0) {
               ^
 hardware\src\touchSensorApiInterface.cpp(16): warning:  #177-D: variable "t" was declared but never referenced
@@ -75,27 +73,33 @@ hardware\src\touchSensorApiInterface.cpp(25): warning:  #1-D: last line of file 
   }
 hardware\src\touchSensorApiInterface.cpp: 5 warnings, 0 errors
 compiling VM.cpp...
-.\misc\context\inc\VM.h(45): warning:  #1300-D: alloc inherits implicit virtual
+.\misc\context\inc\VM.h(44): warning:  #1300-D: alloc inherits implicit virtual
           void *alloc (uint32_t size)
-.\misc\context\inc\VM.h(50): warning:  #1300-D: free inherits implicit virtual
+.\misc\context\inc\VM.h(49): warning:  #1300-D: free inherits implicit virtual
           void free (void *p)
-.\misc\context\inc\VM.h(129): warning:  #546-D: transfer of control bypasses initialization of:
-            variable "l" (declared at line 144)
+.\misc\context\inc\VM.h(128): warning:  #546-D: transfer of control bypasses initialization of:
+            variable "l" (declared at line 143)
               switch (a.a0) {
               ^
-misc\context\src\VM.cpp: 3 warnings, 0 errors
+misc\context\src\VM.cpp(46): warning:  #940-D: missing return statement at end of non-void function "vmfault"
+  }
+misc\context\src\VM.cpp: 4 warnings, 0 errors
+compiling vmapi.cpp...
 compiling Event.cpp...
-.\misc\context\inc\vm.h(45): warning:  #1300-D: alloc inherits implicit virtual
+.\misc\context\inc\vm.h(44): warning:  #1300-D: alloc inherits implicit virtual
           void *alloc (uint32_t size)
-.\misc\context\inc\vm.h(50): warning:  #1300-D: free inherits implicit virtual
+.\misc\context\inc\vm.h(49): warning:  #1300-D: free inherits implicit virtual
           void free (void *p)
-.\misc\context\inc\vm.h(129): warning:  #546-D: transfer of control bypasses initialization of:
-            variable "l" (declared at line 144)
+.\misc\context\inc\vm.h(128): warning:  #546-D: transfer of control bypasses initialization of:
+            variable "l" (declared at line 143)
               switch (a.a0) {
               ^
 misc\context\src\Event.cpp: 3 warnings, 0 errors
+compiling serverInterface.cpp...
+compiling TimerServer.cpp...
+compiling DriverInterface.cpp...
 linking...
-Program Size: Code=17900 RO-data=57832 RW-data=48 ZI-data=45936  
+Program Size: Code=19964 RO-data=57732 RW-data=64 ZI-data=45952  
 FromELF: creating hex file...
 ".\Objects\platform.axf" - 0 Error(s), 24 Warning(s).
 

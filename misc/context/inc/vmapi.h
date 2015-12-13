@@ -55,7 +55,7 @@ namespace vm {
 
 __value_in_regs int init (uint32_t heapStart, uint32_t heapSize);
 __value_in_regs int start (); 
-__value_in_regs int create (Runnable_t entryPoint, uint32_t priority);
+__value_in_regs int create (Runnable_t entryPoint, char *name);
 __value_in_regs int kill (int cause);
 __value_in_regs int sleep (int mills);
 __value_in_regs int pushEvent (int (*eventListener) (void *));

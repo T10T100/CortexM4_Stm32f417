@@ -105,14 +105,14 @@ class SensorAdapter {
                 lastPosition = position;
                 position = normalize( Mcu.ReadPos() ); 
                 
-                lastMove.x = position.x - lastPosition.x;
-                lastMove.y = position.y - lastPosition.y;
-                
                 acceleration.x += (lastMove.x - acceleration.x) / 2;
                 acceleration.y += (lastMove.y - acceleration.y) / 2;
                 
                 lastAction |= onAnyActionHandler;
-                
+                if (touchAction == true) {
+                    lastMove.x = position.x - lastPosition.x;
+                    lastMove.y = position.y - lastPosition.y;
+                }
                 if (stdby == true) {
                     touchAction = true;
                     releaseAction = false;
@@ -130,12 +130,12 @@ class SensorAdapter {
                 } else {
                     stdby = true;
                 }
-                lastMove.x = 0;
-                lastMove.y = 0;
-                lastPosition.x = 0;
-                lastPosition.y = 0;
-                position.x = 0;
-                position.y = 0;
+                    lastMove.x = 0;
+                    lastMove.y = 0;
+                    lastPosition.x = 0;
+                    lastPosition.y = 0;
+                    position.x = 0;
+                    position.y = 0;
             }	
             return lastAction;           
         }

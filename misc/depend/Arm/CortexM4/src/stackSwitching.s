@@ -2,6 +2,7 @@
             EXPORT SysTick_Handler   
             EXPORT PendSV_Handler 
             EXPORT SVC_Handler
+            EXPORT HardFault_Handler
             EXPORT EnableFPU
             EXPORT upcall                  [WEAK]
             EXPORT vmstart
@@ -13,6 +14,7 @@
      IMPORT VMSvc                                         
      IMPORT VMInit
      IMPORT VMStart
+     IMPORT VMHardFault
 vmaccessLvl      FUNCTION
                     MSR     CONTROL, R0
                     BX      LR
@@ -64,6 +66,21 @@ SVC_Handler     FUNCTION
                     MSR     CONTROL, R1
                     CPSIE   I
                     POP     {PC}
+                ENDP 
+                    
+HardFault_Handler FUNCTION      
+                    CPSID   I
+                    DSB
+                    PUSH    {LR} 
+                    MRS     R3, PSP
+                    STMDB   R3!, {R4-R11}
+                    BL      VMHardFault
+                    B       .
+                    ;LDMIA   R0!, {R4-R11}
+                    ;MSR     PSP, R0
+                    ;MSR     CONTROL, R1
+                    ;CPSIE   I
+                    ;POP     {PC}
                 ENDP 
 TableEnd        
                 

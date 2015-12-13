@@ -9,6 +9,7 @@ typedef int (* Runnable_t) (void *);
 
 #define StackPadSize 4
 #define DefaultthreadStackSize 128 * 4
+#define DefaultThreadNameLength 12
 
 enum RunnableStatus{
   Stopped = 0,
@@ -125,6 +126,7 @@ class Runnable : public DefaultArrayListBaseNode<Runnable>,
         
         TCB tcb;
         ArrayListBase<Runnable> links;
+        char name[DefaultThreadNameLength];
         void initTcb (uint32_t priority)
         {
             tcb.irreevant = 0;
@@ -147,6 +149,15 @@ class Runnable : public DefaultArrayListBaseNode<Runnable>,
             RunnbleInterface<Runnable>::operator () (r, floor, StackPadSize, id, access);
             
             initTcb(priority);
+        }
+        template <typename Char>
+        void setName (Char *name)
+        {
+            int i = 0;
+            while (name[i] != 0 && i < DefaultThreadNameLength) {
+                this->name[i] = name[i];
+                i++;
+            }
         }
         Runnable () {}
     public :
@@ -189,6 +200,11 @@ class Runnable : public DefaultArrayListBaseNode<Runnable>,
         {
             return this->id;
         }
+        
+        char *getName ()
+        {
+            return name;
+        }
     
         
         
@@ -230,23 +246,27 @@ class ThreadFactory : protected virtual Allocator<void *> {
         public :
             ThreadFactory () {}
                 
-            Runnable *newThread (Runnable_t r, uint32_t priority, uint32_t id = DefaultThreadID)
+            template <typename Char>    
+            Runnable *newThread (Runnable_t r, uint32_t priority, uint32_t id = DefaultThreadID, Char *name = nullptr)
             {
                 Runnable *thread = New<Runnable>(DefaultthreadStackSize);
                 if (thread == nullptr) {
                     return nullptr;
                 }
                 thread->init(r, DefaultthreadStackSize, priority, ThreadAccessLevel0, id);
+                thread->setName(name);
                 return thread;
             }
             
-            Runnable *newServer (Runnable_t r, uint32_t priority, uint32_t id)
+            template <typename Char> 
+            Runnable *newServer (Runnable_t r, uint32_t priority, uint32_t id, Char *name)
             {
                 Runnable *thread = New<Runnable>(DefaultthreadStackSize);
                 if (thread == nullptr) {
                     return nullptr;
                 }
                 thread->init(r, DefaultthreadStackSize, priority, ThreadAccessLevel1, id);
+                thread->setName(name);
                 return thread;
             }
     

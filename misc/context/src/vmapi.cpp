@@ -17,12 +17,12 @@ __value_in_regs int vm::start ()
     vmstart();
     return 0;
 }
-__value_in_regs int vm::create (Runnable_t runnable, uint32_t priority)
+__value_in_regs int vm::create (Runnable_t runnable, char *name = nullptr)
 {
     SVC_arg arg = {
         __create,
         (Word)runnable,
-        priority,
+        (Word)name,
         0
     };
     return (int)upcall(arg);

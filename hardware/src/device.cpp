@@ -51,6 +51,25 @@ int16_t SensorMcu::SerialWrite (uint8_t *__src, uint16_t __size)
 	return 0;
 }
 
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+	
+	switch ((uint32_t)htim->Instance) {
+		case (uint32_t)TIM1:
+			         runtime.sensorAdapter.TouchSensorIT();
+		break;
+		case (uint32_t)TIM2:
+			               
+                     /*FullScrCount++;
+                     if (FullScrCount > 30) {
+                         FullScrCount = 0;
+                         FullScreen = true;
+                     }*/
+		break;
+		
+	}
+  
+}
 
 /*
 int32_t LcdDriverDef::ExtInput (b2D, uint32_t)

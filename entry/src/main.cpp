@@ -58,20 +58,6 @@ int main ()
     vm::init((uint32_t)systemHeap, 10000 * 4);
     
     vm::start();
-    /*
-    String str0("need");
-    String str1("java");
-    str0 + str1;
-    str1 + 1237765;
-    str0 + device;
-    arrayList.addFirst((TestClass *) new TestClass('h'));
-    arrayList.addFirst((TestClass *) new TestClass('e'));
-    arrayList.addFirst((TestClass *) new TestClass('l'));
-    arrayList.addFirst((TestClass *) new TestClass('l'));
-    arrayList.addFirst((TestClass *) new TestClass('o'));
-    Iterator<ArrayList<TestClass>, TestClass> *iterator = arrayList.iterator(); 
-    */
-    
 	while (1) {
 		device.fill(0xffff);
 	}
@@ -87,7 +73,8 @@ static ViewPort wp;
 int touchAnyListener (void *t)
 {
    auto adapter = (SensorAdapter *)t;
-   wp.move(1, 1);
+   Point<int32_t> p = adapter->getData().move;
+   wp.move(p.x, p.y);
 }
 
 int SystemEventBurner (void *r)
@@ -98,6 +85,7 @@ int SystemEventBurner (void *r)
     HsramInit();
     DmaInit();
     SpiInit();
+    TimInit();
     GpioInit();
     Heap(0x60000000, 0x7FFFF);
     
@@ -105,8 +93,8 @@ int SystemEventBurner (void *r)
     device.init();
     device.enableBackLight(true);
     vm::runtimeDispatchEvent(event);
-    vm::create(SystemEventBurner3, 0);
-    vm::create(SystemEventBurner2, 0);
+    vm::create(SystemEventBurner3, "user");
+    vm::create(SystemEventBurner2, "Renderer");
     vm::addTimer(timer0, 2);
     vm::addSensorListener(touchAnyListener, onAnyActionHandler);
     Dimension<uint16_t> d(0, 0, 480, 320);
@@ -125,14 +113,15 @@ int SystemEventBurner (void *r)
 int SystemEventBurner2 (void *r)
 {
     vm::CleanUp cleanup;
+    Graphic<ColorDepth> *g = device.contentPane->getGraphic();
     for (;;) {
-        //device.fill(0x4400);
         vm::pushEvent(SystemEvent);
-        device.contentPane->fill(0x1aee);
-        device.contentPane->getGraphic()->setText("\n\n\n This text is allow only on screen\nit has no presentation in ram yet\nThis text is allow only on screen\nit has no presentation in ram yet\n", colorIndex );
-        device.fill<ColorDepth>(device.contentPane->getFrame(), wp);
+        device.contentPane->fill(0xaa00);
+        g->setText("           ", 0xffff);
+        g->apendText( g->toString(wp.getX()) , 0xffff);
+        g->apendText( g->toString(wp.getY()) , 0xffff);
+        device.fill<ColorDepth>(device.contentPane->getFrame(), wp, 0);
         vm::sleep(0);
-        //colorIndex += 0x8000;
     }
 }
 
@@ -140,7 +129,6 @@ int SystemEventBurner2 (void *r)
 
 int SystemEvent (void *v)
 {
-    
     colorIndex += 0x8000;
     return 0;
 }

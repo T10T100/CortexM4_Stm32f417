@@ -30,7 +30,6 @@ class Runtime : public EventFactory,
 				public virtual ThreadFactory {
     private :
         MemoryAllocator allocator;
-        SensorAdapter sensorAdapter;
         Runnable *running;
         Runnable *iddle;
         ArrayListBase<Runnable> arrayOfRunnables[MAX_RUNNABLE_PRIORITY];
@@ -127,7 +126,7 @@ class Runtime : public EventFactory,
             DwArg ret = {(Word)frame, (Word)id};
             
             switch (a.a0) {
-                case vm::__create: addRunnable ((Runnable_t)a.a1, (uint32_t)a.a2);
+                case vm::__create: addRunnable ((Runnable_t)a.a1, (char *)a.a2);
 
                 case vm::__kill:
                         
@@ -181,6 +180,7 @@ class Runtime : public EventFactory,
         
     public :
             
+        SensorAdapter sensorAdapter;
     
         /*Friends*/
         friend __value_in_regs DwArg vmtick (void *arg);
@@ -190,6 +190,7 @@ class Runtime : public EventFactory,
         friend int eventServer (Runnable *server);
         friend int eventServerFinish ();
         friend int driverSensorServer (Runnable *server);
+        friend __value_in_regs DwArg vmfault (SVC_arg arg);
         /*Friends*/
     
         
@@ -204,22 +205,22 @@ class Runtime : public EventFactory,
            this->allocator(heapStart, heapSize);
            
            addIddle(SystemEventBurner, 0);
-           installServer(eventServer, EventServerID, 1, 0);
+           installServer(eventServer, EventServerID, 1, (char *)"Event server", 0);
            TimerInterface::operator () (timerServer, 1, TimerServerID, 0);
             
            sensorAdapter(); 
-           installServer(touchSensorServer, TouchSensorDriverID, 6, &sensorAdapter);
+           installServer(touchSensorServer, TouchSensorDriverID, 6, (char *)"Touch Screen Server", &sensorAdapter);
            return 0;
         }
         
-        void addRunnable (Runnable_t runnable, uint32_t priority = 0)
+        void addRunnable (Runnable_t runnable, char *name, uint32_t priority = 0)
         {
-            arrayOfRunnables[0].addLast( newThread(runnable, priority) );
+            arrayOfRunnables[0].addLast( newThread(runnable, priority, DefaultThreadID, name) );
         }
         
 		void addIddle (Runnable_t runnable, uint32_t priority = 0)
         {
-            arrayOfRunnables[0].addFirst( newServer(runnable, 6, IddleThreadID) );
+            arrayOfRunnables[0].addFirst( newServer(runnable, 6, IddleThreadID, (char *)"Iddle") );
         }
      
 };
