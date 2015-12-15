@@ -522,7 +522,8 @@ class ILI9488 {
         this->vsClk();
         return 0;
     }
-    uint32_t driverFill (uint16_t __color, Box<uint16_t> d)
+    template <typename VP>
+    uint32_t driverFill (uint16_t __color, VP d)
     {
         this->window(d.x, d.y, d.w, d.h);
         this->vsClk();
@@ -573,12 +574,11 @@ class ILI9488 {
         this->vsClk();
         return 0;
     }
-    template <typename Color>
-    uint32_t driverFill (Color *colorBuffer, Box<uint16_t> d)
+    template <typename Color, typename VP>
+    uint32_t driverFill (Color *colorBuffer, VP d)
     {
         int32_t W = d.w, H = d.h;
         int32_t S = W * H;
-        //uint32_t nClk = LCD_Clk_Pin << 16;
         this->window(d.x, d.y, W, H);
         for (int32_t x = S; x > 0 ; x -= H) { 
             for (uint32_t y = x, H0 = H + x; y < H0; y++) {
@@ -591,61 +591,216 @@ class ILI9488 {
         this->vsClk();
         return 0;
     }
-    template <typename Color>
-    int32_t driverFill (Color *colorBuffer, Box<uint16_t> frame, Box<int32_t> window, Color color)
+    template <typename Color, typename FP, typename VP>
+    int32_t driverFill (Color *colorBuffer, FP frame, VP p, Color color)
     {
 
-        int32_t x = window.x - frame.x;
-        if (x < 0) {
-            x = -x;
-            window.w -= x;
+        if (frame.w + p.x < 0 || p.x > frame.w) {
+            return -1;
         }
-        if (x > frame.w) {
+        if (frame.h + p.y < 0 || p.y > frame.h) {
             return -1;
         }
         
-        int32_t y = window.y - frame.y;
-        if (y< 0) {
-            y = -y;
-            window.h -= y;
-        }
-        if (y > frame.h) {
-            return -1;
-        }
-        
-        int32_t w = window.w;
-        int32_t w0 = x + w; 
-        if (w0 < 0) {
-            return -1;
-        }
-        if (w0 > frame.w + frame.x) {
-            w = frame.w + frame.x - x;
-        }
-        
-        int32_t h = window.h;
-        int32_t h0 = y + h;
-        if (h0 < 0) {
-            return -1;
-        }
-        if (h0 > frame.h + frame.y) {
-            h = frame.h + frame.y - y;
-        }
-        
-        if (x > 0) {
-            this->driverFill(color, 0, 0, x, height);
-        }
-        if (y > 0) {
-            this->driverFill(color, x, 0, w, y);
-        }
-        
-        this->window(x, y, w, h);    
-        x = x * height;
-        int32_t S = w * height + x;
         
         
-        for (; S >= x ; S -= height) { 
-            for (int32_t yi = S, H = h + S; yi < H; yi++) {
-                DEV_fPort_Out (this->rgbPort, colorBuffer[yi]);
+        Box<int> viewBox  = {0, 0, 0, 0};
+        Box<int> darkBox0 = {0, 0, 0, 0};
+        Box<int> darkBox  = {0, 0, 0, 0};
+        int x0, y0, w0, h0;
+        int a, b, c, d;
+        if (frame.w > width) {
+            if (p.x < 0) {
+                a = frame.w + p.x;
+                if (a > width) {
+                    w0 = width;
+                    x0 = -p.x;
+                    viewBox.x = 0;
+                    viewBox.w = width;
+                } else {  /*a <= width*/
+                    w0 = a;
+                    x0 = -p.x;
+                    viewBox.x = 0;
+                    viewBox.w = w0;
+                } 
+            } else { /*p.x >= 0 , frame.w > width*/
+                    w0 = width - p.x;
+                    x0 = 0;
+                    viewBox.x = p.x;
+                    viewBox.w = width - p.x;
+            }
+        } else if (frame.w == width) { /**/
+            if (p.x < 0) {
+                    a = frame.w + p.x;
+                    w0 = a;
+                    x0 = -p.x;
+                    viewBox.x = 0;
+                    viewBox.w = w0; 
+            } else { /*p.x >= 0, frame.w == width*/
+                    w0 = width - p.x;
+                    x0 = 0;
+                    viewBox.x = p.x;
+                    viewBox.w = width - p.x;
+                    
+            } 
+        } else { /*frame.w < width*/
+            
+        }
+        
+        
+        
+        
+        if (frame.h > height) {
+            if (p.y < 0) {
+                a = frame.h + p.y;
+                if (a > height) {
+                    h0 = height;
+                    y0 = -p.y;
+                    viewBox.y = 0;
+                    viewBox.h = height;
+                    if (p.x < 0) {
+                        darkBox0.x = w0;
+                        darkBox0.w = width - w0;
+                        darkBox0.y = 0;
+                        darkBox0.h = height;
+                        
+                    } else {
+                        darkBox0.x = 0;
+                        darkBox0.w = p.x;
+                        darkBox0.y = 0;
+                        darkBox0.h = height;
+                    }
+                    
+                } else {  /*a <= height*/
+                    h0 = a;
+                    y0 = -p.y;
+                    viewBox.y = 0;
+                    viewBox.h = a;
+                    if (p.x < 0) {
+                        darkBox0.x = 0;
+                        darkBox0.w = w0;
+                        darkBox0.y = h0;
+                        darkBox0.h = height - h0;
+                        
+                        darkBox.x = w0;
+                        darkBox.w = width - w0;
+                        darkBox.y = 0;
+                        darkBox.h = height;
+                    } else { /*p.x > 0*/
+                        darkBox0.x = 0;
+                        darkBox0.w = p.x;
+                        darkBox0.y = 0;
+                        darkBox0.h = height;
+                        
+                        darkBox.x = p.x;
+                        darkBox.w = width - p.x;
+                        darkBox.y = h0;
+                        darkBox.h = height - h0;
+                    }
+                } 
+            } else { /*p.y >= 0 , frame.h > height*/
+                    h0 = height - p.y;
+                    y0 = 0;
+                    viewBox.y = p.y;
+                    viewBox.h = height - p.y;
+                    if (p.x < 0) {
+                        darkBox0.x = 0;
+                        darkBox0.w = w0;
+                        darkBox0.y = 0;
+                        darkBox0.h = p.y;
+                        
+                        darkBox.x = w0;
+                        darkBox.w = width - w0;
+                        darkBox.y = 0;
+                        darkBox.h = height;
+                    } else { /*p.x >= 0*/
+                        darkBox0.x = 0;
+                        darkBox0.w = p.x;
+                        darkBox0.y = 0;
+                        darkBox0.h = height;
+                        
+                        darkBox.x = p.x;
+                        darkBox.w = width - p.x;
+                        darkBox.y = 0;
+                        darkBox.h = p.y;
+                }
+                
+            }
+        } else if (frame.h == height) { /**/
+            if (p.y < 0) {
+                    a = frame.h + p.y;
+                    h0 = a;
+                    y0 = -p.y;
+                    viewBox.y = 0;
+                    viewBox.h = h0;
+                
+                if (p.x < 0) {
+                    darkBox0.x = 0;
+                    darkBox0.w = w0;
+                    darkBox0.y = h0;
+                    darkBox0.h = height - h0;
+                    
+                    darkBox.x = w0;
+                    darkBox.w = width - w0;
+                    darkBox.y = 0;
+                    darkBox.h = height;
+                } else { /*p.x > 0*/
+                    darkBox0.x = 0;
+                    darkBox0.w = p.x;
+                    darkBox0.y = 0;
+                    darkBox0.h = height;
+                    
+                    darkBox.x = p.x;
+                    darkBox.w = width - p.x;
+                    darkBox.y = h0;
+                    darkBox.h = height - h0;
+                }
+            } else { /*p.y >= 0, frame.h == height*/
+                    h0 = height - p.y;
+                    y0 = 0;
+                    viewBox.y = p.y;
+                    viewBox.h = height - p.y;
+
+                if (p.x < 0) {
+                    darkBox0.x = 0;
+                    darkBox0.w = w0;
+                    darkBox0.y = 0;
+                    darkBox0.h = p.y;
+                    
+                    darkBox.x = w0;
+                    darkBox.w = width - w0;
+                    darkBox.y = 0;
+                    darkBox.h = height;
+                } else { /*p.x >= 0*/
+                    darkBox0.x = 0;
+                    darkBox0.w = p.x;
+                    darkBox0.y = 0;
+                    darkBox0.h = height;
+                    
+                    darkBox.x = p.x;
+                    darkBox.w = width - p.x;
+                    darkBox.y = h0;
+                    darkBox.h = height - h0;
+                }
+            } 
+        } else { /*frame.h < height*/
+            
+        }
+        this->driverFill(color, darkBox0.x, darkBox0.y, darkBox0.w, darkBox0.h);
+        this->driverFill(color, darkBox.x, darkBox.y, darkBox.w, darkBox.h);
+        this->window(viewBox.x, viewBox.y, viewBox.w, viewBox.h);
+        fillPart(colorBuffer, x0, y0, w0, h0, frame.h);
+        return 0;
+    }
+    
+    template <typename Color>
+    void fillPart (Color *src, int x, int y, int w, int h, int hF)
+    {  
+        int x0 = x * hF;
+        x = w * hF + x0;
+        for (; x0 < x ; x0 += hF) { 
+            for (int32_t yi = x0 + y, H = h + x0 + y; yi < H; yi++) {
+                DEV_fPort_Out (this->rgbPort, src[yi]);
                 //this->rgbOut( colorBuffer[yi] );
                 //toggleDot();
                 DEV_Pin_Set(Lcd_Clk_Port, LCD_Clk_Pin);
@@ -653,9 +808,6 @@ class ILI9488 {
             }
             this->hsClk();
         }
-        
-        return 0;
-        
     }
     uint16_t init ()
     {
@@ -791,8 +943,11 @@ class ILI9488 {
     {
         this->rgbOut(color);
     }
+    
+    
+    
     protected:
-        inline void backLight (uint8_t);
+        
         template <typename Color>
         inline void rgbOut (Color color);
         inline void setVs (bool value);
@@ -802,7 +957,9 @@ class ILI9488 {
         inline void setDen(bool value);
         inline void resetForce(bool value);
         inline void delay (uint32_t msec);
-        
+    public:
+        inline void backLight (uint8_t);        
+       
 }; 
 
 

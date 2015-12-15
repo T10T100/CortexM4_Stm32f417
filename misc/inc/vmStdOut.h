@@ -71,34 +71,17 @@ class VmOut {
                 return 0;                    
             }
     public :
-        VmOut () { status = StreamClosed; }
         VmOut (Stream *out, uint32_t capacity)
         {
            outStream = out;
            elementsCount = 0;
            this->capacity = capacity;
            status = StreamOpened;
+           for (int i = capacity; i >= 0; i--) {
+               out[i] = 0;
+           }
         }
-        void operator () (Stream *out, uint32_t capacity)
-        {
-           outStream = out;
-           elementsCount = 0;
-            this->capacity = capacity;
-           status = StreamOpened;
-        }
-        void setStream (Stream *out, uint32_t capacity)
-        {
-           outStream = out;
-           elementsCount = 0;
-            this->capacity = capacity;
-           status = StreamOpened;
-        }
-        int8_t getStatus ()
-        {
-            return status;
-        }
-        
-        
+
         void print (char *str)
         {
             int i = 0;
@@ -108,6 +91,20 @@ class VmOut {
             }
         }
         void println (char *str)
+        {
+            if (status == StreamClosed) { return; }
+            printChar('\n');
+            print(str);
+        }
+        void print (const char *str)
+        {
+            int i = 0;
+            while (str[i] != 0) {
+                printChar(str[i]);
+                i++;
+            }
+        }
+        void println (const char *str)
         {
             if (status == StreamClosed) { return; }
             printChar('\n');

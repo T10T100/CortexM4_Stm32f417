@@ -29,8 +29,7 @@ int32_t fill (Color color)
 	return 0;
 }
 
-template <typename Plane>
-int32_t fill (Plane rect, Color color)
+int32_t fill (Dimension<MaxGuiRange> rect, Color color)
 {
 	//this->Screen->Trunc(&rect);
 	
@@ -49,7 +48,7 @@ int32_t fill (Plane rect, Color color)
 
 int32_t fill (int32_t xt0, int32_t yt0, int32_t xt, int32_t yt, Color color)
 {
-	static Box<int32_t> rect = {xt0, yt0, xt, yt};
+	Dimension<int32_t> rect(xt0, yt0, xt, yt);
 	return this->fill (rect, color);
 }
 
@@ -105,6 +104,26 @@ int32_t fillY (Plane rect, Color color)
 		}
 	return 0;	
 }
+template <typename Plane, typename img_t>
+void fill (Plane box, img_t *image, Color color)
+            {
+
+                int32_t wm = image->W;
+                int32_t hm = image->H;
+
+                Color *dest = this->frame;
+                const Color *src = image->Image;
+                
+               
+                int32_t S = hm * wm;
+                for (int xi = 0, xt = box.x * this->h; xi < wm; xt += this->h, xi++) {  
+                        for (uint32_t yt = box.y + xt, yi = xi, t = S + xi; yi < t; yt++, yi += image->W) {
+                            if (src[yi] != ColorMaskReference) {
+                                dest[yt] = src[yi];   
+                            } else {}
+                        }
+                  }
+            }
     
 };
 

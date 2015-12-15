@@ -8,21 +8,11 @@ template <typename Color, typename Range>
     class GraphicFrame  : public Dimension<Range>{
     private :
         Color *buffer;
-        GraphicFrame () : Dimension<Range>()
+        GraphicFrame (Color *buffer, Dimension<Range> d) : Dimension<Range>(d)
         {
-            this->setDefaultSize();
+            this->buffer = buffer;
         }
     public :
-        void operator () (Color *buffer, Dimension<Range> d)
-        {
-            this->buffer = buffer;
-            this->setSize(d);
-        }
-        void operator () (Color *buffer, int w, int h)
-        {
-            this->buffer = buffer;
-            this->setSize(0, 0, w, h);
-        }
     
         void  fill (Color color)
             {
@@ -34,25 +24,44 @@ template <typename Color, typename Range>
                             buffer[x] = color;
                     }
             }
+        void  fillAnd (Color color)
+            {
+                    //if (this->Screen->Test()) return -1;
+                    //this->Screen->Trunc(&rect);
+                    
+                    int32_t D = this->w * this->h;
+                    for (int32_t  x = D ; x > 0;  x--)  {
+                            buffer[x] |= color;
+                    }
+            }
         
         Color *getBuffer ()
         {
             return this->buffer;
         }
-        //friend class Factory;
+        friend class GraphicFrameFactory;
 };
     
-template <typename  Color, typename Range>
-    class GraphicFrameFactory : public Allocator<GraphicFrame <Color, Range> > {
+
+    class GraphicFrameFactory  {
         public:
             GraphicFrameFactory ()
             {
                 
             }
+            
+            template <typename Color, typename Range>
             GraphicFrame<Color, Range> *newFrame (Dimension<Range> d)
             {
-                GraphicFrame<Color, Range> *frame = this->New(d.getWidth() * d.getHeight());
-                (*frame)((Color *)(frame + 1), d);
+                Color *b = (Color *) new Color[d.getWidth() * d.getHeight()];
+                if (b == nullptr) {
+                    return nullptr;
+                }
+                GraphicFrame<Color, Range> *frame = (GraphicFrame<Color, Range> *) new GraphicFrame<Color, Range>(b, d);
+                if (frame == nullptr) {
+                    delete(b);
+                    return nullptr;
+                }
                 return frame;
             }
             

@@ -1,36 +1,31 @@
 #ifndef GLABEL_OBJECT
 #define GLABEL_OBJECT
 #include "graphic.h"
-#include "ArrayListStatic.h"
 #include "vmStdOut.h"
+#include "gComponent.h"
+#include "gPaletteComponent.h"
+#include "gSelectable.h"
 
 #define DefaulLabelCharCapacity 48
 
 template <typename Color>
-class GLabel : public Dimension<int32_t> ,
+class GLabel : public GComponent<Color>,
+               public virtual GPaletteComponent<Color>,
+               public GSelectable<Color>,
                public DefaultArrayListBaseNode<GLabel<Color> >,
-               public VmOut<char>   {
+               public VmOut<char>       {
 private :
-    Graphic<Color> *graphic;
-    Color background;
-    Color foreground;
     char text[DefaulLabelCharCapacity];
 public:
-    GLabel () {}
-    GLabel (Graphic<Color> *graphic)
+    GLabel (Graphic<Color> *graphic) : GComponent<Color> (),
+                                       GPaletteComponent<Color> (graphic),
+                                       GSelectable<Color> (graphic), 
+                                       DefaultArrayListBaseNode<GLabel<Color> > (),
+                                       VmOut<char>(text, DefaulLabelCharCapacity)
     {
-        this->graphic = graphic;
-        background = ColorWhite;
-        foreground = ColorBlack;
-        VmOut::setStream(text, DefaulLabelCharCapacity);
+        this->setSelectBorderWidth(2);
     }
-    void operator () (Graphic<Color> *graphic)
-    {
-        this->graphic = graphic;
-        background = ColorWhite;
-        foreground = ColorBlack;
-        VmOut::setStream(text, DefaulLabelCharCapacity);
-    }
+
     ~GLabel ()
     {
         delete(this);
@@ -68,19 +63,12 @@ public:
     
     void repaint ()
     {
-        Box<uint16_t> box = {x, y, w, h};
-        graphic->fill(box, background);
-        graphic->drawString(box, getStream(), foreground);
+        Dimension<MaxGuiRange> box = {this->x, this->y, this->w, this->h};
+        this->graphic->fill(box, this->background);
+        this->drawSelection();
+        this->graphic->drawString(box, getStream(), this->foreground);
     }
     
-    void setBackground (Color color)
-    {
-        background = color;
-    }
-    void setForeground (Color color)
-    {
-        foreground = color;
-    }
 };
 
 #endif

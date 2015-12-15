@@ -20,10 +20,9 @@ __value_in_regs DwArg vmfault (SVC_arg arg)
     auto frame = (RuntimeFrame *)arg.a3;
     device.clear();
     device.println("Hard Fault Error at address :  \n");
-    
     device.println( "\nPC~~~~~~");
     device.printHex( (uint32_t)frame->PC );
-    
+    device.println("Cause : Bad Memory Address \n");
     device.println( "\n(PC - 1)~~~~~~");
     device.printHex(*(uint32_t *)(frame->PC));
     device.println( "\n(PC)~~~~~~");

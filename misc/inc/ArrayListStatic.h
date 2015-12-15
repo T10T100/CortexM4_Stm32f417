@@ -9,11 +9,10 @@ template <typename Object>
         public :
         DefaultArrayListBaseNode ()
 		{
+            prevLink = nullptr;
+            nextLink = nullptr;
 		}    
 		/*Default constructor*/
-		void operator () ()
-		{
-		}
 		/*Default interface to compare objects*/
 		bool equals (DefaultArrayListBaseNode<Object> &node)
 		{
@@ -37,6 +36,7 @@ template <typename Object>
 			{
 				this->firstNode = nullptr;
 				this->lastNode = nullptr;
+                elementCount = 0;
 			}
 			
 			/*put new item without compare - as result create an unsorted list*/
@@ -149,7 +149,6 @@ template <typename Object>
 			template <typename Collection>
 			ArrayListBase<Object> *addAll (Collection collection)
 			{
-				
 				return this;
 			}
 			
@@ -169,11 +168,12 @@ template <typename Object>
                     this->firstNode = r;
                     r->prevLink = nullptr;
                 }   else    {
+                    if (r)
                     l->nextLink = r;
                 }
                 if (!r) {
-                l->nextLink = nullptr;
-                this->lastNode = l;
+                    l->nextLink = nullptr;
+                    this->lastNode = l;
                 }   else    {
                     r->prevLink = l;
                 }	

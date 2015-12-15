@@ -9,14 +9,14 @@ int touchSensorServer (void *);
 
 
 enum ListOfSensorHandlers {
-    onAnyActionHandler      = (1 << 0),
-    onClickHandler          = (1 << 1),
-    onReleaseHandler        = (1 << 2),
-    onSlideUpHandler        = (1 << 3),
-    onSlideDownHandler      = (1 << 4),
-    onSlideLeftHandler      = (1 << 5),
-    onSlideRightHandler     = (1 << 6),
-    onLongPress             = (1 << 7),
+    onAnyActionHandler      = (0),
+    onClickHandler          = (1),
+    onReleaseHandler        = (2),
+    onSlideUpHandler        = (3),
+    onSlideDownHandler      = (4),
+    onSlideLeftHandler      = (5),
+    onSlideRightHandler     = (6),
+    onLongPress             = (7),
     
     __EOF_HandlersList,
   

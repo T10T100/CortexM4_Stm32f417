@@ -6,7 +6,7 @@
             EXPORT EnableFPU
             EXPORT upcall                  [WEAK]
             EXPORT vmstart
-            EXPORT vmaccessLvl
+
                 
             AREA    |.text|, CODE, READONLY  
      IMPORT StackSwitchPSV   
@@ -16,9 +16,6 @@
      IMPORT VMStart
      IMPORT VMHardFault
      IMPORT Reset_Handler
-vmaccessLvl      FUNCTION
-                    MSR     CONTROL, R0
-                    BX      LR
                  ENDP
 upcall           FUNCTION
                     SWI     0x02

@@ -15,6 +15,10 @@ class Line_Class   : public virtual GPaneInterface<Color> {
 	public:
 	  Line_Class (GraphicFrame<Color, MaxGuiRange> *);
 	  int32_t DrawDda (int32_t, int32_t, int32_t, int32_t, Color);
+      template <typename Plane>
+        int32_t lineBold (Plane p0, Plane p1, Color);
+      template <typename Plane>
+        int32_t line (Plane p0, Plane p1, Color);
 	  int32_t DrawVertical (Box<MaxGuiRange> rect, Color);
 	  int32_t DrawHorizontal (Box<MaxGuiRange> rect, Color);
 	  int32_t DrawDdaBold (int32_t, int32_t, int32_t, int32_t, Color);
@@ -25,15 +29,17 @@ class Line_Class   : public virtual GPaneInterface<Color> {
 	private:
 	  int32_t Pixel (int32_t, int32_t, Color);
 	  int32_t Point (int32_t, int32_t, int32_t, int32_t, Color);
-	  int32_t fBotToTop (uint32_t, uint32_t, uint32_t, Color, uint8_t = 1);
-	  int32_t fLeftToRight (uint32_t, uint32_t, uint32_t, Color, uint8_t = 1);
+	  int32_t fBotToTop (int32_t, int32_t, int32_t, Color, uint8_t = 1);
+	  int32_t fLeftToRight (int32_t, int32_t, int32_t, Color, uint8_t = 1);
 	  int8_t log2LaySize;
+      int32_t Z;
 	
 };
 
 template <typename Color>
 Line_Class<Color>::Line_Class(GraphicFrame<Color, MaxGuiRange> *frame)
 {
+    Z = 7;
     GPaneInterface<Color>::operator () (frame);
 }
 
@@ -94,17 +100,22 @@ int32_t Line_Class<Color>::DrawDda (int32_t xt0, int32_t yt0, int32_t xt, int32_
   return 0;	
 }
 
+template <typename Color> template <typename Plane>
+int32_t Line_Class<Color>::line (Plane p0, Plane p1, Color color)
+{
+	return DrawDda(p0.x, p0.y, p1.x, p1.y, color);
+}
+
 template <typename Color>
 int32_t Line_Class<Color>::DrawDdaBold (int32_t xt0, int32_t yt0, int32_t xt, int32_t yt, Color color)
 {
   //if (this->Screen->Test()) return -1;
 	
 	if (this->Z == 0) this->Z = 2;
-	Box<int32_t> rect;// = this->Screen->TruncLine(xt0, yt0, xt, yt);
-	int32_t Xo = rect.x;
-    int32_t Yo = rect.y;
-    int32_t X  =  rect.w;
-    int32_t Y  =  rect.h;
+	int32_t Xo = xt0;
+    int32_t Yo = yt0;
+    int32_t X  =  xt;
+    int32_t Y  =  yt;
 	int32_t dx = labs(X - Xo);
     int32_t dy = labs(Y - Yo);
     int32_t sx = X >= Xo ? this->Z : -this->Z;
@@ -148,6 +159,12 @@ int32_t Line_Class<Color>::DrawDdaBold (int32_t xt0, int32_t yt0, int32_t xt, in
   return 0;	
 }
 
+template <typename Color> template <typename Plane>
+int32_t Line_Class<Color>::lineBold (Plane p0, Plane p1, Color color)
+{
+	return DrawDdaBold(p0.x, p0.y, p1.x, p1.y, color);
+}
+
 template <typename Color>
 int32_t Line_Class<Color>::DrawVector (int32_t x0, int32_t y0, int32_t R, int32_t A, Color color)
 {
@@ -157,6 +174,8 @@ int32_t Line_Class<Color>::DrawVector (int32_t x0, int32_t y0, int32_t R, int32_
     y = y0 + R * cos((float)A);
 	return this->DrawDda(x0, y0, x, y, color);
 }
+
+
 
 template <typename Color>
 int32_t Line_Class<Color>::DrawVectorBold (int32_t x0, int32_t y0, int32_t R, int32_t A, Color color)
@@ -193,7 +212,7 @@ int32_t Line_Class<Color>::DrawHorizontalBold (Box<MaxGuiRange> rect, Color colo
 }
 
 template <typename Color>
-int32_t Line_Class<Color>::fBotToTop (uint32_t x0, uint32_t y0, uint32_t y, Color color, uint8_t z)
+int32_t Line_Class<Color>::fBotToTop (int32_t x0, int32_t y0, int32_t y, Color color, uint8_t z)
 {
 	uint32_t D = x0 * this->h;
 	
@@ -208,7 +227,7 @@ int32_t Line_Class<Color>::fBotToTop (uint32_t x0, uint32_t y0, uint32_t y, Colo
 }
 
 template <typename Color>
-int32_t Line_Class<Color>::fLeftToRight (uint32_t x0, uint32_t y0, uint32_t x, Color color,  uint8_t z)
+int32_t Line_Class<Color>::fLeftToRight (int32_t x0, int32_t y0, int32_t x, Color color,  uint8_t z)
 {
 	uint32_t h0 = this->h;
 	x0 = x0 * h0 + y0;
@@ -228,3 +247,5 @@ int32_t Line_Class<Color>::fLeftToRight (uint32_t x0, uint32_t y0, uint32_t x, C
 
 
 #endif
+
+

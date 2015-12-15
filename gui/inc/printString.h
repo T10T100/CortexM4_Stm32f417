@@ -29,37 +29,30 @@ template <typename Color>
     private :
            uint16_t lineCount;
            uint16_t charCount;
-           char  charSet[255];
-           const tFont <Color>*font;
+           FontCharSet<DefaultFontStorage, DefaultCharStorage_t> *charSet;
+
     
-        int GetCharCode (char symbol)
-            {
-              if (this->font == nullptr) return -1;
-              uint32_t code = 0;
-              uint32_t quantity = this->font->Quantity;
-              while ((code != symbol) && (quantity--))
-                    code = this->font->CharArray[quantity].Code;
-              return quantity;  
-            }	
             
-            void putChar (char c, Color color)
+            void putChar (char c, Color color, const tChar<ColorDepth> *imagesSet)
             {
-                if (this->font == nullptr) return ;
                 switch (c) {
                     case nlPad :
-                            lineCount +=font->H;      
+                            lineCount += charSet->getH();      
                             charCount = 0;
-                                return;
+                            return;
                             //break;
                     default :
                         break;
                 }
-                const tImage<MaxGuiRange> *Img = this->font->CharArray[charSet[(int)c]].Image;
-                printChar( charCount, lineCount, Img, color);
-                charCount += this->font->W;
+                printChar( charCount, \
+                           lineCount, \
+                           imagesSet[charSet->get_UTF8((uint16_t)c)].Image, \
+                           color );
+                
+                charCount += this->charSet->getW();
                 if (charCount >= this->w) {
                     charCount = 0;
-                    lineCount += this->font->H;
+                    lineCount += this->charSet->getH();
                 }
             }
             
@@ -93,32 +86,29 @@ template <typename Color>
             GPaneInterface<Color>::operator () (frame);
         }
         
-        void  setFont (const tFont <Color> &font)
-            {
-                this->font = &font;
-                int l = font.Quantity;
-                int i  = 0;
-                while (l--) {
-                    i = (int) this->font->CharArray[l].Code;
-                    charSet[i] = l;
-                }
-            }
+        void setCharSet (FontCharSet<DefaultFontStorage, DefaultCharStorage_t> *set)
+        {
+            this->charSet = set;
+        }
         
+   
         void setText (char *text, Color color)
         {
                int i = 0;
                lineCount = 0;
                charCount = 0;
+               const tChar<ColorDepth> *imagesSet = charSet->getFont()->imagesSet;
                while (text[i] != 0) {
-                   putChar(text[i], color);     
+                   putChar(text[i], color, imagesSet);     
                    i++;
                }
         }
         void apendText (char *text, Color color)
         {
                int i = 0;
+               const tChar<ColorDepth> *imagesSet = charSet->getFont()->imagesSet;
                while (text[i] != 0) {
-                   putChar(text[i], color);     
+                   putChar(text[i], color, imagesSet);     
                    i++;
                }
         }

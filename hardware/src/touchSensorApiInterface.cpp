@@ -12,13 +12,9 @@ int touchSensorServer (void *r)
     auto adapter = (SensorAdapter *)server->getUserObject();
     for (;;)
     {
-        auto action = adapter->getAction();
-        uint32_t t = 0;
-        for (int32_t i = 0; action; i++, action >>= 1) {
-            if (action & 1) {
-                server->fireChannel(i + 1);
-            }
-        }
+        vm::startCritical();
+        server->fireChannel( adapter->getAction() - 1 );
+        vm::endCritical();
         server->close();
         vm::close();
     }

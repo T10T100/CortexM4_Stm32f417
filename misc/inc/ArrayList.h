@@ -9,15 +9,11 @@
 template <typename List, typename Object>
 	class DefaultArrayListNode {
         public :
-        DefaultArrayListNode ()
+        DefaultArrayListNode (Object *object)
 		{
-            this->object = nullptr;
+            this->object = object;
 		}    
 		/*Default constructor*/
-		void operator () (Object &object)
-		{
-			  this->object = &object;
-		}
 		/*Default interface to compare objects*/
 		bool equals (DefaultArrayListNode<List, Object> &node)
 		{
@@ -79,8 +75,8 @@ template <typename Vector, typename Object>
 			
 			Object &addFirst (Object &o)
 			{
-				DefaultArrayListNode<ArrayList<Object>, Object> *node = this->New();
-                (*node)(o);
+				DefaultArrayListNode<ArrayList<Object>, Object> *node = (DefaultArrayListNode<ArrayList<Object>, Object> *) \
+                            new DefaultArrayListNode<ArrayList<Object>, Object>(&o);
 				this->addFirstBase(*node);
                 return o;
 			}
@@ -92,8 +88,8 @@ template <typename Vector, typename Object>
 			
 			Object &addLast (Object &o)
 			{
-				DefaultArrayListNode<ArrayList<Object>, Object> *node = this->New();
-                (*node)(o);
+				DefaultArrayListNode<ArrayList<Object>, Object> *node = (DefaultArrayListNode<ArrayList<Object>, Object> *) \
+                            new DefaultArrayListNode<ArrayList<Object>, Object>(o);
 				this->addLastBase(node);
                 return o;
 			}

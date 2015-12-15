@@ -2424,5 +2424,5 @@ static const tChar<uint16_t> Font_array[] = {
 };
 
 
-const tFont<uint16_t> Font = { 95, Font_array, 12, 14};
+const DefaultFontStorage Font = { 95, Font_array, 12, 14};
 

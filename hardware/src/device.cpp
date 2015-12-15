@@ -14,7 +14,13 @@ MemoryAllocator Heap;
 
 void *Alloc (uint32_t size)
 {
-    return Heap.New(size);
+    void *p = Heap.New(size);
+    if (p != nullptr) {
+        while (size-- > 0) {
+            ((char *)p)[size] = 0x11;
+        }
+    }
+    return p;
 }
 
 int32_t Free (void *p)
@@ -22,11 +28,11 @@ int32_t Free (void *p)
     return Heap.Delete(p);
 }
 
-void *operator new[] (uint32_t size)
+void *operator new (uint32_t size)
 {
     return Alloc(size);
 }
-void operator delete[] (void *p)
+void operator delete (void *p)
 {
     Free(p);
 }
@@ -62,11 +68,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		break;
 		case (uint32_t)TIM2:
 			               
-                     /*FullScrCount++;
-                     if (FullScrCount > 30) {
-                         FullScrCount = 0;
-                         FullScreen = true;
-                     }*/
+                     runtime.push( runtime.TimerInterface::invoke() );
 		break;
 		
 	}

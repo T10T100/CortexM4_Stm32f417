@@ -10,31 +10,21 @@ namespace print  {
 template <typename Color>
     class DrawString  : public virtual GPaneInterface<Color> {
     private :
-           Box<MaxGuiRange> Caret;
-           char  drawCharSet[255];
-           const tFont <Color>* drawFont;
-    
-        int GetCharCode (char symbol)
-            {
-              if (this->font == nullptr) return -1;
-              uint32_t code = 0;
-              uint32_t quantity = this->font->Quantity;
-              while ((code != symbol) && (quantity--))
-                    code = this->font->CharArray[quantity].Code;
-              return quantity;  
-            }	
+            Dimension<MaxGuiRange> Caret;
+            FontCharSet<DefaultFontStorage, DefaultCharStorage_t> *drawCharSet;
+    	
             
-            Box<MaxGuiRange> putChar (Box<MaxGuiRange> box, char c, Color color)
+            Dimension<MaxGuiRange> &putChar (Dimension<MaxGuiRange> box, char c, Color color, const tChar<ColorDepth> *imagesSet)
             {
-                const tImage<MaxGuiRange> *Img = this->drawFont->CharArray[drawCharSet[(int)c]].Image;
-                drawChar( box, Img, color);
-                this->Caret.x = Img->W + box.x;
-                this->Caret.w -=Img->W;
+                const tImage<ColorDepth> *img = imagesSet[drawCharSet->get_UTF8((uint16_t)c)].Image;
+                drawChar(box, img, color);
+                this->Caret.x = img->W + box.x;
+                this->Caret.w -= img->W;
                 return this->Caret;
             }
             
             template <typename img_t>
-            int32_t drawChar (Box<MaxGuiRange> box, img_t *image, Color color)
+            int32_t drawChar (Dimension<MaxGuiRange> box, img_t *image, Color color)
             {
 
                 int32_t wm = GUI_min(image->W, box.w);
@@ -55,14 +45,6 @@ template <typename Color>
                   return 0;
             }
             
-            void setCharSet (char *set)
-            {
-                this->charSet = set;
-            }
-            void setDrawFont (tFont <Color> &font)
-            {
-                this->font = &font;
-            }
     
     public :
         DrawString (GraphicFrame<Color, MaxGuiRange> *frame)
@@ -73,39 +55,38 @@ template <typename Color>
             Caret.h = 0;
             GPaneInterface<Color>::operator () (frame);
         }
-        void  setDrawFont (const tFont <Color> &font)
-            {
-                this->drawFont = &font;
-                int l = font.Quantity;
-                int i  = 0;
-                while (l--) {
-                    i = (int) this->drawFont->CharArray[l].Code;
-                    drawCharSet[i] = l;
-                }
-            }
-        
-        
-        Box<MaxGuiRange> drawString (Box<MaxGuiRange> rect, char *str, Color color)
+      
+        template <typename Range>
+        Dimension<Range> &drawString (Dimension<Range> rect, char *str, Color color)
         {
                 this->Caret = rect;
                 char C = '0';
                 uint32_t __i = 0;
+                const tChar<ColorDepth> *imagesSet = drawCharSet->getFont()->imagesSet;
                 while (str[__i] != 0) {
-                        C = str[__i++];
-                  if (this->Caret.x + this->drawFont->W > (rect.w + rect.x) || (C == '\n')) {
+                      C = str[__i++];
+                  if (this->Caret.x + this->drawCharSet->getW() > (rect.w + rect.x) || (C == '\n')) {
                       this->Caret.x = rect.x;
                       this->Caret.w = rect.w;
-                      this->Caret.y += this->drawFont->H;
-                      this->Caret.h -= this->drawFont->H;
+                      this->Caret.y += this->drawCharSet->getH();
+                      this->Caret.h -= drawCharSet->getH();
                   } else {}
-                  if (this->Caret.y + this->drawFont->H > rect.h + rect.y) {
+                  if (this->Caret.y + drawCharSet->getH() > rect.h + rect.y) {
                       return this->Caret;
                   } else {}	
                   if ((C != '\n')) {				
-                    this->putChar(this->Caret, C, color);		
-                  } else {}				
+                      this->putChar(this->Caret, C, color, imagesSet);		
+                  } else {
+                      this->Caret.y += this->drawCharSet->getH();
+                      this->Caret.h -= drawCharSet->getH();
+                  }				
                 }
                 return this->Caret;
+        }
+        
+        void setDrawCharSet (FontCharSet<DefaultFontStorage, DefaultCharStorage_t> *set)
+        {
+            this->drawCharSet = set;
         }
         
         

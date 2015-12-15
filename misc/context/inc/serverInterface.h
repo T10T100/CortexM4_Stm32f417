@@ -7,7 +7,7 @@
 #include "ArrayListStatic.h"
 #include "syncClass.h" 
 
-#define DEFAULT_SERVER_STACK_SIZE 196 * 4
+#define DEFAULT_SERVER_STACK_SIZE 320 * 4
 
 typedef int (*ServerListener_t) (void *server);
 
@@ -88,9 +88,9 @@ int stubServerCaller (void *anyServer);
                 ID = id;
                 busy = false;
             }
-           void fireChannel (uint32_t channel)
+           void fireChannel (int32_t channel)
            {
-               if (channel >= channelsCount) {
+               if (channel >= channelsCount || channel < 0) {
                    return;
                }
                L *it = listeners[channel].getLast();

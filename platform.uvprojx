@@ -356,7 +356,7 @@
             <PlainCh>0</PlainCh>
             <Ropi>0</Ropi>
             <Rwpi>0</Rwpi>
-            <wLevel>2</wLevel>
+            <wLevel>1</wLevel>
             <uThumb>0</uThumb>
             <uSurpInc>0</uSurpInc>
             <uC99>0</uC99>
@@ -365,7 +365,7 @@
               <MiscControls>--cpp11</MiscControls>
               <Define>tftili9486,</Define>
               <Undefine></Undefine>
-              <IncludePath>.\entry\inc;.\gui\inc;.\hardware\inc;.\misc\inc;..\STM32F4xx_HAL_Driver\Inc;.\hardware\Drivers\inc;.\misc\context\inc;.\misc\depend\Arm\CortexM4\inc;.\misc\inc</IncludePath>
+              <IncludePath>.\entry\inc;.\gui\inc;.\hardware\inc;.\misc\inc;..\STM32F4xx_HAL_Driver\Inc;.\hardware\Drivers\inc;.\misc\context\inc;.\misc\depend\Arm\CortexM4\inc;.\misc\inc;.\res\inc</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -577,6 +577,23 @@
         </Group>
         <Group>
           <GroupName>gui</GroupName>
+          <Files>
+            <File>
+              <FileName>GuiEngine.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\gui\src\GuiEngine.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>GKeypad.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\gui\src\GKeypad.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>TextField.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\gui\src\TextField.cpp</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>context</GroupName>
@@ -627,6 +644,9 @@
               <FilePath>.\misc\context\src\DriverInterface.cpp</FilePath>
             </File>
           </Files>
+        </Group>
+        <Group>
+          <GroupName>res</GroupName>
         </Group>
         <Group>
           <GroupName>::CMSIS</GroupName>

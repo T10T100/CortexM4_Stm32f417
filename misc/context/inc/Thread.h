@@ -8,10 +8,10 @@
 typedef int (* Runnable_t) (void *);
 
 #define StackPadSize 4
-#define DefaultthreadStackSize 300 * 4
+#define DefaultthreadStackSize 256 * 4
 #define DefaultThreadNameLength 12
 
-enum RunnableStatus{
+enum RunnableStatus {
   Stopped = 0,
   Running = 1,
   Pending = 2,
@@ -148,7 +148,7 @@ class Runnable : public DefaultArrayListBaseNode<Runnable>,
             stackSize -= StackPadSize;
             Word floor = (Word)this + stackSize;
             
-            RunnbleInterface<Runnable>::operator () (r, floor, StackPadSize, id, access);
+            RunnbleInterface<Runnable>::operator () (r, floor, stackSize, id, access);
             
             initTcb(priority);
         }

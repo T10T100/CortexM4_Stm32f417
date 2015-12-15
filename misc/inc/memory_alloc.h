@@ -6,10 +6,16 @@
 #include "ArrayListStatic.h"
 
 
+#ifndef MemoryAlignment
+#define MemoryAlignment 4 /*4 bytes*/
+#endif
+
+
+
 typedef uint32_t memory_size_t;
 typedef uint32_t alloc_addr_t; 
 
-class MemoryChunk : public DefaultArrayListBaseNode <MemoryChunk> {
+__align(MemoryAlignment) class MemoryChunk : public DefaultArrayListBaseNode <MemoryChunk> {
   public:
 	  MemoryChunk () : DefaultArrayListBaseNode() {}
       bool equals (MemoryChunk &c)   

@@ -218,12 +218,12 @@ void TimInit (void)
     Error_Handler();
   }
 	
-	__prescaler = (uint32_t) ((SystemCoreClock /2) / 100) - 1;
+	__prescaler = (uint32_t) ((SystemCoreClock /2) / 10000) - 1;
   
   Tim2_Handle.Instance = TIM2;
-  Tim2_Handle.Init.Period = 100 - 1;
+  Tim2_Handle.Init.Period = 10000 - 1;
   Tim2_Handle.Init.Prescaler = __prescaler;
-  Tim2_Handle.Init.ClockDivision = 10;
+  Tim2_Handle.Init.ClockDivision = 0;
   Tim2_Handle.Init.CounterMode = TIM_COUNTERMODE_UP;
   if(HAL_TIM_Base_Init(&Tim2_Handle) != HAL_OK)
   {
@@ -234,9 +234,9 @@ void TimInit (void)
   {
     Error_Handler();
   }
-	HAL_NVIC_SetPriority(TIM1_UP_TIM10_IRQn, 0 ,1);
+	HAL_NVIC_SetPriority(TIM1_UP_TIM10_IRQn, 3 ,2);
   HAL_NVIC_EnableIRQ(TIM1_UP_TIM10_IRQn);
-	HAL_NVIC_SetPriority(TIM2_IRQn, 0 ,1);
+	HAL_NVIC_SetPriority(TIM2_IRQn, 3 ,2);
   HAL_NVIC_EnableIRQ(TIM2_IRQn);
 }
 

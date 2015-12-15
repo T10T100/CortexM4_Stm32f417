@@ -8,8 +8,14 @@
 extern Device device;
 extern Runtime runtime;
 
+uint32_t systemHeap[12024];
+int colorIndex = 0;
+static ViewPort wp;
+
+
 int timer0 (void *)
 {
+    colorIndex++;
     static int i = 0;
     i++;
     return i;
@@ -30,16 +36,13 @@ class TestClass {
 };
 
 ArrayList<TestClass> arrayList;
-uint32_t systemHeap[10024];
-int colorIndex = 0;
-static ViewPort wp;
+
 int SystemEventBurner3 (void *r)
 {   
     vm::CleanUp cleanup;
     
     device.enableBackLight(true);
     for (;;) {
-        colorIndex++;
         
         vm::sleep(10);
     }
@@ -53,7 +56,7 @@ int event (void *)
 
 int main ()
 {
-    vm::init((uint32_t)systemHeap, 10000 * 4);
+    vm::init((uint32_t)systemHeap + 32, 12000 * 4);
     
     vm::start();
 	while (1) {
@@ -67,23 +70,6 @@ int main ()
 int SystemEventBurner2 (void *r);
 int SystemEvent (void *v);
 
-int touchAnyListener (void *t)
-{
-   auto adapter = (SensorAdapter *)t;
-   Point<int32_t> p = adapter->getData().move;
-   wp.move(p.x, p.y);
-}
-Point<int32_t> glo;
-int touchClickListener (void *t)
-{
-   auto adapter = (SensorAdapter *)t;
-   Point<int32_t> p = adapter->getData().coordinates;
-   device.label1->setText(p.x);
-   device.label1->apendText("    ");
-   device.label1->apendText(p.y);
-   glo.x = p.x + wp.x;
-   glo.y = p.y - wp.y;
-}
 
 int SystemEventBurner (void *r)
 {
@@ -104,9 +90,7 @@ int SystemEventBurner (void *r)
     vm::create(SystemEventBurner3, "user");
     vm::create(SystemEventBurner2, "Renderer");
     vm::addTimer(timer0, 2);
-    vm::addSensorListener(touchClickListener, onClickHandler);
-    vm::addSensorListener(touchAnyListener, onAnyActionHandler);
-    Dimension<uint16_t> d(0, 0, 480, 320);
+    Dimension<int32_t> d(0, 0, 480, 320);
     wp(d);
     wp.set(0, 0);
     //int i = 0;
@@ -119,27 +103,116 @@ int SystemEventBurner (void *r)
     
 }
 
+int labelClickListener (TouchStruct arg)
+{
+    device.label1->setSelect();
+    static int sw = 0;
+    sw ^= 1;
+    device.serviceContentPane->setEnable( (bool)sw );
+    device.serviceContentPane->setVisible( (bool)sw );
+    return 0;
+}
+int labelTouchListener (TouchStruct arg)
+{
+    static GLabel<ColorDepth> *l = (GLabel<ColorDepth> *)arg.object;
+    l->setText(arg.local.x);
+    l->apendText("    ");
+    l->apendText(arg.local.y);
+    return 0;
+}
+int PaneClickListener (TouchStruct arg)
+{
+    device.cursor->setOrigins(arg.local);
+    device.cursor->remaind();
+    return 0;
+}
+
+int SliderTouchListener (TouchStruct arg)
+{
+    device.slider1->setValue(arg.local.x);
+    device.slider1->setSelect();
+    
+    device.label1->setText("SLIDER_1 : ");
+    device.label1->apendText("    ");
+    device.label1->apendText(device.slider1->getValue());
+    return 0;
+    return 0;
+}
+int Slider2TouchListener (TouchStruct arg)
+{
+    device.slider2->setValue(arg.local.x);
+    device.slider2->setSelect();
+    
+    device.label1->setText("SLIDER_2 : ");
+    device.label1->apendText("    ");
+    device.label1->apendText(device.slider2->getValue());
+    return 0;
+}
+int Slider3TouchListener (TouchStruct arg)
+{
+    device.slider3->setValue(arg.local.x);
+    device.slider3->setSelect();
+    
+    device.label1->setText("SLIDER_3 : ");
+    device.label1->apendText("    ");
+    device.label1->apendText(device.slider3->getValue());
+    return 0;
+}
+int Slider4TouchListener (TouchStruct arg)
+{
+    device.slider4->setValue(arg.local.x);
+    device.slider4->setSelect();
+    
+    device.label1->setText("SLIDER_4 : ");
+    device.label1->apendText("    ");
+    device.label1->apendText(device.slider4->getValue());
+    return 0;
+}
+
+int KeypadListener (TouchStruct arg)
+{
+    GButton<ColorDepth> *b = (GButton<ColorDepth> *)arg.object;
+    if (b->getName()[0] == '*') {
+        device.label1->setText(" ");
+    } else {
+        device.label1->apendText(b->getName());
+    }
+    b->setSelect();
+}
+
 int SystemEventBurner2 (void *r)
 {
     vm::CleanUp cleanup;
     Graphic<ColorDepth> *g = device.contentPane->getGraphic();
+    volatile const int backgroundColor = 0x0000;
+    device.label1->addClickListener(labelClickListener);
+    device.label1->addTouchListener(labelTouchListener);
+    device.contentPane->addClickListener(PaneClickListener);
+    device.slider1->addTouchListener(SliderTouchListener);
+    device.slider2->addTouchListener(Slider2TouchListener);
+    device.slider3->addTouchListener(Slider3TouchListener);
+    device.slider4->addTouchListener(Slider4TouchListener);
+    for (int i = 0; i < device.keyCount; i++) {
+       device.keyPad[i]->addClickListener(KeypadListener); 
+    }
+    device.label1->setBackground(0xffff);
+    device.contentPane->setBackground(0x0415);
     for (;;) {
         vm::pushEvent(SystemEvent);
-        device.contentPane->fill(0x0000 + wp.x);
+        
+        device.contentPane->fill();
+        /*
         device.clear();
         device.println("    ");
-        device.print ((int32_t)wp.getX());
+        device.print (device.getViewPort().getTrueView().x);
         device.println("    ");
-        device.print ((int32_t)wp.getY());
+        device.print (device.getViewPort().getTrueView().y);
+        */
         
-        g->setText( device.getStream(), ColorWhite);
-        g->DrawDda(0, 0, 200, 200, 0xee00 + wp.y);
-        Box<MaxGuiRange> b = {120, 130, 100, 40};
-        Dimension<int32_t> b1(50, 50, 10, 12);
-        b1.setOrigins(glo);
-        g->fill(b1, 0xa0a0);
-        device.contentPane->repaint();
-        device.fill<ColorDepth>(device.contentPane->getFrame(), wp, 0);
+        //vm::startCritical();
+        //g->setText( device.getStream(), colorIndex );
+        device.render();
+        //vm::endCritical();
         vm::sleep(0);
     }
 }

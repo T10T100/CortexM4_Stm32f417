@@ -1,68 +1,406 @@
 #ifndef G_CONTENT_PANE
 #define G_CONTENT_PANE
+
 #include "memory_template.h"
+#include "ArrayListStatic.h"
 #include "gui_defs.h"
 #include "graphicFrameClass.h"
 #include "graphic.h"
 #include "GLabel.h"
+#include "GSlide.h"
+#include "GKeypad.h"
+#include  "textField.h"
+#include "DefaultCursorObject.h"
+
+
+enum ComponentTypeId {
+    SilentComponent = -1,
+    ComponentLabelTypeId = 0,
+    ComponentSliderTypeId = 1,
+    ComponentButtonTypeId = 2, 
+    ComponentTextFieldTypeId = 3, 
+};
+
 
 
 template <typename Color>
-class GContentPane {
+  class GContentPane : protected Allocator<void *>,
+                       public virtual Dimension<MaxGuiRange>,
+                       public GComponent<Color>,
+                       public GPaletteComponent<Color>,
+                       public DefaultArrayListBaseNode<GContentPane<Color> > {
     private :
-          GraphicFrame<ColorDepth, uint16_t> *frame;
-          Graphic<Color> *graphic;
+        GraphicFrame<ColorDepth, MaxGuiRange> *frame;
     
+        ArrayListBase<GLabel<Color> > gLabels;
+        ArrayListBase<GSlide<Color> > gSliders;
+        ArrayListBase<GButton<Color> > gButtons;
+        ArrayListBase<GTextField<Color> > gTextFields;
+        ArrayListBase<gwt::DefaultCursor<ColorDepth> > gCursors;
     
-          /*Content -> */
-          ArrayListBase<GLabel<Color> > listOfLabels;
+        int32_t selectedComponentId;
+        int32_t selectedComponentType;
+        void *selectedComponent;
+        bool test (ViewPort &w,  Box<int> p)
+        {
+            if (w.testTrueViewPoint( p.x, p.y ) == true) {
+                    return true;
+            }
+            if (w.testTrueViewPoint( p.x + p.w, p.y ) == true) {
+                    return true;
+            }
+            if (w.testTrueViewPoint( p.x, p.y + p.h ) == true) {
+                    return true;
+            }
+            if (w.testTrueViewPoint( p.x + p.w, p.y + p.h ) == true) {
+                    return true;
+            }
+            return false;
+        }
     
-    public :
-        GContentPane (GraphicFrame<Color, uint16_t> *frame)
+        template <typename Element>
+        void repaint (ArrayListBase<Element> &list, ViewPort &w)
+        {
+            Element *it = list.getFirst();
+            while (it != nullptr) {
+                if ( test(w, it->getBox()) == true) {
+                    it->repaint();
+                }
+                
+                it = it->nextLink;
+            }
+        }
+        template <typename Element>
+        int fireSensorTouch(ArrayListBase<Element> &components, TouchStruct arg)
+        {
+            if (this->testPoint(arg.local) == false) {
+                return -1;
+            }
+            Element *it = components.getFirst();
+            while (it != nullptr) {
+                selectedComponentId = it->fireSensorTouch(arg);
+                if (selectedComponentId > 0) {
+                    selectedComponent = it;
+                    return selectedComponentId;
+                }
+                it = it->nextLink;
+            }
+            return -1;
+        }
+        template <typename Element>
+        int fireSensorClick(ArrayListBase<Element> &components, TouchStruct arg)
+        {
+            
+            if (selectedComponentId >= 0) {
+                return selectedComponentId;
+            }
+            if (this->testPoint(arg.local) == false) {
+                return -1;
+            }
+            GComponent<Color>::fireSensorClick(arg);
+            Element *it = components.getFirst();
+            while (it != nullptr) {
+                selectedComponentId = it->fireSensorClick(arg);
+                if (selectedComponentId > 0) {
+                    selectedComponent = it;
+                    return selectedComponentId;
+                }
+                it = it->nextLink;
+            }
+            return -1;
+        }
+        template <typename Element>
+        int fireSensorRelease(ArrayListBase<Element> &components, TouchStruct arg)
+        {
+            /*
+            Element *it = components.getFirst();
+            selectedComponentId = -1;
+            while (it != nullptr) {
+                if (it->fireSensorRelease(arg) > 0) {return;}
+                it = it->nextLink;
+            }
+            */
+            return -1;
+        }
+        template <typename Element>
+        int fireSensorPress(ArrayListBase<Element> &components, TouchStruct arg)
+        {
+            
+            if (this->testPoint(arg.local) == false) {
+                return -1;
+            }
+            GComponent<Color>::fireSensorPress(arg);
+            Element *it = components.getFirst();
+            while (it != nullptr) {
+                selectedComponentId = it->fireSensorPress(arg);
+                if (selectedComponentId > 0) {
+                    selectedComponent = it;
+                    return selectedComponentId;
+                }
+                it = it->nextLink;
+            }
+            return -1;
+        }
+        GContentPane (GraphicFrame<Color, MaxGuiRange> *frame) : GComponent<Color>(),
+                                                                 GPaletteComponent<Color>()
         {
             this->frame = frame;
-            Box<uint16_t> box = frame->getBox();
-            graphic = (Graphic<Color>*) new Graphic<Color>(frame);        
+            Box<MaxGuiRange> box = frame->getBox();
+            this->setSize(box);
+            GPaletteComponent<Color>::operator () ( (Graphic<Color>*) new Graphic<Color>(frame) );      
+            selectedComponentId = -1;
+            selectedComponentType = SilentComponent;
+            selectedComponent = nullptr;
         }
+        ~GContentPane ()
+        {
+            delete(this);
+        }
+        friend class GuiEngine;
+    public :
+        
+        
+        
         void fill (Color color)
         {
             frame->fill(color);
         }
-        ~GContentPane ()
+        
+        void fill ()
         {
-            delete(graphic);
-            delete(this);
+            frame->fill(this->background);
         }
         
-        Graphic<Color> *getGraphic ()
+        
+        template <class C> 
+        C *createComponent (uint32_t x, uint32_t y, uint32_t w, uint32_t h)
         {
-            return graphic;
+            auto c = (C *) new C(this->graphic);
+            c->setSize(x, y, w, h);
+            
+            return c;
         }
         
-        GraphicFrame<ColorDepth, uint16_t> *getFrame ()
+        void addLabel (GLabel<Color> *l)
+        {
+            /*if (list.contain(c) == false)*/
+            gLabels.addFirst(l);
+        }
+        void addSlider (GSlide<Color> *S)
+        {
+            /*if (list.contain(c) == false)*/
+            gSliders.addFirst(S);
+        }
+        void addButton (GButton<Color> *K)
+        {
+            /*if (list.contain(c) == false)*/
+            gButtons.addFirst(K);
+        }
+        void addTextFied (GTextField<Color> *c)
+        {
+            /*if (list.contain(c) == false)*/
+            gTextFields.addFirst(c);
+        }
+        void addCursor (gwt::DefaultCursor<Color> *c)
+        {
+            /*if (list.contain(c) == false)*/
+            gCursors.addFirst(c);
+        }
+        
+
+        GraphicFrame<ColorDepth, MaxGuiRange> *getFrame ()
         {
             return frame;
         }
         
-        void add (GLabel<Color> *label)
+        
+        
+        
+        void repaint (ViewPort &w)
         {
-            listOfLabels.addFirst(label);
-        }
-        void repaintLabels ()
-        {
-            GLabel<Color> *it = listOfLabels.getFirst();
-            while (it != nullptr) {
-                it->repaint();
-                it = it->nextLink;
+            if (this->visible == false || this->enabled == false) {
+                return;
             }
+            repaint(gTextFields, w);
+            repaint(gSliders, w);
+            repaint(gLabels, w);
+            repaint(gCursors, w);
+            repaint(gButtons, w);
         }
         
-        
-        void repaint ()
+        int32_t fireSensorTouchPane (TouchStruct arg)
         {
-            repaintLabels();
+            if (this->enabled == false) {
+                return -1;
+            }
+            if (selectedComponentId >= 0) {
+                switch (selectedComponentType) {
+                case ComponentLabelTypeId:
+                        ( (GLabel<Color> *)selectedComponent )->fireSensorTouch(arg);
+                    break;
+                case ComponentSliderTypeId:
+                        ( (GSlide<Color> *)selectedComponent )->fireSensorTouch(arg);
+                    break;
+                case ComponentButtonTypeId:
+                        ( (GButton<Color> *)selectedComponent )->fireSensorTouch(arg);
+                    break;
+                case ComponentTextFieldTypeId:
+                        ( (GTextField<Color> *)selectedComponent )->fireSensorTouch(arg);
+                    break;
+                default :
+                    break;
+                };
+                if (this->testPoint(arg.local) == true) {
+                    GComponent<Color>::fireSensorTouch(arg);
+                }
+                return selectedComponentId;
+            }
+            int32_t id = fireSensorTouch(gButtons, arg);
+            if (id >= 0) {
+                selectedComponentType = ComponentButtonTypeId;
+                return id;
+            }
+            id = fireSensorTouch(gLabels, arg);
+            if (id >= 0) {
+                selectedComponentType = ComponentLabelTypeId;
+                return id;
+            }
+            id = fireSensorTouch(gSliders, arg);
+            if (id >= 0) {
+                selectedComponentType = ComponentSliderTypeId;
+                return id;
+            }
+            id = fireSensorTouch(gTextFields, arg);
+            if (id >= 0) {
+                selectedComponentType = ComponentTextFieldTypeId;
+                return id;
+            }
+            return -1;
         }
-    
+        
+        int32_t fireSensorClickPane (TouchStruct arg)
+        {
+            if (this->enabled == false) {
+                return -1;
+            }
+            int32_t id = fireSensorClick(gButtons, arg);
+            if (id >= 0) {
+                selectedComponentType = ComponentButtonTypeId;
+                return id;
+            }
+            id = fireSensorClick(gLabels, arg);
+            if (id >= 0) {
+                selectedComponentType = ComponentLabelTypeId;
+                return id;
+            }
+            id = fireSensorClick(gSliders, arg);
+            if (id >= 0) {
+                selectedComponentType = ComponentSliderTypeId;
+                return id;
+            }
+            id = fireSensorClick(gTextFields, arg);
+            if (id >= 0) {
+                selectedComponentType = ComponentTextFieldTypeId;
+                return id;
+            }
+            return -1;
+        }
+        
+        int32_t fireSensorReleasePane (TouchStruct arg)
+        {
+            if (this->enabled == false) {
+                return -1;
+            }
+            GComponent<Color>::fireSensorRelease(arg);
+            switch (selectedComponentType) {
+                case ComponentLabelTypeId:
+                        ( (GLabel<Color> *)selectedComponent )->fireSensorRelease(arg);
+                        selectedComponent = nullptr;
+                    break;
+                case ComponentSliderTypeId:
+                        ( (GSlide<Color> *)selectedComponent )->fireSensorRelease(arg);
+                        selectedComponent = nullptr;
+                    break;
+                case ComponentButtonTypeId:
+                        ( (GButton<Color> *)selectedComponent )->fireSensorRelease(arg);
+                        selectedComponent = nullptr;
+                    break;
+                case ComponentTextFieldTypeId:
+                        ( (GButton<Color> *)selectedComponent )->fireSensorRelease(arg);
+                        selectedComponent = nullptr;
+                    break;
+                default :
+                    break;
+            };
+            selectedComponentType = -1;
+            selectedComponentId = -1;
+            return selectedComponentId;
+        }
+        
+        int32_t fireSensorPressPane (TouchStruct arg)
+        {
+            if (this->enabled == false) {
+                return -1;
+            }
+            if (selectedComponentId >= 0) {
+                switch (selectedComponentType) {
+                case ComponentLabelTypeId:
+                        ( (GLabel<Color> *)selectedComponent )->fireSensorPress(arg);
+                    break;
+                case ComponentSliderTypeId:
+                        ( (GSlide<Color> *)selectedComponent )->fireSensorPress(arg);
+                    break;
+                case ComponentButtonTypeId:
+                        ( (GButton<Color> *)selectedComponent )->fireSensorPress(arg);
+                    break;
+                case ComponentTextFieldTypeId:
+                        ( (GButton<Color> *)selectedComponent )->fireSensorPress(arg);
+                    break;
+                default :
+                    break;
+                };
+                if (this->testPoint(arg.local) == true) {
+                    GComponent<Color>::fireSensorPress(arg);
+                }
+                return selectedComponentId;
+            }
+            int32_t id = fireSensorPress(gLabels, arg);
+            id = fireSensorPress(gButtons, arg);
+            if (id >= 0) {
+                selectedComponentType = ComponentButtonTypeId;
+                return id;
+            }
+            if (id >= 0) {
+                selectedComponentType = ComponentLabelTypeId;
+                return id;
+            }
+            id = fireSensorPress(gSliders, arg);
+            if (id >= 0) {
+                selectedComponentType = ComponentSliderTypeId;
+                return id;
+            }
+            id = fireSensorPress(gTextFields, arg);
+            if (id >= 0) {
+                selectedComponentType = ComponentTextFieldTypeId;
+                return id;
+            }
+            return -1;
+        }
+        
+        
+        
+        int32_t getSelectedComponentId ()
+        {
+              return selectedComponentId;
+        }
+        int32_t getSelectedComponentType ()
+        {
+              return selectedComponentType;
+        }
+        void *getSelectedComponent ()
+        {
+              return selectedComponent;
+        }
 };
 
 

@@ -34,6 +34,7 @@ class Runtime : public virtual Synchronizer<Runtime>,
         Runnable *running;
         ArrayListBase<Runnable> arrayOfRunnables[MAX_RUNNABLE_PRIORITY];
         ArrayListBase<Runnable> waitList;
+        bool canSwitch;
     
     
         ArrayListBase<RuntimeEventListener> arrayOfListeners;
@@ -91,17 +92,17 @@ class Runtime : public virtual Synchronizer<Runtime>,
         __value_in_regs DwArg dispatch (void * frame)
         {
             DwArg retArg = {(Word) frame, running->getAccessLvl()};
-            if (mills % 15 != 0 || mills == 0) {
-                push( TimerInterface::invoke() );
+            if (mills++ % 4 != 0 || mills == 0) {
+                return retArg;
             }
-            if (mills++ % 10 != 0 || mills == 0) {
+            if (canSwitch == false) {
                 return retArg;
             }
             Synchronize<Runtime> sync(this);
             if (sync.test() == false) {
                 return retArg;
             }
-            fireSystemEvents();
+            //fireSystemEvents();
             
             running->setFrame((RuntimeFrame *)frame); 
             runnablesTick(this);
@@ -169,6 +170,12 @@ class Runtime : public virtual Synchronizer<Runtime>,
                     return running->getFrame(frame);
                 case vm::__invokeServer:
                            push( invokeServer((int32_t) a.a1) );
+                case vm::__startCritical:
+                        canSwitch = false;
+                    break;
+                case vm::__endCritical:
+                        canSwitch = true;
+                    break;
                 default :
                     break;
             }
@@ -211,6 +218,7 @@ class Runtime : public virtual Synchronizer<Runtime>,
         Runtime ()
         {
             running = nullptr;
+            canSwitch = true;
         }
         int init (uint32_t heapStart, uint32_t heapSize)
         {
@@ -227,7 +235,7 @@ class Runtime : public virtual Synchronizer<Runtime>,
         
         void addRunnable (Runnable_t runnable, char *name, uint32_t priority = 0)
         {
-            arrayOfRunnables[0].addLast( newThread(runnable, priority, DefaultThreadID, name) );
+            arrayOfRunnables[0].addLast( newThread(runnable, 3, DefaultThreadID, name) );
         }
         
 		void addIddle (Runnable_t runnable, uint32_t priority = 0)

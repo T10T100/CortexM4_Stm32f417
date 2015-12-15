@@ -63,12 +63,12 @@ int32_t MemoryAllocator::sanitize (ArrayListBase <MemoryChunk> &List)
 void *MemoryAllocator::New (memory_size_t size)
 {
 	 if (!size) return 0;
-	
-	 MemoryChunk *chunk = this->poolFree.getFirst();
+	 size |= MemoryAlignment;
+	 __align(MemoryAlignment) MemoryChunk *chunk = this->poolFree.getFirst();
 			while (chunk != (MemoryChunk *)0) {
 				if (chunk->size >= size) {
 					this->poolFree.remove(chunk);
-					if (chunk->size >= size + sizeof(MemoryChunk) + __m) 
+					if (chunk->size >= size + sizeof(MemoryChunk) + sizeof(MemoryChunk) * 2) 
 						this->poolFree.add(separate(chunk, size));
 					this->poolInUse.add(chunk);
                     this->Success++;
