@@ -86,10 +86,17 @@
 .\objects\main.o: .\gui\inc\GSlide.h
 .\objects\main.o: .\gui\inc\GKeypad.h
 .\objects\main.o: .\gui\inc\textField.h
+.\objects\main.o: .\gui\inc\NonPaletteComponentInterface.h
+.\objects\main.o: .\gui\inc\GraphicComponent.h
 .\objects\main.o: .\gui\inc\DefaultCursorObject.h
 .\objects\main.o: .\gui\inc\FontFactory.h
+.\objects\main.o: .\gui\inc\TestGameEngine.h
+.\objects\main.o: .\gui\inc\GameTestWalkingMan.h
 .\objects\main.o: .\hardware\Drivers\inc\screen_driver.h
 .\objects\main.o: .\hardware\inc\TFTili9486.h
 .\objects\main.o: .\entry\inc\extern.h
 .\objects\main.o: .\entry\inc\extern.h
 .\objects\main.o: .\gui\inc\Font.h
+.\objects\main.o: .\res\inc\krummWalk0.h
+.\objects\main.o: .\res\inc\krumThrow0.h
+.\objects\main.o: .\res\inc\KrummThrowAmmo0.h

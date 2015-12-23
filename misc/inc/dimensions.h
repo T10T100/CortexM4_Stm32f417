@@ -31,7 +31,7 @@ class Dimension {
     private :
          
     public :
-        Range x, y, w, h;
+        Range x, y, w, h, dx, dy;
         Dimension ()
         {
             this->x = 0;

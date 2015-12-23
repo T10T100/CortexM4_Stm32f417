@@ -38,11 +38,12 @@ class GComponent : public virtual Dimension<MaxGuiRange> {
             arg.local = this->normalize(arg.local);
             arg.object = this;
             C *it = list.getFirst();
+            int retVal = 1;
             while (it !=nullptr) { 
-                it->run(arg);
+                retVal = it->run(arg);
                 it = it->nextLink;
             }
-            return 1;
+            return retVal;
         }
         
         

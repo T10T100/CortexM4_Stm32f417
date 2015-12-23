@@ -15,11 +15,6 @@ MemoryAllocator Heap;
 void *Alloc (uint32_t size)
 {
     void *p = Heap.New(size);
-    if (p != nullptr) {
-        while (size-- > 0) {
-            ((char *)p)[size] = 0x11;
-        }
-    }
     return p;
 }
 

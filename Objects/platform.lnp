@@ -31,6 +31,9 @@
 ".\objects\guiengine.o"
 ".\objects\gkeypad.o"
 ".\objects\textfield.o"
+".\objects\gametestwalkingman.o"
+".\objects\nonpalettecomponentinterface.o"
+".\objects\testgameengine.o"
 ".\objects\stackswitching.o"
 ".\objects\startup_stm32f417xx.o"
 ".\objects\vm.o"
@@ -40,6 +43,7 @@
 ".\objects\serverinterface.o"
 ".\objects\timerserver.o"
 ".\objects\driverinterface.o"
+".\objects\krummwalk0.o"
 "C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Lib\ARM\arm_cortexM4lf_math.lib"
 --strict --scatter ".\Objects\platform.sct"
 --summary_stderr --info summarysizes --map --xref --callgraph --symbols

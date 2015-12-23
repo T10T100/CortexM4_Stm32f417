@@ -105,24 +105,58 @@ int32_t fillY (Plane rect, Color color)
 	return 0;	
 }
 template <typename Plane, typename img_t>
-void fill (Plane box, img_t *image, Color color)
-            {
+void fill (Plane box, img_t *image, Color color, int8_t direction = 0)
+{
 
                 int32_t wm = image->W;
                 int32_t hm = image->H;
 
                 Color *dest = this->frame;
                 const Color *src = image->Image;
-                
-               
                 int32_t S = hm * wm;
-                for (int xi = 0, xt = box.x * this->h; xi < wm; xt += this->h, xi++) {  
-                        for (uint32_t yt = box.y + xt, yi = xi, t = S + xi; yi < t; yt++, yi += image->W) {
-                            if (src[yi] != ColorMaskReference) {
-                                dest[yt] = src[yi];   
-                            } else {}
-                        }
-                  }
+          switch (direction) {
+              case 0:              
+                    for (int xi = 0, xt = box.x * this->h; xi < wm; xt += this->h, xi++) {  
+                            for (uint32_t yt = box.y + xt, yi = S + xi - image->W; yi > xi; yt++, yi -= image->W) {
+                                if (src[yi] != ColorMaskReference) {
+                                    dest[yt] = src[yi];   
+                                } else {}
+                            }
+                    }
+                    break;
+              case 1:              
+                    S = hm * wm;
+                    for (int xi = 0, xt = box.x * this->h; xi < wm; xt += this->h, xi++) {  
+                            for (uint32_t yt = box.y + xt, yi = xi, t = S + xi; yi < t; yt++, yi += image->W) {
+                                if (src[yi] != ColorMaskReference) {
+                                    dest[yt] = src[yi];   
+                                } else {}
+                            }
+                    }
+                    break;
+              case 2:              
+                    S = hm * wm;
+                    for (int xi = wm - 1, xt = box.x * this->h; xi >= 0; xt += this->h, xi--) {  
+                            for (uint32_t yt = box.y + xt, yi = S + xi - image->W; yi > xi; yt++, yi -= image->W) {
+                                if (src[yi] != ColorMaskReference) {
+                                    dest[yt] = src[yi];   
+                                } else {}
+                            }
+                    }
+                    break;
+              case 3:              
+                    S = hm * wm;
+                    for (int xi = wm - 1, xt = box.x * this->h; xi >= 0; xt += this->h, xi--) {  
+                            for (uint32_t yt = box.y + xt, yi = xi, t = S + xi; yi < t; yt++, yi += image->W) {
+                                if (src[yi] != ColorMaskReference) {
+                                    dest[yt] = src[yi];   
+                                } else {}
+                            }
+                    }
+                    break;
+              default :
+                    break;
+}
             }
     
 };

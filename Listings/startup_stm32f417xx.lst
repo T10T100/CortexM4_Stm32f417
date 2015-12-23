@@ -886,11 +886,11 @@ ARM Macro Assembler    Page 14
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --apcs=int
 erwork --depend=.\objects\startup_stm32f417xx.d -o.\objects\startup_stm32f417xx
-.o -I.\misc\inc -I..\platform -IE:\KeilProj\platform0\RTE -IC:\Keil_v5\ARM\PACK
-\ARM\CMSIS\4.3.0\CMSIS\Include -IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.4.0 -
--predefine="__UVISION_VERSION SETA 514" --predefine="_RTE_ SETA 1" --predefine=
-"STM32F417xx SETA 1" --predefine="stackSwitching SETA 1" --list=.\listings\star
-tup_stm32f417xx.lst misc\depend\Arm\CortexM4\src\startup_stm32f417xx.s
+.o -I.\misc\inc -I..\platform -IE:\KeilProj\platform\RTE -IC:\Keil_v5\ARM\PACK\
+ARM\CMSIS\4.3.0\CMSIS\Include -IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.4.0 --
+predefine="__UVISION_VERSION SETA 514" --predefine="_RTE_ SETA 1" --predefine="
+STM32F417xx SETA 1" --predefine="stackSwitching SETA 1" --list=.\listings\start
+up_stm32f417xx.lst misc\depend\Arm\CortexM4\src\startup_stm32f417xx.s
 
 
 

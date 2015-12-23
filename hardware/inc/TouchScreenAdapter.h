@@ -57,6 +57,11 @@ class SensorAdapter {
           bool touchAction;
           bool releaseAction;
           bool stdby;
+          int32_t clickCount;
+          int32_t clickCountRet;
+          int32_t tickCount;
+          int32_t touchTickCount;
+          int32_t releaseTickCount;
     
           float Kx, Ky;
           float offX, offY;
@@ -91,6 +96,11 @@ class SensorAdapter {
             lastPosition.y = 0;
             position.x = 0;
             position.y = 0;
+            clickCount = 0;
+            tickCount = 0;
+            touchTickCount = 0;
+            releaseTickCount = 0;
+            clickCountRet = 0;
         }
         
 
@@ -102,6 +112,7 @@ class SensorAdapter {
             
             lastAction = 0;
             measuredPressure = Mcu.ReadZ();
+            tickCount++;
             if (this->measuredPressure > (int32_t)TOUCH_REF) {
                 lastPosition = position;
                 Point<int32_t> p = Mcu.ReadPos();
@@ -120,7 +131,9 @@ class SensorAdapter {
                     touchAction = true;
                     releaseAction = false;
                     stdby = false;
-                    lastAction = onClickHandler + 1;
+                    clickCount++;
+                    releaseTickCount = 0;
+                    //lastAction = onClickHandler + 1;
                 } else {
                     lastAction = onAnyActionHandler + 1;
                 }
@@ -134,6 +147,15 @@ class SensorAdapter {
                 } else {
                     stdby = true;
                 }
+                if (releaseTickCount > 6) {
+                    if (clickCount > 0) {
+                       clickCountRet = clickCount;
+                       clickCount = 0;
+                       return lastAction = onClickHandler + 1;
+                    }
+                } else {
+                    releaseTickCount++;
+                }
                 
                     
             }	
@@ -145,7 +167,7 @@ class SensorAdapter {
             SensorDataStruct data = {
                 position,
                 lastMove,
-                0,
+                clickCountRet,
                 false,
                 false,
                 false,

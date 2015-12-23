@@ -9,7 +9,9 @@
 #include "GLabel.h"
 #include "GSlide.h"
 #include "GKeypad.h"
-#include  "textField.h"
+#include "textField.h"
+#include "NonPaletteComponentInterface.h"
+#include "GraphicComponent.h"
 #include "DefaultCursorObject.h"
 
 
@@ -18,7 +20,10 @@ enum ComponentTypeId {
     ComponentLabelTypeId = 0,
     ComponentSliderTypeId = 1,
     ComponentButtonTypeId = 2, 
-    ComponentTextFieldTypeId = 3, 
+    ComponentTextFieldTypeId = 3,
+
+
+    NonPaletteComponentTypeId = 33,    
 };
 
 
@@ -36,7 +41,8 @@ template <typename Color>
         ArrayListBase<GSlide<Color> > gSliders;
         ArrayListBase<GButton<Color> > gButtons;
         ArrayListBase<GTextField<Color> > gTextFields;
-        ArrayListBase<gwt::DefaultCursor<ColorDepth> > gCursors;
+        ArrayListBase<GraphicObject<Color> > gGraphics;
+        ArrayListBase<NonPaletteInterface<Color> > gComponents;
     
         int32_t selectedComponentId;
         int32_t selectedComponentType;
@@ -63,10 +69,9 @@ template <typename Color>
         {
             Element *it = list.getFirst();
             while (it != nullptr) {
-                if ( test(w, it->getBox()) == true) {
+                if ( test(w, it->getBox()) == true || it->getForceRepaint() == true) {
                     it->repaint();
                 }
-                
                 it = it->nextLink;
             }
         }
@@ -177,7 +182,7 @@ template <typename Color>
         {
             auto c = (C *) new C(this->graphic);
             c->setSize(x, y, w, h);
-            
+            c->setContentPane(this);
             return c;
         }
         
@@ -201,13 +206,25 @@ template <typename Color>
             /*if (list.contain(c) == false)*/
             gTextFields.addFirst(c);
         }
-        void addCursor (gwt::DefaultCursor<Color> *c)
+        //
+        void addNonPalette (NonPaletteInterface<Color> *I)
         {
             /*if (list.contain(c) == false)*/
-            gCursors.addFirst(c);
+            gComponents.addFirst(I);
+        }
+        void addGraphic (GraphicObject<Color> *I)
+        {
+            /*if (list.contain(c) == false)*/
+            gGraphics.addFirst(I);
         }
         
-
+        
+        void removeGraphic (GraphicObject<Color> *I)
+        {
+            /*if (list.contain(c) == false)*/
+            gGraphics.remove(I);
+        }
+        
         GraphicFrame<ColorDepth, MaxGuiRange> *getFrame ()
         {
             return frame;
@@ -224,8 +241,9 @@ template <typename Color>
             repaint(gTextFields, w);
             repaint(gSliders, w);
             repaint(gLabels, w);
-            repaint(gCursors, w);
             repaint(gButtons, w);
+            repaint(gComponents, w);
+            repaint(gGraphics, w);
         }
         
         int32_t fireSensorTouchPane (TouchStruct arg)
@@ -247,6 +265,10 @@ template <typename Color>
                 case ComponentTextFieldTypeId:
                         ( (GTextField<Color> *)selectedComponent )->fireSensorTouch(arg);
                     break;
+                case NonPaletteComponentTypeId:
+                        ( (NonPaletteInterface<Color> *)selectedComponent )->fireSensorTouch(arg);
+                    break;
+                
                 default :
                     break;
                 };
@@ -273,6 +295,11 @@ template <typename Color>
             id = fireSensorTouch(gTextFields, arg);
             if (id >= 0) {
                 selectedComponentType = ComponentTextFieldTypeId;
+                return id;
+            }
+            id = fireSensorTouch(gComponents, arg);
+            if (id >= 0) {
+                selectedComponentType = NonPaletteComponentTypeId;
                 return id;
             }
             return -1;
@@ -303,6 +330,11 @@ template <typename Color>
                 selectedComponentType = ComponentTextFieldTypeId;
                 return id;
             }
+            id = fireSensorClick(gComponents, arg);
+            if (id >= 0) {
+                selectedComponentType = NonPaletteComponentTypeId;
+                return id;
+            }
             return -1;
         }
         
@@ -326,7 +358,11 @@ template <typename Color>
                         selectedComponent = nullptr;
                     break;
                 case ComponentTextFieldTypeId:
-                        ( (GButton<Color> *)selectedComponent )->fireSensorRelease(arg);
+                        ( (GTextField<Color> *)selectedComponent )->fireSensorRelease(arg);
+                        selectedComponent = nullptr;
+                    break;
+                case NonPaletteComponentTypeId:
+                        ( (NonPaletteInterface<Color> *)selectedComponent )->fireSensorRelease(arg);
                         selectedComponent = nullptr;
                     break;
                 default :
@@ -356,6 +392,10 @@ template <typename Color>
                 case ComponentTextFieldTypeId:
                         ( (GButton<Color> *)selectedComponent )->fireSensorPress(arg);
                     break;
+                case NonPaletteComponentTypeId:
+                        ( (NonPaletteInterface<Color> *)selectedComponent )->fireSensorPress(arg);
+                        selectedComponent = nullptr;
+                    break;
                 default :
                     break;
                 };
@@ -382,6 +422,11 @@ template <typename Color>
             id = fireSensorPress(gTextFields, arg);
             if (id >= 0) {
                 selectedComponentType = ComponentTextFieldTypeId;
+                return id;
+            }
+            id = fireSensorPress(gComponents, arg);
+            if (id >= 0) {
+                selectedComponentType = NonPaletteComponentTypeId;
                 return id;
             }
             return -1;

@@ -79,8 +79,12 @@
 .\objects\touchsensorapiinterface.o: .\gui\inc\GSlide.h
 .\objects\touchsensorapiinterface.o: .\gui\inc\GKeypad.h
 .\objects\touchsensorapiinterface.o: .\gui\inc\textField.h
+.\objects\touchsensorapiinterface.o: .\gui\inc\NonPaletteComponentInterface.h
+.\objects\touchsensorapiinterface.o: .\gui\inc\GraphicComponent.h
 .\objects\touchsensorapiinterface.o: .\gui\inc\DefaultCursorObject.h
 .\objects\touchsensorapiinterface.o: .\gui\inc\FontFactory.h
+.\objects\touchsensorapiinterface.o: .\gui\inc\TestGameEngine.h
+.\objects\touchsensorapiinterface.o: .\gui\inc\GameTestWalkingMan.h
 .\objects\touchsensorapiinterface.o: .\hardware\Drivers\inc\screen_driver.h
 .\objects\touchsensorapiinterface.o: .\hardware\inc\TFTili9486.h
 .\objects\touchsensorapiinterface.o: .\entry\inc\extern.h

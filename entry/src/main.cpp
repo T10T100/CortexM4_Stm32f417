@@ -5,6 +5,14 @@
 #include "device.h"
 #include "extern.h"
 #include "Font.h"
+
+
+#include "krummWalk0.h"
+#include "krumThrow0.h"
+#include "KrummThrowAmmo0.h"
+
+
+
 extern Device device;
 extern Runtime runtime;
 
@@ -107,10 +115,7 @@ int labelClickListener (TouchStruct arg)
 {
     device.label1->setSelect();
     static int sw = 0;
-    sw ^= 1;
-    device.serviceContentPane->setEnable( (bool)sw );
-    device.serviceContentPane->setVisible( (bool)sw );
-    return 0;
+    return 1;
 }
 int labelTouchListener (TouchStruct arg)
 {
@@ -118,13 +123,13 @@ int labelTouchListener (TouchStruct arg)
     l->setText(arg.local.x);
     l->apendText("    ");
     l->apendText(arg.local.y);
-    return 0;
+    return 1;
 }
 int PaneClickListener (TouchStruct arg)
 {
     device.cursor->setOrigins(arg.local);
     device.cursor->remaind();
-    return 0;
+    return 1;
 }
 
 int SliderTouchListener (TouchStruct arg)
@@ -135,8 +140,7 @@ int SliderTouchListener (TouchStruct arg)
     device.label1->setText("SLIDER_1 : ");
     device.label1->apendText("    ");
     device.label1->apendText(device.slider1->getValue());
-    return 0;
-    return 0;
+    return 1;
 }
 int Slider2TouchListener (TouchStruct arg)
 {
@@ -146,7 +150,7 @@ int Slider2TouchListener (TouchStruct arg)
     device.label1->setText("SLIDER_2 : ");
     device.label1->apendText("    ");
     device.label1->apendText(device.slider2->getValue());
-    return 0;
+    return 1;
 }
 int Slider3TouchListener (TouchStruct arg)
 {
@@ -156,7 +160,7 @@ int Slider3TouchListener (TouchStruct arg)
     device.label1->setText("SLIDER_3 : ");
     device.label1->apendText("    ");
     device.label1->apendText(device.slider3->getValue());
-    return 0;
+    return 1;
 }
 int Slider4TouchListener (TouchStruct arg)
 {
@@ -166,7 +170,7 @@ int Slider4TouchListener (TouchStruct arg)
     device.label1->setText("SLIDER_4 : ");
     device.label1->apendText("    ");
     device.label1->apendText(device.slider4->getValue());
-    return 0;
+    return 1;
 }
 
 int KeypadListener (TouchStruct arg)
@@ -192,11 +196,8 @@ int SystemEventBurner2 (void *r)
     device.slider2->addTouchListener(Slider2TouchListener);
     device.slider3->addTouchListener(Slider3TouchListener);
     device.slider4->addTouchListener(Slider4TouchListener);
-    for (int i = 0; i < device.keyCount; i++) {
-       device.keyPad[i]->addClickListener(KeypadListener); 
-    }
     device.label1->setBackground(0xffff);
-    device.contentPane->setBackground(0x0415);
+    device.contentPane->setBackground(0x140C);
     for (;;) {
         vm::pushEvent(SystemEvent);
         

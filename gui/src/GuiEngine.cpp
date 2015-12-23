@@ -25,7 +25,7 @@ int sensorClickHandler   (void *t)
         sensorData.coordinates,
         sensorData.move,
         0,
-        0
+        sensorData.clickCount
     };
     ((GuiEngine *)guiEngine)->fireSensorClick(data);
 }

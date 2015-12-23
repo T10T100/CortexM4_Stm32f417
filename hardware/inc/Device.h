@@ -14,10 +14,13 @@
 #include "VM.h"
 #include "vmapi.h"
 #include "GuiEngine.h"
+#include "TestGameEngine.h"
 #include "screen_driver.h"
 #include "extern.h"
 #include "touchScreenAdapter.h"
 #include "vmStdOut.h"
+
+#include "gameTestWalkingMan.h"
 
 
 
@@ -47,11 +50,12 @@ public:
     GSlide<ColorDepth> *slider3;
     GSlide<ColorDepth> *slider4;
     GTextField<ColorDepth> *textField;
-    GButton<ColorDepth> **keyPad;
-    int keyCount;
+    
+    TestGameEngine *gameEngine;
+
+    WalkingManObject<ColorDepth> *walkingMan;
     gwt::DefaultCursor<ColorDepth> *cursor;
     GContentPane<ColorDepth> *contentPane;
-    GContentPane<ColorDepth> *serviceContentPane;
     Device () : ILI9488<GPIO_TypeDef, SpiSoftTypeDef>(),
                 VmOut<char>(outputCharBuffer, 296),
                 guiEngine()
@@ -73,10 +77,9 @@ public:
     {
         guiEngine.init();
         this->ScreenDriver::init((char *)"ili9486");
-        GraphicFrame<ColorDepth,  MaxGuiRange> *mainFrame = guiEngine.newFrame(0, 0, 550, 400);
+        GraphicFrame<ColorDepth,  MaxGuiRange> *mainFrame = guiEngine.newFrame(0, 0, 700, 340);
         contentPane = guiEngine.newContentPane( mainFrame );
         label1 = contentPane->createComponent<GLabel<ColorDepth> >(100, 100, 200, 40);
-        cursor = contentPane->createComponent<gwt::DefaultCursor<ColorDepth> >(100, 100, 10, 10);
         slider1 = contentPane->createComponent<GSlide<ColorDepth> >(0, 50, 180, 40);
         slider2 = contentPane->createComponent<GSlide<ColorDepth> >(0, 100, 180, 40);
         slider3 = contentPane->createComponent<GSlide<ColorDepth> >(0, 150, 180, 40);
@@ -95,30 +98,14 @@ public:
         contentPane->addSlider(slider4);
         contentPane->addLabel(label1);
         contentPane->addTextFied(textField);
-        //contentPane->addCursor(cursor);
         contentPane->setVisible(true);
         contentPane->setEnable(true);
         
-        serviceContentPane = guiEngine.newContentPane( mainFrame );
-        serviceContentPane->setBackground(0x0000);
-        int w = 0;
-        int h = 0;
-        keyCount = 0;
-        keyPad = (GButton<ColorDepth> **) new GButton<ColorDepth> *[72];
-        char *kpdNames[] = {"0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F","G","H","J","I","K","L","M","N","O","P","R","S","T","U","V","W","X","Y","Z"," ","_","%","*","#","!","@","$","^","&","*","(",")","-","+","=","<",">","?","/",",",".","\"","\'","{","}","[","]","Clr","Ret","Exe"};
-        for (int i = 0; i < 72; i++, keyCount++) {
-            keyPad[i] = serviceContentPane->createComponent<GButton<ColorDepth> >(190 + w, 50 + h, 40, 30);
-            w += 45;
-            if (w > 260) {
-                w = 0;
-                h += 35;
-                if (h > 310) {
-                    break;
-                }
-            }
-            keyPad[i]->setName( kpdNames[i] );
-            serviceContentPane->addButton(keyPad[i]);
-        }
+        
+        gameEngine = (TestGameEngine *) new TestGameEngine(contentPane);
+        
+        
+        
     }
     
     String *toString ()
@@ -129,7 +116,8 @@ public:
     void render (ViewPort w, ColorDepth color = 0)
     {
         cursor->setOrigins( w.getTrueView() );
-        serviceContentPane->repaint(w);
+        //contentPane->getGraphic()->drawScaledString("700 X 340", 8, 8);
+        gameEngine->repaint(w);
         contentPane->repaint(w);
         fill<ColorDepth>(contentPane->getFrame(), w, color);
     }
@@ -137,8 +125,9 @@ public:
     void render (ColorDepth color = 0)
     {
         cursor->setOrigins( guiEngine.getViewPort().getTrueView() );
+        //contentPane->getGraphic()->drawScaledString("700 X 340", 0x1100, 8, 8);
         contentPane->repaint( guiEngine.getViewPort() );
-        serviceContentPane->repaint( guiEngine.getViewPort() );
+        gameEngine->repaint( guiEngine.getViewPort() );
         fill<ColorDepth>(contentPane->getFrame(), guiEngine.getViewPort(), color);
     }
     

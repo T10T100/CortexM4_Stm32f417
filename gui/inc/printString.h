@@ -68,7 +68,7 @@ template <typename Color>
                
                 int32_t S = hm * wm;
                 for (int xi = 0, xt = x0 * this->h; xi < wm; xt += this->h, xi++) {  
-                        for (uint32_t yt = y0 + xt, yi = xi, t = S + xi; yi < t; yt++, yi += wm) {
+                        for (uint32_t yt = y0 + xt, yi = S - wm + xi; yi >= xi; yt++, yi -= wm) {
                             if (src[yi] != ColorMaskReference) {
                                 dest[yt] = color;   
                             } else {}

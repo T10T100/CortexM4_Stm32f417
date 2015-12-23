@@ -593,6 +593,21 @@
               <FileType>8</FileType>
               <FilePath>.\gui\src\TextField.cpp</FilePath>
             </File>
+            <File>
+              <FileName>GameTestWalkingMan.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\gui\src\GameTestWalkingMan.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>NonPaletteComponentInterface.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\gui\src\NonPaletteComponentInterface.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>TestGameEngine.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\gui\src\TestGameEngine.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -647,6 +662,13 @@
         </Group>
         <Group>
           <GroupName>res</GroupName>
+          <Files>
+            <File>
+              <FileName>krummWalk0.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\res\src\krummWalk0.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>::CMSIS</GroupName>

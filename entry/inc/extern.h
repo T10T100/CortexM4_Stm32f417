@@ -16,6 +16,8 @@ extern MemoryAllocator Heap;
 
 extern const tFont<uint16_t> Font ;
 
+extern const tImage<uint16_t> krummWalk0;
+
 //extern SpiSoftTypeDef LcdSpi;
 //extern LcdDriverDef TFT;
 

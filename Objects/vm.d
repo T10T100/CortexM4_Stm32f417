@@ -76,8 +76,12 @@
 .\objects\vm.o: .\gui\inc\GSlide.h
 .\objects\vm.o: .\gui\inc\GKeypad.h
 .\objects\vm.o: .\gui\inc\textField.h
+.\objects\vm.o: .\gui\inc\NonPaletteComponentInterface.h
+.\objects\vm.o: .\gui\inc\GraphicComponent.h
 .\objects\vm.o: .\gui\inc\DefaultCursorObject.h
 .\objects\vm.o: .\gui\inc\FontFactory.h
+.\objects\vm.o: .\gui\inc\TestGameEngine.h
+.\objects\vm.o: .\gui\inc\GameTestWalkingMan.h
 .\objects\vm.o: .\hardware\Drivers\inc\screen_driver.h
 .\objects\vm.o: .\hardware\inc\TFTili9486.h
 .\objects\vm.o: .\entry\inc\extern.h

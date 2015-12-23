@@ -6,10 +6,12 @@ template <typename Color>
     class GPaletteComponent : public virtual Dimension<MaxGuiRange> {
     protected :
         Graphic<Color> *graphic;
+        void *contentPane;
         Color background;
         Color foreground;
         bool visible;
         bool enabled;
+        bool forceRepaint;
         
 
     public :  
@@ -45,6 +47,15 @@ template <typename Color>
         {
             enabled = value;
         }
+        void setContentPane (void *value)
+        {
+            contentPane = value;
+        }
+        
+        void setForceRepaint (bool value)
+        {
+            forceRepaint = value;
+        }
         
         
         
@@ -56,10 +67,17 @@ template <typename Color>
         {
             return foreground;
         }
-        
+        bool getForceRepaint ()
+        {
+            return forceRepaint;
+        }
         Graphic<Color> *getGraphic ()
         {
             return graphic;
+        }
+        void *getContentPane ()
+        {
+            return contentPane;
         }
         
         

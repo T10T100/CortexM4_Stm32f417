@@ -30,6 +30,8 @@
 .\objects\guiengine.o: .\gui\inc\GSlide.h
 .\objects\guiengine.o: .\gui\inc\GKeypad.h
 .\objects\guiengine.o: .\gui\inc\textField.h
+.\objects\guiengine.o: .\gui\inc\NonPaletteComponentInterface.h
+.\objects\guiengine.o: .\gui\inc\GraphicComponent.h
 .\objects\guiengine.o: .\gui\inc\DefaultCursorObject.h
 .\objects\guiengine.o: .\gui\inc\FontFactory.h
 .\objects\guiengine.o: .\misc\context\inc\vmapi.h
